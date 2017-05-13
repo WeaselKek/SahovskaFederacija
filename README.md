@@ -1,2 +1,0 @@
-# SahovskaFederacija
-Sve za baze
