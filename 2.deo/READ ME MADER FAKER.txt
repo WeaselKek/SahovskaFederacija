@@ -1,3 +1,0 @@
-Ne znam kako Turnir treba da se mapira zbog silnog nasledjivanja i nacina na koji je napravljen u bazi.
-Ne znam sta i kako treba da se mapira ono na K kod Sudije.
-Ostalo bi trebalo da je dobro mrzelo me da proveravam.
