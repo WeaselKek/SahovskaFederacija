@@ -41,9 +41,10 @@ namespace Federacija
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Text = "";
+            label2.Text = "Potezi";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSahistaC_Click(object sender, EventArgs e)
         {
             try
             {
@@ -74,6 +75,61 @@ namespace Federacija
             {
                 MessageBox.Show(ec.Message);
                 MessageBox.Show("Nije uspesno dodat deki");
+            }
+        }
+
+        private void btnTurnirR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Turnir p = s.Load<Turnir>(503);
+
+                label1.Text = p.Id.ToString() + " " + p.Naziv.ToString() + " " + p.Drzava.ToString() + " " + p.Grad + " " + p.TipEgzibicionog+" " +p.TipTakmicarskog+" " +p.Novac+" " +p.Namena;
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+        }
+
+        private void btnPartijaR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Partija p = s.Load<Partija>(10001);
+                int br = 1;
+                bool ts = true;
+
+                foreach (Potez value in p.Potezi)
+                {
+                    if (ts)
+                    {
+                        label3.Text += "\n" + br + ".  " + value.PocetnoPolje + "    " + value.KrajnjePolje;
+                        br++;
+                        ts = false;
+                    }
+                    else
+                    {
+                        label4.Text += "\n" + value.PocetnoPolje + "    " + value.KrajnjePolje;
+                        ts = true;
+                    }
+                }
+
+
+
+                label1.Text = p.Id.ToString() + " " + p.Trajanje.ToString() + " " + p.Ishod.ToString() + "\n" + p.BeliIgrac.Prezime + " vs " + p.CrniIgrac.Prezime;
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
             }
         }
     }

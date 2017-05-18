@@ -15,16 +15,20 @@ namespace Federacija.Mapiranja
             Table("TURNIR");
 
             Id(x => x.Id, "ID").GeneratedBy.TriggerIdentity();
-
-            DiscriminateSubClassesOnColumn("NACIN_ODIGRAVANJA");
-            DiscriminateSubClassesOnColumn("PO_ZNACAJU");
-
+           
             Map(x => x.Naziv, "NAZIV");
             Map(x => x.Drzava, "DRZAVA");
             Map(x => x.Grad, "GRAD");
             Map(x => x.Godina, "GODINA");
             Map(x => x.DatumOd, "DATUM_OD").CustomType("Date");
             Map(x => x.DatumDo, "DATUM_DO").CustomType("Date");
+            Map(x => x.NacinOdigravanja, "NACIN_ODIGRAVANJA");
+            Map(x => x.TrajanjePartije, "TRAJANJE_PARTIJE").Nullable();
+            Map(x => x.PoZnacaju, "PO_ZNACAJU");
+            Map(x => x.TipTakmicarskog, "TIP_TAKMICARSKOG").Nullable();
+            Map(x => x.TipEgzibicionog, "TIP_EGZIBICIONOG").Nullable();
+            Map(x => x.Novac, "NOVAC").Nullable();
+            Map(x => x.Namena, "NAMENA_NOVCA").Nullable();
 
             HasMany(x => x.TPartije).KeyColumn("TURNIR_ID");
             HasMany(x => x.OrganizujeOrganizator).KeyColumn("TURNIR_ID").Cascade.All().Inverse();
@@ -32,29 +36,5 @@ namespace Federacija.Mapiranja
         }
     }
 
-    public class TurnirNormalniMapiranja : SubclassMap<TurnirNormalni>
-    {
-        public TurnirNormalniMapiranja()
-        {
-            DiscriminatorValue("NORMALAN");
-        }
-    }
-
-    public class TurnirBrzopotezniMapiranja : SubclassMap<TurnirBrzopotezni>
-    {
-        public TurnirBrzopotezniMapiranja()
-        {
-            DiscriminatorValue("BRZOPOTEZNI");
-
-            Map(x => x.TrajanjePartije, "TRAJANJE_PARTIJE").Nullable();
-        }
-    }
-
-    public class TurnirTakmicarskiMapiranja : SubclassMap<TurnirTakmicarski>
-    {
-        public TurnirTakmicarskiMapiranja()
-        {
-            DiscriminatorValue("TAKMICARSKI");
-        }
-    }
+    
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Federacija.Entiteti {
-    public abstract class Turnir
+    public class Turnir
     {
         public virtual int Id { get; set; }
         public virtual string Naziv { get; set; }
@@ -14,6 +14,13 @@ namespace Federacija.Entiteti {
         public virtual IList<Partija> TPartije { get; set; }
         public virtual IList<Organizuje> OrganizujeOrganizator { get; set; }
         public virtual IList<Sponzorise> SponzoriseSponzor { get; set; }
+        public virtual string NacinOdigravanja { get; set; }
+        public virtual int TrajanjePartije { get; set; }
+        public virtual string PoZnacaju { get; set; }
+        public virtual string TipTakmicarskog { get; set; }
+        public virtual string TipEgzibicionog { get; set; }
+        public virtual int Novac  { get; set; }
+        public virtual string Namena { get; set; }
 
         public Turnir()
         {
@@ -23,35 +30,4 @@ namespace Federacija.Entiteti {
         }
     }
 
-    public class TurnirNormalni : Turnir
-    { }
-
-    public class TurnirBrzopotezni : Turnir
-    {
-        public virtual int TrajanjePartije { get; set; }
-    }
-
-    public class TurnirTakmicarski : Turnir
-    { }
-
-    public class TakmicarskiNacionalni : TurnirTakmicarski
-    { }
-
-    public class TakmicarskiRegionalni : TurnirTakmicarski
-    { }
-
-    public class TakmicarskiInternacionalni : TurnirTakmicarski
-    { }
-
-    public class TurnirEgzibicioni : Turnir
-    { }
-
-    public class EgzibicioniPromotivni : TurnirEgzibicioni
-    { }
-
-    public class EgzibicioniHumanitarni : TurnirEgzibicioni
-    {
-        public virtual int PrikupljeniNovac { get; set; }
-        public virtual string NamenaNovca { get; set; }
-    }
 }

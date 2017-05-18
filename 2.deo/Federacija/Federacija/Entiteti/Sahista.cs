@@ -30,7 +30,7 @@ namespace Federacija.Entiteti
         public class Majstor : Sahista
         {
             public virtual DateTime DatSticanja { get; set; }
-            public virtual Sudija Sudija { get; set; }
+            public virtual Sudija SudijaId { get; set; }
         }
 
         public class MajstorskiKandidat : Sahista

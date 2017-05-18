@@ -54,7 +54,7 @@ namespace Federacija.Mapiranja
                 KeyColumn("REG_BR");
                 Map(x => x.DatSticanja, "DAT_STICANJA").CustomType("Date");
 
-                References(x => x.Sudija).Column("SUDIJA_ID");
+                References(x => x.SudijaId).Column("SUDIJA_ID");
             }
         }
     }
