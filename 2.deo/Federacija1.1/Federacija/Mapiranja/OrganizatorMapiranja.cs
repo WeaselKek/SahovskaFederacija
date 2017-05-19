@@ -14,7 +14,7 @@ namespace Federacija.Mapiranja
         {
             Table("ORGANIZATOR");
 
-            Id(x => x.MatBr, "MAT_BR").GeneratedBy.TriggerIdentity();
+            Id(x => x.MatBr, "MAT_BR").GeneratedBy.Assigned();
 
             Map(x => x.Ime, "IME");
             Map(x => x.Prezime, "PREZIME");

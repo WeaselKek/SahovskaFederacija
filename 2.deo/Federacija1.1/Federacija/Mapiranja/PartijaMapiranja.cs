@@ -26,7 +26,7 @@ namespace Federacija.Mapiranja
             References(x => x.Sudija).Column("SUDIJA_ID");
             References(x => x.Turnir).Column("TURNIR_ID");
 
-            HasMany(x => x.Potezi).KeyColumn("PARTIJA_ID").Cascade.All();
+            HasMany(x => x.Potezi).KeyColumn("PARTIJA_ID").Cascade.All().Inverse();
         }
     }
 }

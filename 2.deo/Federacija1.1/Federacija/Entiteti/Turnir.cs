@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Federacija.Entiteti {
+namespace Federacija.Entiteti
+{
     public abstract class Turnir
     {
         public virtual int Id { get; set; }
@@ -19,7 +20,7 @@ namespace Federacija.Entiteti {
         public virtual string PoZnacaju { get; set; }
         public virtual string TipTakmicarskog { get; set; }
         public virtual string TipEgzibicionog { get; set; }
-        public virtual int Novac  { get; set; }
+        public virtual int Novac { get; set; }
         public virtual string Namena { get; set; }
 
         public Turnir()
@@ -31,17 +32,53 @@ namespace Federacija.Entiteti {
     }
 
     public class TurnirTakmicarskiNacionalni : Turnir
-    { }
+    {
+        public TurnirTakmicarskiNacionalni()
+        {
+            this.PoZnacaju = "TAKMICARSKI";
+
+            this.TipTakmicarskog = "NACIONALNI";
+        }
+    }
 
     public class TurnirTakmicarskiRegionalni : Turnir
-    { }
+    {
+        public TurnirTakmicarskiRegionalni()
+        {
+            this.PoZnacaju = "TAKMICARSKI";
+
+            this.TipTakmicarskog = "REGIONALNI";
+        }
+    }
 
     public class TurnirTakmicarskiInternacionalni : Turnir
-    { }
+    {
+        public TurnirTakmicarskiInternacionalni()
+        {
+            this.PoZnacaju = "TAKMICARSKI";
+
+            this.TipTakmicarskog = "INTERNACIONALNI";
+        }
+    
+    }
 
     public class TurnirEgzibicioniPromotivni : Turnir
-    { }
+    {
+        public TurnirEgzibicioniPromotivni()
+        {
+            this.PoZnacaju = "EGZIBICIONI";
+
+            this.TipEgzibicionog = "PROMOTIVNI";
+        }
+    }
 
     public class TurnirEgzibicioniHumanitarni : Turnir
-    { }
+    {
+        public TurnirEgzibicioniHumanitarni()
+        {
+            this.PoZnacaju = "EGZIBICIONI";
+
+            this.TipEgzibicionog = "HUMANITARNI";
+        }
+    }
 }

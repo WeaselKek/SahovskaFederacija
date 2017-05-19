@@ -16,6 +16,9 @@ namespace Federacija.Mapiranja
 
             Id(x => x.Id, "ID").GeneratedBy.TriggerIdentity();
 
+            //DiscriminateSubClassesOnColumn("NACIN_ODIGRAVANJA");
+            //moglo je i ovako, razliciti nacini imaju razlicite prednosti
+
             string s = "CASE " +
                 "WHEN (PO_ZNACAJU = 'TAKMICARSKI' AND TIP_TAKMICARSKOG = 'NACIONALNI') THEN 'NACIONALNI' " +
                 "WHEN (PO_ZNACAJU = 'TAKMICARSKI' AND TIP_TAKMICARSKOG = 'REGIONALNI') THEN 'REGIONALNI' " +
@@ -23,6 +26,7 @@ namespace Federacija.Mapiranja
                 "WHEN (PO_ZNACAJU = 'EGZIBICIONI' AND TIP_EGZIBICIONOG = 'PROMOTIVNI') THEN 'PROMOTIVNI' " +
                 "WHEN (PO_ZNACAJU = 'EGZIBICIONI' AND TIP_EGZIBICIONOG = 'HUMANITARNI') THEN 'HUMANITARNI' " +
                 "END";
+
 
             DiscriminateSubClassesOnColumn("").Formula(s);
 
@@ -40,15 +44,15 @@ namespace Federacija.Mapiranja
             Map(x => x.Novac, "NOVAC").Nullable();
             Map(x => x.Namena, "NAMENA_NOVCA").Nullable();
 
-            HasMany(x => x.TPartije).KeyColumn("TURNIR_ID");
+            HasMany(x => x.TPartije).KeyColumn("TURNIR_ID").Cascade.All().Inverse();
             HasMany(x => x.OrganizujeOrganizator).KeyColumn("TURNIR_ID").Cascade.All().Inverse();
-            HasMany(x => x.SponzoriseSponzor).KeyColumn("TURNIR_ID");
+            HasMany(x => x.SponzoriseSponzor).KeyColumn("TURNIR_ID").Cascade.All().Inverse();
         }
 
         public class TurnirTakmicarskiNacionalniMapiranja : SubclassMap<TurnirTakmicarskiNacionalni>
         {
             public TurnirTakmicarskiNacionalniMapiranja()
-            { 
+            {
                 DiscriminatorValue("NACIONALNI");
             }
         }
@@ -84,6 +88,23 @@ namespace Federacija.Mapiranja
                 DiscriminatorValue("HUMANITARNI");
             }
         }
+
+
+        //public class TurnirNormalni : SubclassMap<TurnirNormalni>
+        //{
+        //    public TurnirNormalni()
+        //    {
+        //        DiscriminatorValue("NORMALAN");
+        //    }
+        //}
+
+        //public class TurnirBrzopotezni : SubclassMap<TurnirBrzopotezni>
+        //{
+        //    public TurnirBrzopotezni()
+        //    {
+        //        DiscriminatorValue("BRZOPOTEZNI");
+        //    }
+        //}
     }
 
     

@@ -21,7 +21,7 @@ namespace Federacija.Mapiranja
             Map(x => x.KrajnjePolje, "KRAJNJE_POLJE");
             Map(x => x.Vreme, "VREME");
 
-            References(x => x.Partija).Column("ID");
+            References(x => x.Partija).Column("PARTIJA_ID");
         }
     }
 }
