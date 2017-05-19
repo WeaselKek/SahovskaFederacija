@@ -28,7 +28,7 @@ namespace Federacija
 
                 Majstor p = s.Load<Majstor>(1001);
 
-                label1.Text = p.RegBr.ToString() + " " + p.Ime.ToString() + " " + p.Prezime.ToString() + " " + p.DatSticanja;
+                label1.Text = p.RegBr.ToString() + " " + p.Ime.ToString() + " " + p.Prezime.ToString() + " " + p.DatSticanja.ToString("yyyy-mm-dd");
 
                 s.Close();
             }
