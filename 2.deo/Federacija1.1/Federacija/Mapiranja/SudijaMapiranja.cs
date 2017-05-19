@@ -16,8 +16,9 @@ namespace Federacija.Mapiranja
         {
             Table("SUDIJA");
             Id(x => x.Id, "SUDIJA_ID").GeneratedBy.TriggerIdentity();
+            Map(x => x.FlagMajstor, "F_MAJSTOR");
+            Map(x => x.FlagOrganizator, "F_ORGANIZATOR");
 
-            
         }
     }
 }
