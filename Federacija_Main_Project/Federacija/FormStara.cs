@@ -12,9 +12,9 @@ using Federacija.Mapiranja;
 
 namespace Federacija
 {
-    public partial class Form1 : Form
+    public partial class FormStara : Form
     {
-        public Form1()
+        public FormStara()
         {
             InitializeComponent();
         }
@@ -28,7 +28,7 @@ namespace Federacija
 
                 Majstor p = s.Load<Majstor>(1001);
 
-                label1.Text = p.RegBr.ToString() + " " + p.Ime.ToString() + " " + p.Prezime.ToString() + " " + p.DatSticanja.ToString("yyyy-mm-dd");
+                label1.Text = p.RegBr.ToString() + " " + p.Ime.ToString() + " " + p.Prezime.ToString() + " " + p.DatSticanja.ToString("dd/MM/yyyy");
 
                 s.Close();
             }
@@ -164,15 +164,15 @@ namespace Federacija
                 {
                     if (value is Majstor)
                     {
-                        label5.Text += value.RegBr.ToString() + "   " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("yyyy-mm-dd") + "   " + ((Majstor)value).DatSticanja.ToString("yyyy-mm-dd") + "\n";
+                        label5.Text += value.RegBr.ToString() + "   " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("dd/MM/yyyy") + "   " + ((Majstor)value).DatSticanja.ToString("dd/MM/yyyy") + "\n";
                     }
                     else if (value is MajstorskiKandidat)
                     {
-                        label5.Text += value.RegBr.ToString() + "  " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("yyyy-mm-dd") + "   " + ((MajstorskiKandidat)value).BrojPartijaDoSticanja + "\n";
+                        label5.Text += value.RegBr.ToString() + "  " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("dd/MM/yyyy") + "   " + ((MajstorskiKandidat)value).BrojPartijaDoSticanja + "\n";
                     }
                     else
                     {
-                        label5.Text += value.RegBr.ToString() + "   " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("yyyy-mm-dd") + "\n";
+                        label5.Text += value.RegBr.ToString() + "   " + value.Ime.ToString() + "  " + value.Prezime.ToString() + "  " + value.DatUclanjenja.ToString("dd/MM/yyyy") + "\n";
                     }
                 }
 

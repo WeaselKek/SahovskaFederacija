@@ -1,6 +1,6 @@
 ﻿namespace Federacija
 {
-    partial class Form1
+    partial class FormStara
     {
         /// <summary>
         /// Required designer variable.
