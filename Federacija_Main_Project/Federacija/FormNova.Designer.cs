@@ -67,7 +67,7 @@
             "Obican clan"});
             this.chkSah.Location = new System.Drawing.Point(24, 44);
             this.chkSah.Name = "chkSah";
-            this.chkSah.Size = new System.Drawing.Size(142, 67);
+            this.chkSah.Size = new System.Drawing.Size(162, 67);
             this.chkSah.TabIndex = 2;
             // 
             // btnSahAdd
