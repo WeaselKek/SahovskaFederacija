@@ -149,6 +149,7 @@ namespace Federacija
         {
             FormDodajSah f = new FormDodajSah();
             f.ShowDialog();
+            showSahista_Click(sender, e);
         }
 
         private void btnIzmeni_Click(object sender, EventArgs e)

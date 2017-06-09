@@ -39,7 +39,7 @@ namespace Federacija
             {
                 var cfg = OracleManagedDataClientConfiguration.Oracle10
                 .ConnectionString(c =>
-                    c.Is("Data Source=gislab-oracle.elfak.ni.ac.rs:1521/SBP_PDB;User Id=S15050;Password=S15050"));
+                    c.Is("Data Source=gislab-oracle.elfak.ni.ac.rs:1521/SBP_PDB;User Id=S15431;Password=S15431"));
 
                 return Fluently.Configure()
                     .Database(cfg)
