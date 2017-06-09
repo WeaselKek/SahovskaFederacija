@@ -26,6 +26,7 @@ namespace Federacija
         {
             try
             {
+                dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
                 IQuery q = s.CreateQuery("from Sahista");
@@ -35,9 +36,9 @@ namespace Federacija
                 s.Close();
 
                 dgv1.DataSource = a;
-
+               
                 //dgv1.AutoGenerateColumns = false;
-                dgv1.AllowUserToAddRows = false; 
+                dgv1.AllowUserToAddRows = false;
 
                 dgv1.Columns["RegBr"].Visible = false;
                 dgv1.Columns["BrojPasosa"].Visible = false;
@@ -55,7 +56,7 @@ namespace Federacija
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
 
-                SahistaIzvedeni(a);                         
+                SahistaIzvedeni(a);
             }
             catch (Exception ec)
             {
@@ -86,7 +87,7 @@ namespace Federacija
                     dgv1.Rows[i].Cells["Rang"].Value = "Obican clan";
                 }
                 else
-                {              
+                {
                     cm1.SuspendBinding();
                     dgv1.Rows[i].Visible = false;
                     cm1.ResumeBinding();
@@ -150,7 +151,7 @@ namespace Federacija
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
-            if (dgv1.SelectedRows.Count==0)
+            if (dgv1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Molimo selktujte neki podatak");
                 return;
@@ -161,8 +162,60 @@ namespace Federacija
                 FormDodajSah f = new FormDodajSah();
                 f.UpdateItem = item as Sahista;
                 f.ShowDialog();
+                showSahista_Click(sender, e);
             }
-            showSahista_Click(sender, e);
+
+        }
+
+        private void showSpon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dgv1.Columns.Clear();
+                ISession s = DataLayer.GetSession();
+
+                IQuery q = s.CreateQuery("from Sponzor");              
+
+                SortableBindingList<Sponzor> a = new SortableBindingList<Sponzor>(q.List<Sponzor>());
+
+                s.Close();
+
+                dgv1.DataSource = a;
+
+                dgv1.AllowUserToAddRows = false;
+                dgv1.Columns["SponzoriseTurnir"].Visible = false;
+
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+        }
+
+        private void showOrgan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dgv1.Columns.Clear();
+                ISession s = DataLayer.GetSession();
+
+                IQuery q = s.CreateQuery("from Organizator");
+
+                SortableBindingList<Organizator> a = new SortableBindingList<Organizator>(q.List<Organizator>());
+
+                s.Close();
+
+                dgv1.DataSource = a;
+
+                dgv1.AllowUserToAddRows = false;
+                dgv1.Columns["OrganizujeTurnir"].Visible = false;
+                dgv1.Columns["SudijaId"].Visible = false;
+
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
         }
     }
 }

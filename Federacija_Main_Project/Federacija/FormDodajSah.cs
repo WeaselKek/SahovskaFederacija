@@ -38,9 +38,6 @@ namespace Federacija
 
         private void ucitajKontrole()
         {
-            ISession s = DataLayer.GetSession();
-
-
 
             if (UpdateItem is Majstor)
             {
@@ -99,62 +96,69 @@ namespace Federacija
                 MessageBox.Show("Zgresili ste");
                 return;
             }
-            if (txtBrp.Enabled && txtBrp.Text=="")
+            if (txtBrp.Enabled && txtBrp.Text == "")
             {
                 MessageBox.Show("Zgresili ste");
                 return;
             }
-
-            ISession s = DataLayer.GetSession();
-            Sahista p;
-
-            if (!updaterino)
+            try
             {
+                ISession s = DataLayer.GetSession();
+                Sahista p;
 
-                if (rdbM.Checked)
+                if (!updaterino)
                 {
-                    p = new Majstor();
-                    ((Majstor)p).DatSticanja = dtpStic.Value;
-                }
-                else if (rdbMK.Checked)
-                {                  
-                    p = new MajstorskiKandidat();
-                    ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
+
+                    if (rdbM.Checked)
+                    {
+                        p = new Majstor();
+                        ((Majstor)p).DatSticanja = dtpStic.Value;
+                    }
+                    else if (rdbMK.Checked)
+                    {
+                        p = new MajstorskiKandidat();
+                        ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
+                    }
+                    else
+                    {
+                        p = new ObicanClan();
+                    }
                 }
                 else
                 {
-                    p = new ObicanClan();               
+
+                    p = s.Get<Sahista>(UpdateItem.RegBr);
+                    if (UpdateItem is Majstor)
+                    {
+                        ((Majstor)p).DatSticanja = dtpStic.Value;
+                    }
+                    else if (UpdateItem is MajstorskiKandidat)
+                    {
+                        ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
+                    }
                 }
+                int num;
+                p.Ime = txtIme.Text;
+                p.Prezime = txtPrezime.Text;
+                p.DatRodj = dtpRod.Value;
+                p.DatUclanjenja = dtpUcl.Value;
+                p.BrojPasosa = Int32.Parse(txtPasos.Text);
+                p.Drzava = txtDrz.Text;
+                p.Ulica = txtUlica.Text;
+                if (Int32.TryParse(txtBroj.Text, out num))
+                    p.Broj = num;
+                p.Grad = txtGrad.Text;
+
+                s.SaveOrUpdate(p);
+
+                s.Flush();
+                s.Close();
             }
-            else
+            catch (Exception ec)
             {
-                
-                p = s.Get<Sahista>(UpdateItem.RegBr);
-                if (UpdateItem is Majstor)
-                {
-                    ((Majstor)p).DatSticanja = dtpStic.Value;
-                }
-                else if (UpdateItem is MajstorskiKandidat)
-                {
-                    ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
-                }
+                MessageBox.Show(ec.Message);
             }
-            int num;
-            p.Ime = txtIme.Text;
-            p.Prezime = txtPrezime.Text;
-            p.DatRodj = dtpRod.Value;
-            p.DatUclanjenja = dtpUcl.Value;
-            p.BrojPasosa = Int32.Parse(txtPasos.Text);
-            p.Drzava = txtDrz.Text;
-            p.Ulica = txtUlica.Text;
-            if (Int32.TryParse(txtBroj.Text, out num))
-                p.Broj = num;
-            p.Grad = txtGrad.Text;
 
-            s.SaveOrUpdate(p);
-
-            s.Flush();
-            s.Close();
             if (!updaterino)
                 MessageBox.Show("Uspesno dodat Sahista");
             else
