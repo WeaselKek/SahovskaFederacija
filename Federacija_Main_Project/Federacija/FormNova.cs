@@ -30,10 +30,11 @@ namespace Federacija
 
                 IQuery q = s.CreateQuery("from Sahista");
 
-
                 SortableBindingList<Sahista> a = new SortableBindingList<Sahista>(q.List<Sahista>());
-                dgv1.DataSource = a;
 
+                s.Close();
+
+                dgv1.DataSource = a;
 
                 //dgv1.AutoGenerateColumns = false;
                 dgv1.AllowUserToAddRows = false; 
@@ -54,12 +55,7 @@ namespace Federacija
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
 
-
-
-                SahistaIzvedeni(a);
-                
-
-                s.Close();
+                SahistaIzvedeni(a);                         
             }
             catch (Exception ec)
             {
@@ -149,6 +145,7 @@ namespace Federacija
         {
             FormDodajSah f = new FormDodajSah();
             f.ShowDialog();
+            showSahista_Click(sender, e);
         }
 
         private void btnIzmeni_Click(object sender, EventArgs e)
@@ -165,6 +162,7 @@ namespace Federacija
                 f.UpdateItem = item as Sahista;
                 f.ShowDialog();
             }
+            showSahista_Click(sender, e);
         }
     }
 }

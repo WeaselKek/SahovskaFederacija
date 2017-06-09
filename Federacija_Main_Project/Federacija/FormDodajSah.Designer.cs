@@ -102,6 +102,7 @@
             // txtPasos
             // 
             this.txtPasos.Location = new System.Drawing.Point(382, 152);
+            this.txtPasos.MaxLength = 9;
             this.txtPasos.Name = "txtPasos";
             this.txtPasos.Size = new System.Drawing.Size(129, 20);
             this.txtPasos.TabIndex = 4;
@@ -117,6 +118,7 @@
             // txtBroj
             // 
             this.txtBroj.Location = new System.Drawing.Point(382, 368);
+            this.txtBroj.MaxLength = 9;
             this.txtBroj.Name = "txtBroj";
             this.txtBroj.Size = new System.Drawing.Size(129, 20);
             this.txtBroj.TabIndex = 6;
@@ -281,6 +283,7 @@
             // txtBrp
             // 
             this.txtBrp.Location = new System.Drawing.Point(257, 209);
+            this.txtBrp.MaxLength = 9;
             this.txtBrp.Name = "txtBrp";
             this.txtBrp.Size = new System.Drawing.Size(125, 20);
             this.txtBrp.TabIndex = 23;

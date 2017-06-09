@@ -93,41 +93,51 @@ namespace Federacija
         private void btnPot_Click(object sender, EventArgs e)
         {
 
-            ISession s = DataLayer.GetSession();
-
             //Validacija
             if ((txtIme.Text == "") || (txtPrezime.Text == "") || (txtPasos.Text == "") || (txtDrz.Text == ""))
             {
                 MessageBox.Show("Zgresili ste");
                 return;
             }
+            if (txtBrp.Enabled && txtBrp.Text=="")
+            {
+                MessageBox.Show("Zgresili ste");
+                return;
+            }
+
+            ISession s = DataLayer.GetSession();
             Sahista p;
+
             if (!updaterino)
             {
-                
+
                 if (rdbM.Checked)
                 {
                     p = new Majstor();
                     ((Majstor)p).DatSticanja = dtpStic.Value;
                 }
                 else if (rdbMK.Checked)
-                {
-                    if (txtBrp.Text == "")
-                    {
-                        MessageBox.Show("Zgresili ste");
-                        return;
-                    }
+                {                  
                     p = new MajstorskiKandidat();
                     ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
                 }
                 else
                 {
-                    p = new ObicanClan();
+                    p = new ObicanClan();               
                 }
             }
             else
             {
-               p = s.Load<Sahista>(UpdateItem.RegBr);
+                
+                p = s.Get<Sahista>(UpdateItem.RegBr);
+                if (UpdateItem is Majstor)
+                {
+                    ((Majstor)p).DatSticanja = dtpStic.Value;
+                }
+                else if (UpdateItem is MajstorskiKandidat)
+                {
+                    ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
+                }
             }
             int num;
             p.Ime = txtIme.Text;
@@ -145,7 +155,10 @@ namespace Federacija
 
             s.Flush();
             s.Close();
-            MessageBox.Show("Uspesno dodat Sahista");
+            if (!updaterino)
+                MessageBox.Show("Uspesno dodat Sahista");
+            else
+                MessageBox.Show("Uspesno izmenjen Sahista");
             closenow = true;
             this.Close();
 
