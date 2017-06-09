@@ -35,8 +35,8 @@ namespace Federacija
                 dgv1.DataSource = a;
 
 
-                dgv1.AutoGenerateColumns = false;
-
+                //dgv1.AutoGenerateColumns = false;
+                dgv1.AllowUserToAddRows = false; 
 
                 dgv1.Columns["RegBr"].Visible = false;
                 dgv1.Columns["BrojPasosa"].Visible = false;
@@ -57,7 +57,7 @@ namespace Federacija
 
 
                 SahistaIzvedeni(a);
-
+                
 
                 s.Close();
             }
@@ -70,6 +70,7 @@ namespace Federacija
 
         public void SahistaIzvedeni(SortableBindingList<Sahista> a)
         {
+            CurrencyManager cm1 = (CurrencyManager)BindingContext[dgv1.DataSource];
             int i = 0;
             foreach (Sahista value in a)
             {
@@ -89,8 +90,7 @@ namespace Federacija
                     dgv1.Rows[i].Cells["Rang"].Value = "Obican clan";
                 }
                 else
-                {
-                    CurrencyManager cm1 = (CurrencyManager)BindingContext[dgv1.DataSource];
+                {              
                     cm1.SuspendBinding();
                     dgv1.Rows[i].Visible = false;
                     cm1.ResumeBinding();
@@ -143,6 +143,28 @@ namespace Federacija
             SortDGV(e.ColumnIndex);
             if (dgv1.DataSource is SortableBindingList<Sahista>)
                 SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
+        }
+
+        private void btnSahAdd_Click(object sender, EventArgs e)
+        {
+            FormDodajSah f = new FormDodajSah();
+            f.ShowDialog();
+        }
+
+        private void btnIzmeni_Click(object sender, EventArgs e)
+        {
+            if (dgv1.SelectedRows.Count==0)
+            {
+                MessageBox.Show("Molimo selktujte neki podatak");
+                return;
+            }
+            if (dgv1.CurrentRow.DataBoundItem is Sahista)
+            {
+                var item = dgv1.CurrentRow.DataBoundItem;
+                FormDodajSah f = new FormDodajSah();
+                f.UpdateItem = item as Sahista;
+                f.ShowDialog();
+            }
         }
     }
 }

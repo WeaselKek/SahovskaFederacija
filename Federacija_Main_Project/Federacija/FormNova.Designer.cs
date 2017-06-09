@@ -31,6 +31,8 @@
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.showSahista = new System.Windows.Forms.Button();
             this.chkSah = new System.Windows.Forms.CheckedListBox();
+            this.btnSahAdd = new System.Windows.Forms.Button();
+            this.btnIzmeni = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +58,8 @@
             // 
             // chkSah
             // 
+            this.chkSah.CheckOnClick = true;
+            this.chkSah.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSah.FormattingEnabled = true;
             this.chkSah.Items.AddRange(new object[] {
             "Majstor",
@@ -63,14 +67,36 @@
             "Obican clan"});
             this.chkSah.Location = new System.Drawing.Point(24, 44);
             this.chkSah.Name = "chkSah";
-            this.chkSah.Size = new System.Drawing.Size(113, 64);
+            this.chkSah.Size = new System.Drawing.Size(142, 67);
             this.chkSah.TabIndex = 2;
+            // 
+            // btnSahAdd
+            // 
+            this.btnSahAdd.Location = new System.Drawing.Point(29, 131);
+            this.btnSahAdd.Name = "btnSahAdd";
+            this.btnSahAdd.Size = new System.Drawing.Size(137, 28);
+            this.btnSahAdd.TabIndex = 3;
+            this.btnSahAdd.Text = "Dodaj Novog Sahistu";
+            this.btnSahAdd.UseVisualStyleBackColor = true;
+            this.btnSahAdd.Click += new System.EventHandler(this.btnSahAdd_Click);
+            // 
+            // btnIzmeni
+            // 
+            this.btnIzmeni.Location = new System.Drawing.Point(44, 268);
+            this.btnIzmeni.Name = "btnIzmeni";
+            this.btnIzmeni.Size = new System.Drawing.Size(162, 28);
+            this.btnIzmeni.TabIndex = 4;
+            this.btnIzmeni.Text = "Izmeni Selektovani Podatak";
+            this.btnIzmeni.UseVisualStyleBackColor = true;
+            this.btnIzmeni.Click += new System.EventHandler(this.btnIzmeni_Click);
             // 
             // FormNova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1310, 692);
+            this.Controls.Add(this.btnIzmeni);
+            this.Controls.Add(this.btnSahAdd);
             this.Controls.Add(this.chkSah);
             this.Controls.Add(this.showSahista);
             this.Controls.Add(this.dgv1);
@@ -86,5 +112,7 @@
         private System.Windows.Forms.DataGridView dgv1;
         private System.Windows.Forms.Button showSahista;
         private System.Windows.Forms.CheckedListBox chkSah;
+        private System.Windows.Forms.Button btnSahAdd;
+        private System.Windows.Forms.Button btnIzmeni;
     }
 }
