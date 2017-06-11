@@ -36,11 +36,14 @@
             this.showOrgan = new System.Windows.Forms.Button();
             this.showSpon = new System.Windows.Forms.Button();
             this.showTurnir = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
+            this.chkNacin = new System.Windows.Forms.CheckedListBox();
+            this.chkTak = new System.Windows.Forms.CheckBox();
+            this.chkEgz = new System.Windows.Forms.CheckBox();
+            this.chkTipT = new System.Windows.Forms.CheckedListBox();
+            this.chkTipE = new System.Windows.Forms.CheckedListBox();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnDodajPartiju = new System.Windows.Forms.Button();
+            this.btnDodajTurnir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,76 +130,115 @@
             this.showTurnir.TabIndex = 7;
             this.showTurnir.Text = "Prikazi turnire";
             this.showTurnir.UseVisualStyleBackColor = true;
+            this.showTurnir.Click += new System.EventHandler(this.showTurnir_Click);
             // 
-            // checkedListBox1
+            // chkNacin
             // 
-            this.checkedListBox1.BackColor = System.Drawing.SystemColors.Menu;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.chkNacin.BackColor = System.Drawing.SystemColors.Menu;
+            this.chkNacin.CheckOnClick = true;
+            this.chkNacin.FormattingEnabled = true;
+            this.chkNacin.Items.AddRange(new object[] {
             "Normalan",
             "Brzopotezni"});
-            this.checkedListBox1.Location = new System.Drawing.Point(665, 77);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(102, 34);
-            this.checkedListBox1.TabIndex = 8;
+            this.chkNacin.Location = new System.Drawing.Point(665, 77);
+            this.chkNacin.Name = "chkNacin";
+            this.chkNacin.Size = new System.Drawing.Size(102, 34);
+            this.chkNacin.TabIndex = 8;
             // 
-            // checkBox1
+            // chkTak
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.SystemColors.Menu;
-            this.checkBox1.Location = new System.Drawing.Point(665, 117);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(83, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Takmicarski";
-            this.checkBox1.UseVisualStyleBackColor = false;
+            this.chkTak.AutoSize = true;
+            this.chkTak.BackColor = System.Drawing.SystemColors.Menu;
+            this.chkTak.Location = new System.Drawing.Point(665, 117);
+            this.chkTak.Name = "chkTak";
+            this.chkTak.Size = new System.Drawing.Size(83, 17);
+            this.chkTak.TabIndex = 9;
+            this.chkTak.Text = "Takmicarski";
+            this.chkTak.UseVisualStyleBackColor = false;
+            this.chkTak.CheckStateChanged += new System.EventHandler(this.chkTak_CheckStateChanged);
             // 
-            // checkBox2
+            // chkEgz
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.BackColor = System.Drawing.SystemColors.Menu;
-            this.checkBox2.Location = new System.Drawing.Point(785, 117);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(76, 17);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "Egzibicioni";
-            this.checkBox2.UseVisualStyleBackColor = false;
+            this.chkEgz.AutoSize = true;
+            this.chkEgz.BackColor = System.Drawing.SystemColors.Menu;
+            this.chkEgz.Location = new System.Drawing.Point(785, 117);
+            this.chkEgz.Name = "chkEgz";
+            this.chkEgz.Size = new System.Drawing.Size(76, 17);
+            this.chkEgz.TabIndex = 10;
+            this.chkEgz.Text = "Egzibicioni";
+            this.chkEgz.UseVisualStyleBackColor = false;
+            this.chkEgz.CheckStateChanged += new System.EventHandler(this.chkEgz_CheckStateChanged);
             // 
-            // checkedListBox2
+            // chkTipT
             // 
-            this.checkedListBox2.BackColor = System.Drawing.SystemColors.Menu;
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
+            this.chkTipT.BackColor = System.Drawing.SystemColors.Menu;
+            this.chkTipT.CheckOnClick = true;
+            this.chkTipT.FormattingEnabled = true;
+            this.chkTipT.Items.AddRange(new object[] {
             "Nacionalni",
             "Regionalni",
             "Internacionalni"});
-            this.checkedListBox2.Location = new System.Drawing.Point(665, 151);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(102, 79);
-            this.checkedListBox2.TabIndex = 11;
+            this.chkTipT.Location = new System.Drawing.Point(665, 151);
+            this.chkTipT.Name = "chkTipT";
+            this.chkTipT.Size = new System.Drawing.Size(102, 79);
+            this.chkTipT.TabIndex = 11;
             // 
-            // checkedListBox3
+            // chkTipE
             // 
-            this.checkedListBox3.BackColor = System.Drawing.SystemColors.Menu;
-            this.checkedListBox3.FormattingEnabled = true;
-            this.checkedListBox3.Items.AddRange(new object[] {
+            this.chkTipE.BackColor = System.Drawing.SystemColors.Menu;
+            this.chkTipE.CheckOnClick = true;
+            this.chkTipE.FormattingEnabled = true;
+            this.chkTipE.Items.AddRange(new object[] {
             "Promotivni",
             "Humanitarni"});
-            this.checkedListBox3.Location = new System.Drawing.Point(781, 151);
-            this.checkedListBox3.Name = "checkedListBox3";
-            this.checkedListBox3.Size = new System.Drawing.Size(95, 79);
-            this.checkedListBox3.TabIndex = 12;
+            this.chkTipE.Location = new System.Drawing.Point(781, 151);
+            this.chkTipE.Name = "chkTipE";
+            this.chkTipE.Size = new System.Drawing.Size(95, 79);
+            this.chkTipE.TabIndex = 12;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(273, 272);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(121, 24);
+            this.btnDelete.TabIndex = 13;
+            this.btnDelete.Text = "Izbrisi podatak";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnDodajPartiju
+            // 
+            this.btnDodajPartiju.Location = new System.Drawing.Point(336, 35);
+            this.btnDodajPartiju.Name = "btnDodajPartiju";
+            this.btnDodajPartiju.Size = new System.Drawing.Size(169, 46);
+            this.btnDodajPartiju.TabIndex = 14;
+            this.btnDodajPartiju.Text = "Dodaj partiju u turnir";
+            this.btnDodajPartiju.UseVisualStyleBackColor = true;
+            this.btnDodajPartiju.Click += new System.EventHandler(this.btnDodajPartiju_Click);
+            // 
+            // btnDodajTurnir
+            // 
+            this.btnDodajTurnir.Location = new System.Drawing.Point(685, 266);
+            this.btnDodajTurnir.Name = "btnDodajTurnir";
+            this.btnDodajTurnir.Size = new System.Drawing.Size(129, 21);
+            this.btnDodajTurnir.TabIndex = 15;
+            this.btnDodajTurnir.Text = "DodajTurnir";
+            this.btnDodajTurnir.UseVisualStyleBackColor = true;
+            this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
             // 
             // FormNova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1310, 692);
-            this.Controls.Add(this.checkedListBox3);
-            this.Controls.Add(this.checkedListBox2);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.btnDodajTurnir);
+            this.Controls.Add(this.btnDodajPartiju);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.chkTipE);
+            this.Controls.Add(this.chkTipT);
+            this.Controls.Add(this.chkEgz);
+            this.Controls.Add(this.chkTak);
+            this.Controls.Add(this.chkNacin);
             this.Controls.Add(this.showTurnir);
             this.Controls.Add(this.showSpon);
             this.Controls.Add(this.showOrgan);
@@ -207,6 +249,7 @@
             this.Controls.Add(this.dgv1);
             this.Name = "FormNova";
             this.Text = "Šahovska Federacija";
+            this.Load += new System.EventHandler(this.FormNova_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -223,10 +266,13 @@
         private System.Windows.Forms.Button showOrgan;
         private System.Windows.Forms.Button showSpon;
         private System.Windows.Forms.Button showTurnir;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
-        private System.Windows.Forms.CheckedListBox checkedListBox3;
+        private System.Windows.Forms.CheckedListBox chkNacin;
+        private System.Windows.Forms.CheckBox chkTak;
+        private System.Windows.Forms.CheckBox chkEgz;
+        private System.Windows.Forms.CheckedListBox chkTipT;
+        private System.Windows.Forms.CheckedListBox chkTipE;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnDodajPartiju;
+        private System.Windows.Forms.Button btnDodajTurnir;
     }
 }
