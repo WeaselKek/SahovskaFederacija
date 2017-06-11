@@ -134,6 +134,9 @@
     <Compile Include="Mapiranja\TurnirMapiranja.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDodajOrg.resx">
+      <DependentUpon>FormDodajOrg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDodajPartija.resx">
       <DependentUpon>FormDodajPartija.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStara.resx">
       <DependentUpon>FormStara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVezaOrgSpon.resx">
+      <DependentUpon>FormVezaOrgSpon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

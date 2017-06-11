@@ -402,7 +402,10 @@ namespace Federacija
                 MessageBox.Show("Niste selektovali turnir");
                 return;
             }
-            MessageBox.Show("bravo");
+            FormDodajPartija f = new FormDodajPartija();
+            f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
+            f.ShowDialog();
+
         }
 
         private void btnDodajTurnir_Click(object sender, EventArgs e)
@@ -410,18 +413,6 @@ namespace Federacija
             FormDodajTurnir f = new FormDodajTurnir();
             f.ShowDialog();
             showTurnir_Click(sender, e);
-        }
-
-        private void btnDodajOrg_Click(object sender, EventArgs e)
-        {
-            FormDodajOrg f = new FormDodajOrg();
-            f.ShowDialog();
-        }
-
-        private void btnDodajSpon_Click(object sender, EventArgs e)
-        {
-            FormDodajSpon f = new FormDodajSpon();
-            f.ShowDialog();
         }
 
         private void btnVezaOrgSpon_Click(object sender, EventArgs e)

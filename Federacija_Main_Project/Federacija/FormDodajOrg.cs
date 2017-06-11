@@ -12,9 +12,17 @@ namespace Federacija
 {
     public partial class FormDodajOrg : Form
     {
-        public FormDodajOrg()
+        FormVezaOrgSpon CaleForma;
+        public FormDodajOrg(FormVezaOrgSpon c)
         {
             InitializeComponent();
+            this.CaleForma = c;
         }
+
+        private void btnPotvrdi_Click(object sender, EventArgs e)
+        {
+            
+        }
+      
     }
 }

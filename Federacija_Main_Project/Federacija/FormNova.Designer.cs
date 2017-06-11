@@ -44,8 +44,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnDodajPartiju = new System.Windows.Forms.Button();
             this.btnDodajTurnir = new System.Windows.Forms.Button();
-            this.btnDodajOrg = new System.Windows.Forms.Button();
-            this.btnDodajSpon = new System.Windows.Forms.Button();
             this.btnVezaOrgSpon = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -232,26 +230,6 @@
             this.btnDodajTurnir.UseVisualStyleBackColor = true;
             this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
             // 
-            // btnDodajOrg
-            // 
-            this.btnDodajOrg.Location = new System.Drawing.Point(1023, 123);
-            this.btnDodajOrg.Name = "btnDodajOrg";
-            this.btnDodajOrg.Size = new System.Drawing.Size(130, 25);
-            this.btnDodajOrg.TabIndex = 16;
-            this.btnDodajOrg.Text = "Dodaj Organizatora";
-            this.btnDodajOrg.UseVisualStyleBackColor = true;
-            this.btnDodajOrg.Click += new System.EventHandler(this.btnDodajOrg_Click);
-            // 
-            // btnDodajSpon
-            // 
-            this.btnDodajSpon.Location = new System.Drawing.Point(1187, 122);
-            this.btnDodajSpon.Name = "btnDodajSpon";
-            this.btnDodajSpon.Size = new System.Drawing.Size(117, 23);
-            this.btnDodajSpon.TabIndex = 17;
-            this.btnDodajSpon.Text = "Dodaj Sponzora";
-            this.btnDodajSpon.UseVisualStyleBackColor = true;
-            this.btnDodajSpon.Click += new System.EventHandler(this.btnDodajSpon_Click);
-            // 
             // btnVezaOrgSpon
             // 
             this.btnVezaOrgSpon.Location = new System.Drawing.Point(1023, 230);
@@ -298,8 +276,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVezaOrgSpon);
-            this.Controls.Add(this.btnDodajSpon);
-            this.Controls.Add(this.btnDodajOrg);
             this.Controls.Add(this.btnDodajTurnir);
             this.Controls.Add(this.btnDodajPartiju);
             this.Controls.Add(this.btnDelete);
@@ -343,8 +319,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnDodajPartiju;
         private System.Windows.Forms.Button btnDodajTurnir;
-        private System.Windows.Forms.Button btnDodajOrg;
-        private System.Windows.Forms.Button btnDodajSpon;
         private System.Windows.Forms.Button btnVezaOrgSpon;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
