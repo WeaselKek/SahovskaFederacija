@@ -178,6 +178,14 @@ namespace Federacija
                 f.ShowDialog();
                 showSahista_Click(sender, e);
             }
+            if (dgv1.CurrentRow.DataBoundItem is Turnir)
+            {
+                var item = dgv1.CurrentRow.DataBoundItem;
+                FormDodajTurnir f = new FormDodajTurnir();
+                //f.UpdateItem=item as Turnir;
+                f.ShowDialog();
+                showTurnir_Click(sender, e);
+            }
 
         }
 

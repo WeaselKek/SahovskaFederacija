@@ -47,6 +47,9 @@
             this.btnDodajOrg = new System.Windows.Forms.Button();
             this.btnDodajSpon = new System.Windows.Forms.Button();
             this.btnVezaOrgSpon = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,7 +234,7 @@
             // 
             // btnDodajOrg
             // 
-            this.btnDodajOrg.Location = new System.Drawing.Point(990, 122);
+            this.btnDodajOrg.Location = new System.Drawing.Point(1023, 123);
             this.btnDodajOrg.Name = "btnDodajOrg";
             this.btnDodajOrg.Size = new System.Drawing.Size(130, 25);
             this.btnDodajOrg.TabIndex = 16;
@@ -241,7 +244,7 @@
             // 
             // btnDodajSpon
             // 
-            this.btnDodajSpon.Location = new System.Drawing.Point(1160, 152);
+            this.btnDodajSpon.Location = new System.Drawing.Point(1187, 122);
             this.btnDodajSpon.Name = "btnDodajSpon";
             this.btnDodajSpon.Size = new System.Drawing.Size(117, 23);
             this.btnDodajSpon.TabIndex = 17;
@@ -251,7 +254,7 @@
             // 
             // btnVezaOrgSpon
             // 
-            this.btnVezaOrgSpon.Location = new System.Drawing.Point(966, 232);
+            this.btnVezaOrgSpon.Location = new System.Drawing.Point(1023, 230);
             this.btnVezaOrgSpon.Name = "btnVezaOrgSpon";
             this.btnVezaOrgSpon.Size = new System.Drawing.Size(154, 38);
             this.btnVezaOrgSpon.TabIndex = 18;
@@ -259,11 +262,41 @@
             this.btnVezaOrgSpon.UseVisualStyleBackColor = true;
             this.btnVezaOrgSpon.Click += new System.EventHandler(this.btnVezaOrgSpon_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1020, 103);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "MARE";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1184, 106);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "MARE";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1020, 205);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "MARE";
+            // 
             // FormNova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1310, 692);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVezaOrgSpon);
             this.Controls.Add(this.btnDodajSpon);
             this.Controls.Add(this.btnDodajOrg);
@@ -313,5 +346,8 @@
         private System.Windows.Forms.Button btnDodajOrg;
         private System.Windows.Forms.Button btnDodajSpon;
         private System.Windows.Forms.Button btnVezaOrgSpon;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
