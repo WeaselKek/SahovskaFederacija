@@ -87,12 +87,6 @@
     <Compile Include="FormDodajPartija.Designer.cs">
       <DependentUpon>FormDodajPartija.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDodajPotez.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDodajPotez.Designer.cs">
-      <DependentUpon>FormDodajPotez.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormDodajSah.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,9 +136,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormDodajPartija.resx">
       <DependentUpon>FormDodajPartija.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDodajPotez.resx">
-      <DependentUpon>FormDodajPotez.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDodajSah.resx">
       <DependentUpon>FormDodajSah.cs</DependentUpon>

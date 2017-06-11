@@ -44,8 +44,10 @@ namespace Federacija
 
         private void FormDodajTurnir_Load(object sender, EventArgs e)
         {
+            rbNormalan.Checked = true;
+            rbTakmicarski.Checked = true;
             grbEgzibicioni.Enabled = false;
-            grbTakmicarski.Enabled = false;
+            grbTakmicarski.Enabled = true;
             panelNovacNamena.Enabled = false;
             panelTrajanjePartije.Enabled = false;
         }
@@ -55,6 +57,7 @@ namespace Federacija
             if (rbEgzibicioni.Checked)
             {
                 grbEgzibicioni.Enabled = true;
+                rbPromotivni.Checked = true;
             }
             else
             {
@@ -67,6 +70,7 @@ namespace Federacija
             if (rbTakmicarski.Checked)
             {
                 grbTakmicarski.Enabled = true;
+                rbRegionalni.Checked = true;
             }
             else
             {
@@ -173,18 +177,14 @@ namespace Federacija
                 if (!updaterino)
                 {
 
-                    if (rbTakmicarski.Checked)
-                    {
+                    
                         if (rbInternacionalni.Checked)
                             t = new TurnirTakmicarskiInternacionalni();
                         else if (rbNacionalni.Checked)
                             t = new TurnirTakmicarskiNacionalni();
-                        else
+                        else if(rbRegionalni.Checked)
                             t = new TurnirTakmicarskiRegionalni();
-                    }
-                    else if (rbEgzibicioni.Checked)
-                    {
-                        if (rbPromotivni.Checked)
+                        else if (rbPromotivni.Checked)
                             t = new TurnirEgzibicioniPromotivni();
                         else
                         {
@@ -193,11 +193,8 @@ namespace Federacija
                             ((TurnirEgzibicioniHumanitarni)t).Namena = txtNamena.Text;
 
                         }
-                    }
-                    else
-                    {
-                        t = new TurnirTakmicarskiRegionalni();
-                    }
+                    
+                    
                 }
                 else
                 {
