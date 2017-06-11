@@ -44,6 +44,9 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnDodajPartiju = new System.Windows.Forms.Button();
             this.btnDodajTurnir = new System.Windows.Forms.Button();
+            this.btnDodajOrg = new System.Windows.Forms.Button();
+            this.btnDodajSpon = new System.Windows.Forms.Button();
+            this.btnVezaOrgSpon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -208,29 +211,62 @@
             // 
             // btnDodajPartiju
             // 
-            this.btnDodajPartiju.Location = new System.Drawing.Point(336, 35);
+            this.btnDodajPartiju.Location = new System.Drawing.Point(273, 101);
             this.btnDodajPartiju.Name = "btnDodajPartiju";
             this.btnDodajPartiju.Size = new System.Drawing.Size(169, 46);
             this.btnDodajPartiju.TabIndex = 14;
-            this.btnDodajPartiju.Text = "Dodaj partiju u turnir";
+            this.btnDodajPartiju.Text = "Dodaj partiju u turnir(WIP)";
             this.btnDodajPartiju.UseVisualStyleBackColor = true;
             this.btnDodajPartiju.Click += new System.EventHandler(this.btnDodajPartiju_Click);
             // 
             // btnDodajTurnir
             // 
-            this.btnDodajTurnir.Location = new System.Drawing.Point(685, 266);
+            this.btnDodajTurnir.Location = new System.Drawing.Point(676, 251);
             this.btnDodajTurnir.Name = "btnDodajTurnir";
-            this.btnDodajTurnir.Size = new System.Drawing.Size(129, 21);
+            this.btnDodajTurnir.Size = new System.Drawing.Size(135, 30);
             this.btnDodajTurnir.TabIndex = 15;
-            this.btnDodajTurnir.Text = "DodajTurnir";
+            this.btnDodajTurnir.Text = "DodajTurnir(WIP)";
             this.btnDodajTurnir.UseVisualStyleBackColor = true;
             this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
+            // 
+            // btnDodajOrg
+            // 
+            this.btnDodajOrg.Location = new System.Drawing.Point(990, 122);
+            this.btnDodajOrg.Name = "btnDodajOrg";
+            this.btnDodajOrg.Size = new System.Drawing.Size(130, 25);
+            this.btnDodajOrg.TabIndex = 16;
+            this.btnDodajOrg.Text = "Dodaj Organizatora";
+            this.btnDodajOrg.UseVisualStyleBackColor = true;
+            this.btnDodajOrg.Click += new System.EventHandler(this.btnDodajOrg_Click);
+            // 
+            // btnDodajSpon
+            // 
+            this.btnDodajSpon.Location = new System.Drawing.Point(1160, 152);
+            this.btnDodajSpon.Name = "btnDodajSpon";
+            this.btnDodajSpon.Size = new System.Drawing.Size(117, 23);
+            this.btnDodajSpon.TabIndex = 17;
+            this.btnDodajSpon.Text = "Dodaj Sponzora";
+            this.btnDodajSpon.UseVisualStyleBackColor = true;
+            this.btnDodajSpon.Click += new System.EventHandler(this.btnDodajSpon_Click);
+            // 
+            // btnVezaOrgSpon
+            // 
+            this.btnVezaOrgSpon.Location = new System.Drawing.Point(966, 232);
+            this.btnVezaOrgSpon.Name = "btnVezaOrgSpon";
+            this.btnVezaOrgSpon.Size = new System.Drawing.Size(154, 38);
+            this.btnVezaOrgSpon.TabIndex = 18;
+            this.btnVezaOrgSpon.Text = "Dodaj Organizatore i Sponzore u turnir";
+            this.btnVezaOrgSpon.UseVisualStyleBackColor = true;
+            this.btnVezaOrgSpon.Click += new System.EventHandler(this.btnVezaOrgSpon_Click);
             // 
             // FormNova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1310, 692);
+            this.Controls.Add(this.btnVezaOrgSpon);
+            this.Controls.Add(this.btnDodajSpon);
+            this.Controls.Add(this.btnDodajOrg);
             this.Controls.Add(this.btnDodajTurnir);
             this.Controls.Add(this.btnDodajPartiju);
             this.Controls.Add(this.btnDelete);
@@ -274,5 +310,8 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnDodajPartiju;
         private System.Windows.Forms.Button btnDodajTurnir;
+        private System.Windows.Forms.Button btnDodajOrg;
+        private System.Windows.Forms.Button btnDodajSpon;
+        private System.Windows.Forms.Button btnVezaOrgSpon;
     }
 }

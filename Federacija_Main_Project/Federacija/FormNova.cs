@@ -397,6 +397,7 @@ namespace Federacija
         {
             if (!(dgv1.DataSource is SortableBindingList<Turnir>) || dgv1.SelectedRows.Count == 0)
             {
+                MessageBox.Show("Niste selektovali turnir");
                 return;
             }
             MessageBox.Show("bravo");
@@ -406,6 +407,32 @@ namespace Federacija
         {
             FormDodajTurnir f = new FormDodajTurnir();
             f.ShowDialog();
+        }
+
+        private void btnDodajOrg_Click(object sender, EventArgs e)
+        {
+            FormDodajOrg f = new FormDodajOrg();
+            f.ShowDialog();
+        }
+
+        private void btnDodajSpon_Click(object sender, EventArgs e)
+        {
+            FormDodajSpon f = new FormDodajSpon();
+            f.ShowDialog();
+        }
+
+        private void btnVezaOrgSpon_Click(object sender, EventArgs e)
+        {
+
+            if (!(dgv1.DataSource is SortableBindingList<Turnir>) || dgv1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Niste selektovali turnir");
+                return;
+            }
+            FormVezaOrgSpon f = new FormVezaOrgSpon();
+            f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
+            f.ShowDialog();
+
         }
     }
 }

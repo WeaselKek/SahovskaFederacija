@@ -75,6 +75,12 @@
     <Compile Include="Entiteti\Sponzorise.cs" />
     <Compile Include="Entiteti\Sudija.cs" />
     <Compile Include="Entiteti\Turnir.cs" />
+    <Compile Include="FormDodajOrg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDodajOrg.Designer.cs">
+      <DependentUpon>FormDodajOrg.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDodajPartija.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,12 @@
     <Compile Include="FormDodajSah.Designer.cs">
       <DependentUpon>FormDodajSah.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDodajSpon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDodajSpon.Designer.cs">
+      <DependentUpon>FormDodajSpon.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDodajTurnir.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +122,12 @@
     </Compile>
     <Compile Include="FormStara.Designer.cs">
       <DependentUpon>FormStara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVezaOrgSpon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVezaOrgSpon.Designer.cs">
+      <DependentUpon>FormVezaOrgSpon.cs</DependentUpon>
     </Compile>
     <Compile Include="Mapiranja\OrganizatorMapiranja.cs" />
     <Compile Include="Mapiranja\OrganizujeMapiranja.cs" />
