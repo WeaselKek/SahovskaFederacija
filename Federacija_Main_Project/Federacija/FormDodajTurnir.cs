@@ -35,6 +35,10 @@ namespace Federacija
 
         private void FormDodajTurnir_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (closenow)
+            {
+                return;
+            }
             DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (r == DialogResult.No)
             {
@@ -237,7 +241,7 @@ namespace Federacija
             if (!updaterino)
                 MessageBox.Show("Uspesno dodat Turnir");
             else
-                MessageBox.Show("Uspesno izmenjen Sahista");
+                MessageBox.Show("Uspesno izmenjen Turnir");
             closenow = true;
             this.Close();
         }

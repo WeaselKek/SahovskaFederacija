@@ -327,13 +327,7 @@ namespace Federacija
                 }
                 if (chkNacin.GetItemChecked(1)){
                     dgv1.Columns["TrajanjePartije"].Visible = true;
-                }
-
-
-                
-
-
-
+                }             
 
             }
             catch (Exception ec)
@@ -415,6 +409,7 @@ namespace Federacija
         {
             FormDodajTurnir f = new FormDodajTurnir();
             f.ShowDialog();
+            showTurnir_Click(sender, e);
         }
 
         private void btnDodajOrg_Click(object sender, EventArgs e)
