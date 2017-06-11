@@ -10,5 +10,9 @@ namespace Federacija.Entiteti
         public virtual string KrajnjePolje { get; set; }
         public virtual string Vreme { get; set; }
         public virtual Partija Partija { get; set; }
+        public override string ToString()
+        {
+            return RedniBr +"  "+ PocetnoPolje+"  "+KrajnjePolje+"  "+Vreme;
+        }
     }
 }
