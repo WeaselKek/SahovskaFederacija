@@ -15,6 +15,13 @@ namespace Federacija
     public partial class FormDodajTurnir : Form
     {
         bool updaterino = false;
+        bool closenow = false;
+
+        public Turnir UpdateItem
+        {
+            get;
+            set;
+        }
 
         public FormDodajTurnir()
         {
@@ -203,13 +210,15 @@ namespace Federacija
                     //
                 }
 
-                if (rbNormalan.Checked)
+                if (rbBrzopotezni.Checked)
                 {
-                    t.NacinOdigravanja = "NORMALAN";
+                    t.NacinOdigravanja = "BRZOPOTEZNI";
                     t.TrajanjePartije = Int32.Parse(txtTrajanje.Text);
                 }
                 else
-                    t.NacinOdigravanja = "BRZOPOTEZNI";
+                {
+                    t.NacinOdigravanja = "NORMALAN";
+                }
                 t.Naziv = txtNaziv.Text;
                 t.Godina = Int32.Parse(txtGodina.Text);
                 t.Grad = txtGrad.Text;
@@ -232,7 +241,7 @@ namespace Federacija
                 MessageBox.Show("Uspesno dodat Turnir");
             else
                 MessageBox.Show("Uspesno izmenjen Sahista");
-            //closenow = true;
+            closenow = true;
             this.Close();
         }
 

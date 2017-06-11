@@ -228,7 +228,7 @@
             this.btnDodajTurnir.Name = "btnDodajTurnir";
             this.btnDodajTurnir.Size = new System.Drawing.Size(135, 30);
             this.btnDodajTurnir.TabIndex = 15;
-            this.btnDodajTurnir.Text = "DodajTurnir(WIP)";
+            this.btnDodajTurnir.Text = "DodajTurnir";
             this.btnDodajTurnir.UseVisualStyleBackColor = true;
             this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
             // 

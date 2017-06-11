@@ -182,7 +182,7 @@ namespace Federacija
             {
                 var item = dgv1.CurrentRow.DataBoundItem;
                 FormDodajTurnir f = new FormDodajTurnir();
-                //f.UpdateItem=item as Turnir;
+                f.UpdateItem=item as Turnir;
                 f.ShowDialog();
                 showTurnir_Click(sender, e);
             }

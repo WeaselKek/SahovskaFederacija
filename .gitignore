@@ -28,3 +28,4 @@ packages/
 .vs/
 App_Data/
 Federacija*Main*Project/Federacija/DataLayer.cs
+Federacija_Main_Project/Federacija/DataLayer.cs
