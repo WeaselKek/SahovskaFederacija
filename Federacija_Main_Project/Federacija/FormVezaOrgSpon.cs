@@ -64,7 +64,7 @@ namespace Federacija
 
         private void btnDodajSpon_Click(object sender, EventArgs e)
         {
-            FormDodajSpon f = new FormDodajSpon();
+            FormDodajSpon f = new FormDodajSpon(this);
             f.ShowDialog();
         }
 

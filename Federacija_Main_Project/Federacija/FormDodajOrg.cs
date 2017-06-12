@@ -7,12 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NHibernate;
+using NHibernate.Linq;
+using Federacija.Entiteti;
+using Federacija.Mapiranja;
+using Federacija.BindList;
 
 namespace Federacija
 {
     public partial class FormDodajOrg : Form
     {
         FormVezaOrgSpon CaleForma;
+
+        public FormDodajOrg()
+        {
+            InitializeComponent();
+        }
         public FormDodajOrg(FormVezaOrgSpon c)
         {
             InitializeComponent();
