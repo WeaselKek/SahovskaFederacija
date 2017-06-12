@@ -35,7 +35,7 @@ namespace Federacija
                 if (chkSah.GetItemChecked(0))
                 {
                     shl = shl.Concat(from o in s.Query<Majstor>()
-                                     select o).ToList<Sahista>();                 
+                                     select o).ToList<Sahista>();
                 }
                 if (chkSah.GetItemChecked(1))
                 {
@@ -68,11 +68,11 @@ namespace Federacija
                 dgv1.Columns["DatUclanjenja"].HeaderText = "Datum Uclanjenja";
                 dgv1.Columns.Add("Rang", "Rang");
 
-                if (chkSah.GetItemCheckState(0).Equals(CheckState.Checked))
-                {                  
+                if (chkSah.GetItemChecked(0))
+                {
                     dgv1.Columns.Add("ds", "Datum sticanja");
                 }
-                if (chkSah.GetItemCheckState(1).Equals(CheckState.Checked))
+                if (chkSah.GetItemChecked(1))
                 {
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
@@ -180,9 +180,9 @@ namespace Federacija
             }
             if (dgv1.CurrentRow.DataBoundItem is Turnir)
             {
-                var item = dgv1.CurrentRow.DataBoundItem;
+                var item = dgv1.CurrentRow.DataBoundItem as Turnir;
                 FormDodajTurnir f = new FormDodajTurnir();
-                f.UpdateItem=item as Turnir;
+                f.UpdateItem = item;
                 f.ShowDialog();
                 showTurnir_Click(sender, e);
             }
@@ -247,21 +247,22 @@ namespace Federacija
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
-                string nac=string.Empty;
+                string nac = string.Empty;
                 IList<Turnir> trl = new List<Turnir>();
 
                 foreach (string v in chkNacin.CheckedItems)
                 {
                     nac += v.ToUpper();
                 }
-   
 
-                if(chkTak.Checked){
+
+                if (chkTak.Checked)
+                {
                     if (chkTipT.GetItemChecked(0))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirTakmicarskiNacionalni>()
                                          where (nac.Contains(o.NacinOdigravanja))
-                                         select o).ToList<Turnir>();  
+                                         select o).ToList<Turnir>();
                     }
                     if (chkTipT.GetItemChecked(1))
                     {
@@ -290,10 +291,10 @@ namespace Federacija
                                          where (nac.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
-                   
+
                 }
 
-               
+
                 SortableBindingList<Turnir> a = new SortableBindingList<Turnir>(trl);
 
                 s.Close();
@@ -314,20 +315,22 @@ namespace Federacija
                 if (!chkEgz.Checked)
                 {
                     dgv1.Columns["PoZnacaju"].Visible = false;
-                    dgv1.Columns["PoZnacaju"].Visible = false;
+                    dgv1.Columns["TipEgzibicionog"].Visible = false;
                 }
                 if (!chkTak.Checked)
                 {
+                    dgv1.Columns["PoZnacaju"].Visible = false;
                     dgv1.Columns["TipTakmicarskog"].Visible = false;
                 }
-                if (chkTipE.GetItemChecked(1))
+                if (chkTipE.GetItemChecked(1) && chkTipE.Enabled)
                 {
                     dgv1.Columns["Novac"].Visible = true;
                     dgv1.Columns["Namena"].Visible = true;
                 }
-                if (chkNacin.GetItemChecked(1)){
+                if (chkNacin.GetItemChecked(1))
+                {
                     dgv1.Columns["TrajanjePartije"].Visible = true;
-                }             
+                }
 
             }
             catch (Exception ec)
@@ -342,7 +345,7 @@ namespace Federacija
             {
                 if (dgv1.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Molimo selktujte neki podatak");
+                    MessageBox.Show("Molimo selektujte neki podatak");
                     return;
                 }
 
@@ -358,6 +361,16 @@ namespace Federacija
                     s.Close();
                     showSahista_Click(sender, e);
                 }
+                if (dgv1.CurrentRow.DataBoundItem is Turnir)
+                {
+                    var id = ((Turnir)dgv1.CurrentRow.DataBoundItem).Id;
+                    Turnir p = s.Load<Turnir>(id);
+                    s.Delete(p);
+                    MessageBox.Show("Uspesno ste izbrisali turnir");
+                    s.Flush();
+                    s.Close();
+                    showTurnir_Click(sender, e);
+                }
 
             }
             catch (Exception ec)
@@ -368,7 +381,8 @@ namespace Federacija
 
         private void chkTak_CheckStateChanged(object sender, EventArgs e)
         {
-            if (chkTak.CheckState==CheckState.Checked){
+            if (chkTak.Checked)
+            {
                 chkTipT.Enabled = true;
             }
             else
@@ -379,13 +393,20 @@ namespace Federacija
 
         private void FormNova_Load(object sender, EventArgs e)
         {
-            chkTipT.Enabled = false;
-            chkTipE.Enabled = false;
+            chkTak.Checked = true;
+            chkEgz.Checked = true;
+            for (int i = 0; i < chkNacin.Items.Count; i++)
+            {
+                chkNacin.SetItemChecked(i, true);
+                chkTipE.SetItemChecked(i, true);
+                chkTipT.SetItemChecked(i, true);
+            }
+            chkTipT.SetItemChecked(2, true);
         }
 
         private void chkEgz_CheckStateChanged(object sender, EventArgs e)
         {
-            if (chkEgz.CheckState == CheckState.Checked)
+            if (chkEgz.Checked)
             {
                 chkTipE.Enabled = true;
             }
@@ -428,5 +449,62 @@ namespace Federacija
             f.ShowDialog();
 
         }
+
+        private void btnPromovisi_Click(object sender, EventArgs e)
+        {
+            if (dgv1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Molimo selektujte neki podatak");
+                return;
+            }
+            try
+            {
+                if (dgv1.SelectedRows[0].DataBoundItem is Majstor)
+                {
+                    var m = dgv1.SelectedRows[0].DataBoundItem as Majstor;
+                    ISession s = DataLayer.GetSession();
+                    Majstor u = s.Load<Majstor>(m.RegBr);
+                    Sudija sud = new Sudija();
+                    sud.FlagMajstor = 1;
+                    sud.FlagOrganizator = 0;
+
+                    u.SudijaId = sud;
+                    s.SaveOrUpdate(sud);
+
+                    s.Flush();
+                    s.Close();
+
+                    MessageBox.Show("Uspeno promovisan majstor u sudiju");
+                }
+                else if (dgv1.SelectedRows[0].DataBoundItem is Organizator)
+                {
+                    var m = dgv1.SelectedRows[0].DataBoundItem as Organizator;
+
+                    ISession s = DataLayer.GetSession();
+                    Organizator u = s.Load<Organizator>(m.MatBr);
+                    Sudija sud = new Sudija();
+                    sud.FlagMajstor = 0;
+                    sud.FlagOrganizator = 1;
+
+                    u.SudijaId = sud;
+                    s.SaveOrUpdate(sud);
+
+                    s.Flush();
+                    s.Close();
+
+                    MessageBox.Show("Uspeno promovisan organizator u sudiju");
+                }
+                else
+                {
+                    MessageBox.Show("Nije selektovan odgovarajuci podatak");
+                }
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+
+        }
+
     }
 }

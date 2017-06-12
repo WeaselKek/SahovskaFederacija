@@ -45,9 +45,8 @@
             this.btnDodajPartiju = new System.Windows.Forms.Button();
             this.btnDodajTurnir = new System.Windows.Forms.Button();
             this.btnVezaOrgSpon = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnPromovisi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +65,7 @@
             // 
             this.showSahista.Location = new System.Drawing.Point(24, 12);
             this.showSahista.Name = "showSahista";
-            this.showSahista.Size = new System.Drawing.Size(142, 26);
+            this.showSahista.Size = new System.Drawing.Size(182, 34);
             this.showSahista.TabIndex = 1;
             this.showSahista.Text = "Prikazi Sahiste";
             this.showSahista.UseVisualStyleBackColor = true;
@@ -74,6 +73,7 @@
             // 
             // chkSah
             // 
+            this.chkSah.BackColor = System.Drawing.SystemColors.Control;
             this.chkSah.CheckOnClick = true;
             this.chkSah.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSah.FormattingEnabled = true;
@@ -81,16 +81,16 @@
             "Majstor",
             "Majstorski kandidat",
             "Obican clan"});
-            this.chkSah.Location = new System.Drawing.Point(24, 44);
+            this.chkSah.Location = new System.Drawing.Point(24, 52);
             this.chkSah.Name = "chkSah";
             this.chkSah.Size = new System.Drawing.Size(162, 67);
             this.chkSah.TabIndex = 2;
             // 
             // btnSahAdd
             // 
-            this.btnSahAdd.Location = new System.Drawing.Point(29, 131);
+            this.btnSahAdd.Location = new System.Drawing.Point(24, 125);
             this.btnSahAdd.Name = "btnSahAdd";
-            this.btnSahAdd.Size = new System.Drawing.Size(137, 28);
+            this.btnSahAdd.Size = new System.Drawing.Size(182, 34);
             this.btnSahAdd.TabIndex = 3;
             this.btnSahAdd.Text = "Dodaj Novog Sahistu";
             this.btnSahAdd.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
             // 
             // btnIzmeni
             // 
-            this.btnIzmeni.Location = new System.Drawing.Point(44, 268);
+            this.btnIzmeni.Location = new System.Drawing.Point(24, 268);
             this.btnIzmeni.Name = "btnIzmeni";
             this.btnIzmeni.Size = new System.Drawing.Size(162, 28);
             this.btnIzmeni.TabIndex = 4;
@@ -108,7 +108,7 @@
             // 
             // showOrgan
             // 
-            this.showOrgan.Location = new System.Drawing.Point(1023, 32);
+            this.showOrgan.Location = new System.Drawing.Point(1003, 7);
             this.showOrgan.Name = "showOrgan";
             this.showOrgan.Size = new System.Drawing.Size(111, 31);
             this.showOrgan.TabIndex = 5;
@@ -118,9 +118,9 @@
             // 
             // showSpon
             // 
-            this.showSpon.Location = new System.Drawing.Point(1187, 30);
+            this.showSpon.Location = new System.Drawing.Point(1133, 6);
             this.showSpon.Name = "showSpon";
-            this.showSpon.Size = new System.Drawing.Size(111, 33);
+            this.showSpon.Size = new System.Drawing.Size(111, 31);
             this.showSpon.TabIndex = 6;
             this.showSpon.Text = "Prikazi sponzore";
             this.showSpon.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             // 
             // showTurnir
             // 
-            this.showTurnir.Location = new System.Drawing.Point(665, 32);
+            this.showTurnir.Location = new System.Drawing.Point(659, 4);
             this.showTurnir.Name = "showTurnir";
             this.showTurnir.Size = new System.Drawing.Size(182, 34);
             this.showTurnir.TabIndex = 7;
@@ -144,7 +144,7 @@
             this.chkNacin.Items.AddRange(new object[] {
             "Normalan",
             "Brzopotezni"});
-            this.chkNacin.Location = new System.Drawing.Point(665, 77);
+            this.chkNacin.Location = new System.Drawing.Point(659, 49);
             this.chkNacin.Name = "chkNacin";
             this.chkNacin.Size = new System.Drawing.Size(102, 34);
             this.chkNacin.TabIndex = 8;
@@ -153,7 +153,7 @@
             // 
             this.chkTak.AutoSize = true;
             this.chkTak.BackColor = System.Drawing.SystemColors.Menu;
-            this.chkTak.Location = new System.Drawing.Point(665, 117);
+            this.chkTak.Location = new System.Drawing.Point(659, 89);
             this.chkTak.Name = "chkTak";
             this.chkTak.Size = new System.Drawing.Size(83, 17);
             this.chkTak.TabIndex = 9;
@@ -165,7 +165,7 @@
             // 
             this.chkEgz.AutoSize = true;
             this.chkEgz.BackColor = System.Drawing.SystemColors.Menu;
-            this.chkEgz.Location = new System.Drawing.Point(785, 117);
+            this.chkEgz.Location = new System.Drawing.Point(779, 89);
             this.chkEgz.Name = "chkEgz";
             this.chkEgz.Size = new System.Drawing.Size(76, 17);
             this.chkEgz.TabIndex = 10;
@@ -182,9 +182,9 @@
             "Nacionalni",
             "Regionalni",
             "Internacionalni"});
-            this.chkTipT.Location = new System.Drawing.Point(665, 151);
+            this.chkTipT.Location = new System.Drawing.Point(659, 123);
             this.chkTipT.Name = "chkTipT";
-            this.chkTipT.Size = new System.Drawing.Size(102, 79);
+            this.chkTipT.Size = new System.Drawing.Size(102, 49);
             this.chkTipT.TabIndex = 11;
             // 
             // chkTipE
@@ -195,16 +195,16 @@
             this.chkTipE.Items.AddRange(new object[] {
             "Promotivni",
             "Humanitarni"});
-            this.chkTipE.Location = new System.Drawing.Point(781, 151);
+            this.chkTipE.Location = new System.Drawing.Point(775, 123);
             this.chkTipE.Name = "chkTipE";
-            this.chkTipE.Size = new System.Drawing.Size(95, 79);
+            this.chkTipE.Size = new System.Drawing.Size(95, 34);
             this.chkTipE.TabIndex = 12;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(273, 272);
+            this.btnDelete.Location = new System.Drawing.Point(273, 268);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(121, 24);
+            this.btnDelete.Size = new System.Drawing.Size(162, 28);
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Izbrisi podatak";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -212,9 +212,9 @@
             // 
             // btnDodajPartiju
             // 
-            this.btnDodajPartiju.Location = new System.Drawing.Point(273, 101);
+            this.btnDodajPartiju.Location = new System.Drawing.Point(273, 12);
             this.btnDodajPartiju.Name = "btnDodajPartiju";
-            this.btnDodajPartiju.Size = new System.Drawing.Size(169, 46);
+            this.btnDodajPartiju.Size = new System.Drawing.Size(182, 34);
             this.btnDodajPartiju.TabIndex = 14;
             this.btnDodajPartiju.Text = "Dodaj partiju u turnir(WIP)";
             this.btnDodajPartiju.UseVisualStyleBackColor = true;
@@ -222,17 +222,17 @@
             // 
             // btnDodajTurnir
             // 
-            this.btnDodajTurnir.Location = new System.Drawing.Point(676, 251);
+            this.btnDodajTurnir.Location = new System.Drawing.Point(659, 187);
             this.btnDodajTurnir.Name = "btnDodajTurnir";
-            this.btnDodajTurnir.Size = new System.Drawing.Size(135, 30);
+            this.btnDodajTurnir.Size = new System.Drawing.Size(137, 45);
             this.btnDodajTurnir.TabIndex = 15;
-            this.btnDodajTurnir.Text = "DodajTurnir";
+            this.btnDodajTurnir.Text = "DodajTurnir(Update se treba doda)";
             this.btnDodajTurnir.UseVisualStyleBackColor = true;
             this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
             // 
             // btnVezaOrgSpon
             // 
-            this.btnVezaOrgSpon.Location = new System.Drawing.Point(1023, 230);
+            this.btnVezaOrgSpon.Location = new System.Drawing.Point(1023, 105);
             this.btnVezaOrgSpon.Name = "btnVezaOrgSpon";
             this.btnVezaOrgSpon.Size = new System.Drawing.Size(154, 38);
             this.btnVezaOrgSpon.TabIndex = 18;
@@ -240,41 +240,32 @@
             this.btnVezaOrgSpon.UseVisualStyleBackColor = true;
             this.btnVezaOrgSpon.Click += new System.EventHandler(this.btnVezaOrgSpon_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1020, 103);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "MARE";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1184, 106);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "MARE";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1020, 205);
+            this.label3.Location = new System.Drawing.Point(1020, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 21;
             this.label3.Text = "MARE";
+            // 
+            // btnPromovisi
+            // 
+            this.btnPromovisi.Location = new System.Drawing.Point(269, 126);
+            this.btnPromovisi.Name = "btnPromovisi";
+            this.btnPromovisi.Size = new System.Drawing.Size(182, 34);
+            this.btnPromovisi.TabIndex = 22;
+            this.btnPromovisi.Text = "Promovisi u sudiju";
+            this.btnPromovisi.UseVisualStyleBackColor = true;
+            this.btnPromovisi.Click += new System.EventHandler(this.btnPromovisi_Click);
             // 
             // FormNova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1310, 692);
+            this.Controls.Add(this.btnPromovisi);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVezaOrgSpon);
             this.Controls.Add(this.btnDodajTurnir);
             this.Controls.Add(this.btnDodajPartiju);
@@ -320,8 +311,7 @@
         private System.Windows.Forms.Button btnDodajPartiju;
         private System.Windows.Forms.Button btnDodajTurnir;
         private System.Windows.Forms.Button btnVezaOrgSpon;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnPromovisi;
     }
 }
