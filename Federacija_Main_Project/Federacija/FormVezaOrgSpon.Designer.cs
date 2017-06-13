@@ -131,6 +131,7 @@
             this.btnPoveziOrganizatora.TabIndex = 23;
             this.btnPoveziOrganizatora.Text = "Povezi oznacenog organizatora";
             this.btnPoveziOrganizatora.UseVisualStyleBackColor = true;
+            this.btnPoveziOrganizatora.Click += new System.EventHandler(this.btnPoveziOrganizatora_Click);
             // 
             // btnPoveziSponzora
             // 
@@ -140,6 +141,7 @@
             this.btnPoveziSponzora.TabIndex = 24;
             this.btnPoveziSponzora.Text = "Povezi oznacenog sponzora";
             this.btnPoveziSponzora.UseVisualStyleBackColor = true;
+            this.btnPoveziSponzora.Click += new System.EventHandler(this.btnPoveziSponzora_Click);
             // 
             // label1
             // 

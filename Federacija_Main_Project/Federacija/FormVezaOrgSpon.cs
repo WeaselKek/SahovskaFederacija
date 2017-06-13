@@ -24,51 +24,7 @@ namespace Federacija
             InitializeComponent();
             Turn = t;
 
-            try
-            {
-                ISession s = DataLayer.GetSession();
-
-                IList<Organizator> listaOrganizatora = new List<Organizator>();
-                IList<Sponzor> listaSponzora = new List<Sponzor>();
-
-                //var query = from o in s.Query<Organizator>()
-                //            where o.OrganizujeTurnir.Select(x => x.OrganizujeTurnir.Id).Equals(t.Id)
-                //            select o;
-
-                //listaOrganizatora = listaOrganizatora.Concat(from o in s.Query<Organizator>()
-                //                                     where o == o.OrganizujeTurnir.Select(x => x.OrganizujeTurnir.Id == t.Id)
-                //                                     select o).ToList<Organizator>();
-
-                listaOrganizatora = listaOrganizatora.Concat(from o in s.Query<Organizator>()
-                                                             where o.OrganizujeTurnir.Any(x => x.OrganizujeTurnir.Id == t.Id)
-                                                             select o).ToList<Organizator>();
-
-                listaSponzora = listaSponzora.Concat(from o in s.Query<Sponzor>()
-                                                     where o.SponzoriseTurnir.Any(x => x.SponzoriseTurnir.Id == t.Id)
-                                                     select o).ToList<Sponzor>();
-
-                SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
-                SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
-
-                s.Close();
-
-                dgvPostojeciOrganizatori.DataSource = prva;
-                dgvPostojeciSponzori.DataSource = druga;
-
-                dgvPostojeciOrganizatori.Columns["OrganizujeTurnir"].Visible = false;
-                dgvPostojeciOrganizatori.Columns["SudijaId"].Visible = false;
-                dgvPostojeciOrganizatori.Columns["Broj"].Visible = false;
-                dgvPostojeciOrganizatori.Columns["MatBr"].Visible = false;
-
-                dgvPostojeciSponzori.Columns["SponzoriseTurnir"].Visible = false;
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
-                this.Close();
-            }
-
-
+            OsveziPostojeceGridove();
         }
 
         public IList<Organizuje> ListaOrg
@@ -162,6 +118,111 @@ namespace Federacija
             {
                 MessageBox.Show(ec.Message);
                 return;
+            }
+        }
+
+        private void btnPoveziOrganizatora_Click(object sender, EventArgs e)
+        {
+            if (!(dgvSviOrganizatori.DataSource is SortableBindingList<Organizator>) || dgvSviOrganizatori.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Niste selektovali organizatora");
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Organizator o = dgvSviOrganizatori.CurrentRow.DataBoundItem as Organizator;
+
+                Organizuje org = new Organizuje();
+                org.OrganizujeOrganizator = o;
+                org.OrganizujeTurnir = Turn;
+
+                if (org.OrganizujeOrganizator != o || org.OrganizujeTurnir != Turn)
+                    s.Save(org);
+                s.Flush();
+
+                OsveziPostojeceGridove();
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                return;
+            }
+        }
+
+        private void btnPoveziSponzora_Click(object sender, EventArgs e)
+        {
+            if (!(dgvSviSponzori.DataSource is SortableBindingList<Sponzor>) || dgvSviSponzori.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Niste selektovali organizatora");
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Sponzor sp = dgvSviSponzori.CurrentRow.DataBoundItem as Sponzor;
+
+                Sponzorise spon = new Sponzorise();
+                spon.SponzoriseSponzor = sp;
+                spon.SponzoriseTurnir = Turn;
+
+                if (spon.SponzoriseTurnir != Turn || spon.SponzoriseSponzor != sp)
+                    s.Save(spon);
+                s.Flush();
+
+                OsveziPostojeceGridove();
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                return;
+            }
+        }
+
+        private void OsveziPostojeceGridove()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                IList<Organizator> listaOrganizatora = new List<Organizator>();
+                IList<Sponzor> listaSponzora = new List<Sponzor>();
+
+                listaOrganizatora = listaOrganizatora.Concat(from o in s.Query<Organizator>()
+                                                             where o.OrganizujeTurnir.Any(x => x.OrganizujeTurnir.Id == Turn.Id)
+                                                             select o).ToList<Organizator>();
+
+                listaSponzora = listaSponzora.Concat(from o in s.Query<Sponzor>()
+                                                     where o.SponzoriseTurnir.Any(x => x.SponzoriseTurnir.Id == Turn.Id)
+                                                     select o).ToList<Sponzor>();
+
+                SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
+                SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
+
+                s.Close();
+
+                dgvPostojeciOrganizatori.DataSource = prva;
+                dgvPostojeciSponzori.DataSource = druga;
+
+                dgvPostojeciOrganizatori.Columns["OrganizujeTurnir"].Visible = false;
+                dgvPostojeciOrganizatori.Columns["SudijaId"].Visible = false;
+                dgvPostojeciOrganizatori.Columns["Broj"].Visible = false;
+                dgvPostojeciOrganizatori.Columns["MatBr"].Visible = false;
+
+                dgvPostojeciSponzori.Columns["SponzoriseTurnir"].Visible = false;
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                this.Close();
             }
         }
     }
