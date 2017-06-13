@@ -143,6 +143,9 @@
     <EmbeddedResource Include="FormDodajSah.resx">
       <DependentUpon>FormDodajSah.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormDodajSpon.resx">
+      <DependentUpon>FormDodajSpon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDodajTurnir.resx">
       <DependentUpon>FormDodajTurnir.cs</DependentUpon>
     </EmbeddedResource>

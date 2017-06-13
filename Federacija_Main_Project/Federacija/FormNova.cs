@@ -444,8 +444,7 @@ namespace Federacija
                 MessageBox.Show("Niste selektovali turnir");
                 return;
             }
-            FormVezaOrgSpon f = new FormVezaOrgSpon();
-            f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
+            FormVezaOrgSpon f = new FormVezaOrgSpon(dgv1.CurrentRow.DataBoundItem as Turnir);
             f.ShowDialog();
 
         }

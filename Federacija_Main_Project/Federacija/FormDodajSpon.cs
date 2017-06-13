@@ -27,5 +27,42 @@ namespace Federacija
             InitializeComponent();
             this.CaleForma = c;
         }
+
+        private void btnPotvrdi_Click(object sender, EventArgs e)
+        {
+            if (txbIme.Text == "")
+            {
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Sponzor sp = new Sponzor();
+                sp.Naziv = txbIme.Text;
+
+                s.Save(sp);
+                s.Flush();
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                return;
+            }
+
+            MessageBox.Show("Uspesno dodat sponzor");
+        }
+
+        private void btnZatvori_Click(object sender, EventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (r == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
     }
 }
