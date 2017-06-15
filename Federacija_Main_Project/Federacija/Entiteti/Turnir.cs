@@ -29,6 +29,10 @@ namespace Federacija.Entiteti
             OrganizujeOrganizator = new List<Organizuje>();
             SponzoriseSponzor = new List<Sponzorise>();
         }
+        public override string ToString()
+        {
+            return Naziv;
+        }
     }
 
     public class TurnirTakmicarskiNacionalni : Turnir

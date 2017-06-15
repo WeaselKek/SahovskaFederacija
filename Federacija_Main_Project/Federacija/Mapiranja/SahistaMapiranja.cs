@@ -22,7 +22,7 @@ namespace Federacija.Mapiranja
             Map(x => x.Broj, "BROJ").Nullable();
             Map(x => x.Grad, "GRAD").Nullable();
 
-            HasMany(x => x.Partije).KeyColumn("CRNI_IGRAC").KeyColumn("BELI_IGRAC").Cascade.All().Inverse();
+            //HasMany(x => x.Partije).KeyColumn("BELI_IGRAC").KeyColumn("CRNI_IGRAC").Cascade.All().Inverse();
             //HasMany(x => x.Partije).KeyColumn("BELI_IGRAC").Cascade.All().Inverse();
             //HasMany(x => x.Partije).KeyColumn("CRNI_IGRAC").Cascade.All().Inverse();
         }

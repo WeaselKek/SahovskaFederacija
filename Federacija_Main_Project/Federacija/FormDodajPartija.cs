@@ -113,7 +113,7 @@ namespace Federacija
                         dgvSudija.Rows[i].Cells["ime"].Value = m.Ime;
                         dgvSudija.Rows[i].Cells["prezime"].Value = m.Prezime;
                     }
-                    else
+                    else if(value.FlagOrganizator==1)
                     {
                         or = (from o in s.Query<Organizator>()
                               where (o.SudijaId == value)

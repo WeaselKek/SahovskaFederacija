@@ -5,7 +5,6 @@ using NHibernate;
 using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,7 +28,6 @@ namespace Federacija
                 chkTipT.SetItemChecked(i, true);
             }
             chkTipT.SetItemChecked(2, true);
-            
         }
 
         private void showSahista_Click(object sender, EventArgs e)
@@ -68,7 +66,7 @@ namespace Federacija
                 dgv1.Columns["Ulica"].Visible = false;
                 dgv1.Columns["Broj"].Visible = false;
                 dgv1.Columns["Grad"].Visible = false;
-                dgv1.Columns["Partije"].Visible = false;
+                //dgv1.Columns["Partije"].Visible = false;
 
                 dgv1.Columns["DatRodj"].HeaderText = "Datum Rodjenja";
                 dgv1.Columns["DatUclanjenja"].HeaderText = "Datum Uclanjenja";
@@ -105,7 +103,6 @@ namespace Federacija
                 s.Close();
 
                 dgv1.DataSource = a;
-
 
                 dgv1.Columns["OrganizujeTurnir"].Visible = false;
                 dgv1.Columns["SudijaId"].Visible = false;
@@ -269,6 +266,15 @@ namespace Federacija
                 {
                     var id = ((Sahista)dgv1.CurrentRow.DataBoundItem).RegBr;
                     Sahista p = s.Load<Sahista>(id);
+                    if (p is Majstor)
+                    {
+                        Majstor m = p as Majstor;
+                        if (m.SudijaId != null)
+                        {
+                            Sudija sud = s.Load<Sudija>(m.SudijaId.Id);
+                            s.Delete(sud);
+                        }
+                    }
                     s.Delete(p);
                     s.Flush();
                     s.Close();
@@ -289,6 +295,11 @@ namespace Federacija
                 {
                     var id = ((Organizator)dgv1.CurrentRow.DataBoundItem).MatBr;
                     Organizator p = s.Load<Organizator>(id);
+                    if (p.SudijaId != null)
+                    {
+                        Sudija sud = s.Load<Sudija>(p.SudijaId.Id);
+                        s.Delete(sud);
+                    }
                     s.Delete(p);
                     s.Flush();
                     s.Close();
@@ -355,90 +366,8 @@ namespace Federacija
             }
         }
 
-        private void btnDodajPartiju_Click(object sender, EventArgs e)
-        {
-            if (!Provera.chkIfSelected(dgv1))
-                return;
-
-            if (!(dgv1.CurrentRow.DataBoundItem is Turnir))
-            {
-                MessageBox.Show("Niste selektovali turnir");
-                return;
-            }
-            FormDodajPartija f = new FormDodajPartija();
-            f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
-            f.ShowDialog();
-        }
-
-        private void btnDodajTurnir_Click(object sender, EventArgs e)
-        {
-            FormDodajTurnir f = new FormDodajTurnir();
-            f.ShowDialog();
-            showTurnir_Click(sender, e);
-        }
-
-        private void btnDodajSahistu_Click(object sender, EventArgs e)
-        {
-            FormDodajSah f = new FormDodajSah();
-            f.ShowDialog();
-            showSahista_Click(sender, e);
-        }
-
-        private void btnPromovisi_Click(object sender, EventArgs e)
-        {
-            if (!Provera.chkIfSelected(dgv1))
-                return;
-            try
-            {
-                if (dgv1.SelectedRows[0].DataBoundItem is Majstor)
-                {
-                    var m = dgv1.CurrentRow.DataBoundItem as Majstor;
-                    ISession s = DataLayer.GetSession();
-                    Majstor u = s.Load<Majstor>(m.RegBr);
-                    Sudija sud = new Sudija();
-                    sud.FlagMajstor = 1;
-                    sud.FlagOrganizator = 0;
-
-                    u.SudijaId = sud;
-                    s.SaveOrUpdate(sud);
-
-                    s.Flush();
-                    s.Close();
-
-                    MessageBox.Show("Uspeno promovisan majstor u sudiju");
-                }
-                else if (dgv1.SelectedRows[0].DataBoundItem is Organizator)
-                {
-                    var m = dgv1.SelectedRows[0].DataBoundItem as Organizator;
-
-                    ISession s = DataLayer.GetSession();
-                    Organizator u = s.Load<Organizator>(m.MatBr);
-                    Sudija sud = new Sudija();
-                    sud.FlagMajstor = 0;
-                    sud.FlagOrganizator = 1;
-
-                    u.SudijaId = sud;
-                    s.SaveOrUpdate(sud);
-
-                    s.Flush();
-                    s.Close();
-
-                    MessageBox.Show("Uspeno promovisan organizator u sudiju");
-                }
-                else
-                {
-                    MessageBox.Show("Nije selektovan odgovarajuci podatak");
-                }
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
-            }
-        }
-
         private void btnVezaOrgSpon_Click(object sender, EventArgs e)
         {
-
             if (!Provera.chkIfSelected(dgv1))
                 return;
 
@@ -483,5 +412,237 @@ namespace Federacija
                 SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
         }
 
+        private void sahistaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormDodajSah f = new FormDodajSah();
+            f.ShowDialog();
+            showSahista_Click(sender, e);
+        }
+
+        private void turnirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormDodajTurnir f = new FormDodajTurnir();
+            f.ShowDialog();
+            showTurnir_Click(sender, e);
+        }
+
+        private void promovisiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+            try
+            {
+                if (dgv1.CurrentRow.DataBoundItem is Majstor)
+                {
+                    var m = dgv1.CurrentRow.DataBoundItem as Majstor;
+                    ISession s = DataLayer.GetSession();
+                    Majstor u = s.Load<Majstor>(m.RegBr);
+                    if (u.SudijaId == null)
+                    {
+                        Sudija sud = new Sudija();
+                        sud.FlagMajstor = 1;
+                        sud.FlagOrganizator = 0;
+
+                        u.SudijaId = sud;
+                        s.SaveOrUpdate(sud);
+
+                        s.Flush();
+                        s.Close();
+                        MessageBox.Show("Uspeno promovisan majstor u sudiju");
+                    }
+                    else if (u.SudijaId.FlagMajstor == 0)
+                    {
+                        //Sudija sud = s.Load<Sudija>(u.SudijaId.Id);
+                        u.SudijaId.FlagMajstor = 1;
+
+                        s.SaveOrUpdate(u);
+                        s.Flush();
+                        s.Close();
+                        MessageBox.Show("Uspeno promovisan majstor u sudiju");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Majstor je vec sudija");
+                        s.Close();
+                    }
+                }
+                else if (dgv1.CurrentRow.DataBoundItem is Organizator)
+                {
+                    var m = dgv1.CurrentRow.DataBoundItem as Organizator;
+                    ISession s = DataLayer.GetSession();
+                    Organizator u = s.Load<Organizator>(m.MatBr);
+                    if (u.SudijaId == null)
+                    {
+                        Sudija sud = new Sudija();
+                        sud.FlagMajstor = 0;
+                        sud.FlagOrganizator = 1;
+
+                        u.SudijaId = sud;
+                        s.SaveOrUpdate(sud);
+
+                        s.Flush();
+                        s.Close();
+                        MessageBox.Show("Uspeno promovisan organizator u sudiju");
+                    }
+                    else if (u.SudijaId.FlagOrganizator == 0)
+                    {
+                        //Sudija sud = s.Load<Sudija>(u.SudijaId.Id);
+                        u.SudijaId.FlagOrganizator = 1;
+
+                        s.SaveOrUpdate(u);
+                        s.Flush();
+                        s.Close();
+                        MessageBox.Show("Uspeno promovisan organizator u sudiju");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Organizator je vec sudija");
+                        s.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nije selektovan odgovarajuci podatak");
+                }
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+        }
+
+        private void otpustiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+            try
+            {
+                if (dgv1.CurrentRow.DataBoundItem is Majstor)
+                {
+                    var m = dgv1.CurrentRow.DataBoundItem as Majstor;
+                    if (m.SudijaId != null)
+                    {
+                        ISession s = DataLayer.GetSession();
+                        Sudija sud = s.Load<Sudija>(m.SudijaId.Id);
+                        sud.FlagMajstor = 0;
+
+                        s.SaveOrUpdate(sud);
+                        s.Flush();
+                        s.Close();
+
+                        MessageBox.Show("Uspesno otpusten sudija");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Izabrani majstor nije sudija");
+                    }
+                }
+                else if (dgv1.CurrentRow.DataBoundItem is Organizator)
+                {
+                    var m = dgv1.CurrentRow.DataBoundItem as Organizator;
+                    if (m.SudijaId != null)
+                    {
+                        ISession s = DataLayer.GetSession();
+                        Sudija sud = s.Load<Sudija>(m.SudijaId.Id);
+                        sud.FlagOrganizator = 0;
+
+
+                        s.SaveOrUpdate(sud);
+
+                        s.Flush();
+                        s.Close();
+
+                        MessageBox.Show("Uspesno otpusten sudija");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Izabrani organizator nije sudija");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nije selektovan odgovarajuci podatak");
+                }
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+        }
+
+        private void prikaziPartijeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+            try
+            {
+                if (dgv1.CurrentRow.DataBoundItem is Sahista)
+                {
+                    ISession s = DataLayer.GetSession();
+                    Sahista sah = dgv1.CurrentRow.DataBoundItem as Sahista;
+
+                    IList<Partija> lsp = (from o in s.Query<Partija>()
+                                          where (o.BeliIgrac == sah || o.CrniIgrac == sah)
+                                          select o).ToList<Partija>();
+
+                    SortableBindingList<Partija> a = new SortableBindingList<Partija>(lsp);
+
+                    dgv1.Columns.Clear();
+                    dgv1.DataSource = a;
+
+                    dgv1.Columns["Potezi"].Visible = false;
+                    dgv1.Columns["Sudija"].Visible = false;
+
+                    dgv1.Update();
+                    dgv1.Refresh();
+
+                    s.Close();
+
+                }
+                else if (dgv1.CurrentRow.DataBoundItem is Turnir)
+                {
+                    ISession s = DataLayer.GetSession();
+                    Turnir trn = dgv1.CurrentRow.DataBoundItem as Turnir;
+ 
+                    IList<Partija> lsp = (from o in s.Query<Partija>()
+                                          where (o.Turnir == trn)
+                                          select o).ToList<Partija>();
+
+                    SortableBindingList<Partija> a = new SortableBindingList<Partija>(lsp);
+
+                    dgv1.Columns.Clear();
+                    dgv1.DataSource = a;
+
+                    dgv1.Columns["Potezi"].Visible = false;
+                    dgv1.Columns["Sudija"].Visible = false;
+                    dgv1.Columns["Turnir"].Visible = false;
+
+                    dgv1.Update();
+                    dgv1.Refresh();
+
+                    s.Close();
+                }
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+
+        }
+
+        private void dodajPartijuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+
+            if (!(dgv1.CurrentRow.DataBoundItem is Turnir))
+            {
+                MessageBox.Show("Niste selektovali turnir");
+                return;
+            }
+            FormDodajPartija f = new FormDodajPartija();
+            f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
+            f.ShowDialog();
+        }
     }
 }

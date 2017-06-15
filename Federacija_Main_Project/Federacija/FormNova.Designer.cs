@@ -31,7 +31,6 @@
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.showSahista = new System.Windows.Forms.Button();
             this.chkSah = new System.Windows.Forms.CheckedListBox();
-            this.btnDodajSahistu = new System.Windows.Forms.Button();
             this.btnIzmeni = new System.Windows.Forms.Button();
             this.showOrgan = new System.Windows.Forms.Button();
             this.showSpon = new System.Windows.Forms.Button();
@@ -42,12 +41,19 @@
             this.chkTipT = new System.Windows.Forms.CheckedListBox();
             this.chkTipE = new System.Windows.Forms.CheckedListBox();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnDodajPartiju = new System.Windows.Forms.Button();
-            this.btnDodajTurnir = new System.Windows.Forms.Button();
             this.btnVezaOrgSpon = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnPromovisi = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sahistaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.turnirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sudijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.promovisiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otpustiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prikaziPartijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dodajPartijuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv1
@@ -64,7 +70,7 @@
             // 
             // showSahista
             // 
-            this.showSahista.Location = new System.Drawing.Point(24, 12);
+            this.showSahista.Location = new System.Drawing.Point(24, 43);
             this.showSahista.Name = "showSahista";
             this.showSahista.Size = new System.Drawing.Size(182, 34);
             this.showSahista.TabIndex = 1;
@@ -82,24 +88,14 @@
             "Majstor",
             "Majstorski kandidat",
             "Obican clan"});
-            this.chkSah.Location = new System.Drawing.Point(24, 52);
+            this.chkSah.Location = new System.Drawing.Point(24, 91);
             this.chkSah.Name = "chkSah";
             this.chkSah.Size = new System.Drawing.Size(162, 67);
             this.chkSah.TabIndex = 2;
             // 
-            // btnDodajSahistu
-            // 
-            this.btnDodajSahistu.Location = new System.Drawing.Point(24, 125);
-            this.btnDodajSahistu.Name = "btnDodajSahistu";
-            this.btnDodajSahistu.Size = new System.Drawing.Size(182, 34);
-            this.btnDodajSahistu.TabIndex = 3;
-            this.btnDodajSahistu.Text = "Dodaj Novog Sahistu";
-            this.btnDodajSahistu.UseVisualStyleBackColor = true;
-            this.btnDodajSahistu.Click += new System.EventHandler(this.btnDodajSahistu_Click);
-            // 
             // btnIzmeni
             // 
-            this.btnIzmeni.Location = new System.Drawing.Point(24, 268);
+            this.btnIzmeni.Location = new System.Drawing.Point(383, 268);
             this.btnIzmeni.Name = "btnIzmeni";
             this.btnIzmeni.Size = new System.Drawing.Size(162, 28);
             this.btnIzmeni.TabIndex = 4;
@@ -109,9 +105,9 @@
             // 
             // showOrgan
             // 
-            this.showOrgan.Location = new System.Drawing.Point(1003, 7);
+            this.showOrgan.Location = new System.Drawing.Point(945, 43);
             this.showOrgan.Name = "showOrgan";
-            this.showOrgan.Size = new System.Drawing.Size(111, 31);
+            this.showOrgan.Size = new System.Drawing.Size(120, 34);
             this.showOrgan.TabIndex = 5;
             this.showOrgan.Text = "Prikazi organizatore";
             this.showOrgan.UseVisualStyleBackColor = true;
@@ -119,9 +115,9 @@
             // 
             // showSpon
             // 
-            this.showSpon.Location = new System.Drawing.Point(1133, 6);
+            this.showSpon.Location = new System.Drawing.Point(1081, 43);
             this.showSpon.Name = "showSpon";
-            this.showSpon.Size = new System.Drawing.Size(111, 31);
+            this.showSpon.Size = new System.Drawing.Size(120, 34);
             this.showSpon.TabIndex = 6;
             this.showSpon.Text = "Prikazi sponzore";
             this.showSpon.UseVisualStyleBackColor = true;
@@ -129,7 +125,7 @@
             // 
             // showTurnir
             // 
-            this.showTurnir.Location = new System.Drawing.Point(659, 4);
+            this.showTurnir.Location = new System.Drawing.Point(660, 43);
             this.showTurnir.Name = "showTurnir";
             this.showTurnir.Size = new System.Drawing.Size(182, 34);
             this.showTurnir.TabIndex = 7;
@@ -145,7 +141,7 @@
             this.chkNacin.Items.AddRange(new object[] {
             "Normalan",
             "Brzopotezni"});
-            this.chkNacin.Location = new System.Drawing.Point(659, 49);
+            this.chkNacin.Location = new System.Drawing.Point(660, 88);
             this.chkNacin.Name = "chkNacin";
             this.chkNacin.Size = new System.Drawing.Size(102, 34);
             this.chkNacin.TabIndex = 8;
@@ -154,7 +150,7 @@
             // 
             this.chkTak.AutoSize = true;
             this.chkTak.BackColor = System.Drawing.SystemColors.Menu;
-            this.chkTak.Location = new System.Drawing.Point(659, 89);
+            this.chkTak.Location = new System.Drawing.Point(660, 128);
             this.chkTak.Name = "chkTak";
             this.chkTak.Size = new System.Drawing.Size(83, 17);
             this.chkTak.TabIndex = 9;
@@ -166,7 +162,7 @@
             // 
             this.chkEgz.AutoSize = true;
             this.chkEgz.BackColor = System.Drawing.SystemColors.Menu;
-            this.chkEgz.Location = new System.Drawing.Point(779, 89);
+            this.chkEgz.Location = new System.Drawing.Point(780, 128);
             this.chkEgz.Name = "chkEgz";
             this.chkEgz.Size = new System.Drawing.Size(76, 17);
             this.chkEgz.TabIndex = 10;
@@ -183,7 +179,7 @@
             "Nacionalni",
             "Regionalni",
             "Internacionalni"});
-            this.chkTipT.Location = new System.Drawing.Point(659, 123);
+            this.chkTipT.Location = new System.Drawing.Point(660, 162);
             this.chkTipT.Name = "chkTipT";
             this.chkTipT.Size = new System.Drawing.Size(102, 49);
             this.chkTipT.TabIndex = 11;
@@ -196,14 +192,14 @@
             this.chkTipE.Items.AddRange(new object[] {
             "Promotivni",
             "Humanitarni"});
-            this.chkTipE.Location = new System.Drawing.Point(775, 123);
+            this.chkTipE.Location = new System.Drawing.Point(776, 162);
             this.chkTipE.Name = "chkTipE";
             this.chkTipE.Size = new System.Drawing.Size(95, 34);
             this.chkTipE.TabIndex = 12;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(273, 268);
+            this.btnDelete.Location = new System.Drawing.Point(735, 268);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(162, 28);
             this.btnDelete.TabIndex = 13;
@@ -211,54 +207,96 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // btnDodajPartiju
-            // 
-            this.btnDodajPartiju.Location = new System.Drawing.Point(273, 12);
-            this.btnDodajPartiju.Name = "btnDodajPartiju";
-            this.btnDodajPartiju.Size = new System.Drawing.Size(182, 34);
-            this.btnDodajPartiju.TabIndex = 14;
-            this.btnDodajPartiju.Text = "Dodaj partiju u turnir(WIP)";
-            this.btnDodajPartiju.UseVisualStyleBackColor = true;
-            this.btnDodajPartiju.Click += new System.EventHandler(this.btnDodajPartiju_Click);
-            // 
-            // btnDodajTurnir
-            // 
-            this.btnDodajTurnir.Location = new System.Drawing.Point(659, 187);
-            this.btnDodajTurnir.Name = "btnDodajTurnir";
-            this.btnDodajTurnir.Size = new System.Drawing.Size(137, 45);
-            this.btnDodajTurnir.TabIndex = 15;
-            this.btnDodajTurnir.Text = "DodajTurnir(Update se treba doda)";
-            this.btnDodajTurnir.UseVisualStyleBackColor = true;
-            this.btnDodajTurnir.Click += new System.EventHandler(this.btnDodajTurnir_Click);
-            // 
             // btnVezaOrgSpon
             // 
-            this.btnVezaOrgSpon.Location = new System.Drawing.Point(1023, 105);
+            this.btnVezaOrgSpon.Location = new System.Drawing.Point(945, 91);
             this.btnVezaOrgSpon.Name = "btnVezaOrgSpon";
-            this.btnVezaOrgSpon.Size = new System.Drawing.Size(154, 38);
+            this.btnVezaOrgSpon.Size = new System.Drawing.Size(256, 38);
             this.btnVezaOrgSpon.TabIndex = 18;
-            this.btnVezaOrgSpon.Text = "Menadzuj Organizatore i Sponzore u turnir";
+            this.btnVezaOrgSpon.Text = "Rukovodi organizatore i sponzore";
             this.btnVezaOrgSpon.UseVisualStyleBackColor = true;
             this.btnVezaOrgSpon.Click += new System.EventHandler(this.btnVezaOrgSpon_Click);
             // 
-            // label3
+            // menuStrip1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1020, 80);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "MARE";
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajToolStripMenuItem,
+            this.sudijaToolStripMenuItem,
+            this.partijaToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1310, 24);
+            this.menuStrip1.TabIndex = 23;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // btnPromovisi
+            // dodajToolStripMenuItem
             // 
-            this.btnPromovisi.Location = new System.Drawing.Point(269, 126);
-            this.btnPromovisi.Name = "btnPromovisi";
-            this.btnPromovisi.Size = new System.Drawing.Size(182, 34);
-            this.btnPromovisi.TabIndex = 22;
-            this.btnPromovisi.Text = "Promovisi u sudiju";
-            this.btnPromovisi.UseVisualStyleBackColor = true;
-            this.btnPromovisi.Click += new System.EventHandler(this.btnPromovisi_Click);
+            this.dodajToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sahistaToolStripMenuItem,
+            this.turnirToolStripMenuItem});
+            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
+            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.dodajToolStripMenuItem.Text = "Dodaj";
+            // 
+            // sahistaToolStripMenuItem
+            // 
+            this.sahistaToolStripMenuItem.Name = "sahistaToolStripMenuItem";
+            this.sahistaToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.sahistaToolStripMenuItem.Text = "Sahista";
+            this.sahistaToolStripMenuItem.Click += new System.EventHandler(this.sahistaToolStripMenuItem_Click);
+            // 
+            // turnirToolStripMenuItem
+            // 
+            this.turnirToolStripMenuItem.Name = "turnirToolStripMenuItem";
+            this.turnirToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.turnirToolStripMenuItem.Text = "Turnir";
+            this.turnirToolStripMenuItem.Click += new System.EventHandler(this.turnirToolStripMenuItem_Click);
+            // 
+            // sudijaToolStripMenuItem
+            // 
+            this.sudijaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.promovisiToolStripMenuItem,
+            this.otpustiToolStripMenuItem});
+            this.sudijaToolStripMenuItem.Name = "sudijaToolStripMenuItem";
+            this.sudijaToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.sudijaToolStripMenuItem.Text = "Sudija";
+            // 
+            // promovisiToolStripMenuItem
+            // 
+            this.promovisiToolStripMenuItem.Name = "promovisiToolStripMenuItem";
+            this.promovisiToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.promovisiToolStripMenuItem.Text = "Promovisi";
+            this.promovisiToolStripMenuItem.Click += new System.EventHandler(this.promovisiToolStripMenuItem_Click);
+            // 
+            // otpustiToolStripMenuItem
+            // 
+            this.otpustiToolStripMenuItem.Name = "otpustiToolStripMenuItem";
+            this.otpustiToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.otpustiToolStripMenuItem.Text = "Otpusti";
+            this.otpustiToolStripMenuItem.Click += new System.EventHandler(this.otpustiToolStripMenuItem_Click);
+            // 
+            // partijaToolStripMenuItem
+            // 
+            this.partijaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prikaziPartijeToolStripMenuItem,
+            this.dodajPartijuToolStripMenuItem});
+            this.partijaToolStripMenuItem.Name = "partijaToolStripMenuItem";
+            this.partijaToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.partijaToolStripMenuItem.Text = "Partija";
+            // 
+            // prikaziPartijeToolStripMenuItem
+            // 
+            this.prikaziPartijeToolStripMenuItem.Name = "prikaziPartijeToolStripMenuItem";
+            this.prikaziPartijeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.prikaziPartijeToolStripMenuItem.Text = "Prikazi partije";
+            this.prikaziPartijeToolStripMenuItem.Click += new System.EventHandler(this.prikaziPartijeToolStripMenuItem_Click);
+            // 
+            // dodajPartijuToolStripMenuItem
+            // 
+            this.dodajPartijuToolStripMenuItem.Name = "dodajPartijuToolStripMenuItem";
+            this.dodajPartijuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dodajPartijuToolStripMenuItem.Text = "Dodaj partiju";
+            this.dodajPartijuToolStripMenuItem.Click += new System.EventHandler(this.dodajPartijuToolStripMenuItem_Click);
             // 
             // FormNova
             // 
@@ -266,11 +304,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1310, 692);
-            this.Controls.Add(this.btnPromovisi);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnVezaOrgSpon);
-            this.Controls.Add(this.btnDodajTurnir);
-            this.Controls.Add(this.btnDodajPartiju);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.chkTipE);
             this.Controls.Add(this.chkTipT);
@@ -281,14 +315,17 @@
             this.Controls.Add(this.showSpon);
             this.Controls.Add(this.showOrgan);
             this.Controls.Add(this.btnIzmeni);
-            this.Controls.Add(this.btnDodajSahistu);
             this.Controls.Add(this.chkSah);
             this.Controls.Add(this.showSahista);
             this.Controls.Add(this.dgv1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormNova";
             this.Text = "Šahovska Federacija";
             this.Load += new System.EventHandler(this.FormNova_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,7 +336,6 @@
         private System.Windows.Forms.DataGridView dgv1;
         private System.Windows.Forms.Button showSahista;
         private System.Windows.Forms.CheckedListBox chkSah;
-        private System.Windows.Forms.Button btnDodajSahistu;
         private System.Windows.Forms.Button btnIzmeni;
         private System.Windows.Forms.Button showOrgan;
         private System.Windows.Forms.Button showSpon;
@@ -310,10 +346,16 @@
         private System.Windows.Forms.CheckedListBox chkTipT;
         private System.Windows.Forms.CheckedListBox chkTipE;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnDodajPartiju;
-        private System.Windows.Forms.Button btnDodajTurnir;
         private System.Windows.Forms.Button btnVezaOrgSpon;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnPromovisi;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dodajToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sahistaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem turnirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sudijaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem promovisiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otpustiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partijaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prikaziPartijeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dodajPartijuToolStripMenuItem;
     }
 }

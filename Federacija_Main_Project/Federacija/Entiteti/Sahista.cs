@@ -15,11 +15,15 @@ namespace Federacija.Entiteti
         public virtual string Ulica { get; set; }
         public virtual int Broj { get; set; }
         public virtual string Grad { get; set; }
-        public virtual IList<Partija> Partije { get; set; }
+        //public virtual IList<Partija> Partije { get; set; }
 
         public Sahista()
         {
-            Partije = new List<Partija>();
+            //Partije = new List<Partija>();
+        }
+        public override string ToString()
+        {
+            return Prezime;
         }
     }
         public class ObicanClan : Sahista
