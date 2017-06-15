@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Federacija.BindList;
+using Federacija.Entiteti;
+using Federacija.Functions;
 using NHibernate;
 using NHibernate.Linq;
-using Federacija.Entiteti;
-using Federacija.Mapiranja;
-using Federacija.BindList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Federacija
 {
     public partial class FormDodajPartija : Form
     {
-        bool updaterino = false;
-        bool closenow = false;
+        private bool updaterino = false;
+        private bool closenow = false;
+
         public FormDodajPartija()
         {
             InitializeComponent();
@@ -29,26 +25,25 @@ namespace Federacija
             set;
             get;
         }
+
         public Partija UpdateItem
         {
             get;
             set;
         }
-        Sahista Beli;
-        Sahista Crni;
-        IList<Potez> Ptz;
-        Sudija Sudac;
+
+        private Sahista Beli;
+        private Sahista Crni;
+        private IList<Potez> Ptz;
+        private Sudija Sudac;
+
         private void FormDodajPartija_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (closenow)
             {
                 return;
             }
-            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
+            Provera.Zatvaranje(e);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -63,7 +58,6 @@ namespace Federacija
             label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
             lblRbr.Text = (Ptz.Count() + 1).ToString();
             ucitajDGV();
-
         }
 
         private void ucitajDGV()
@@ -76,30 +70,22 @@ namespace Federacija
                 int i = 0;
                 Organizator or;
                 Majstor m;
-                IList<Sudija> sud = new List<Sudija>();
 
+                IList<Sudija> sud = new List<Sudija>();
                 sud = (from o in s.Query<Sudija>()
                        select o).ToList<Sudija>();
 
-
                 SortableBindingList<Sudija> a1 = new SortableBindingList<Sudija>(sud);
-
+                dgvSudija.DataSource = a1;
 
                 IList<Sahista> shl = new List<Sahista>();
-
                 shl = (from o in s.Query<Sahista>()
                        select o).ToList<Sahista>();
 
-
                 SortableBindingList<Sahista> a2 = new SortableBindingList<Sahista>(shl);
-
-                //s.Close();
-
-                dgvSudija.DataSource=a1;
                 dgvSahista.DataSource = a2;
 
                 //dgvSahista kod
-                dgvSahista.AllowUserToAddRows = false;
                 foreach (DataGridViewColumn v in dgvSahista.Columns)
                 {
                     v.Visible = false;
@@ -109,15 +95,13 @@ namespace Federacija
                 dgvSahista.Columns["Drzava"].Visible = true;
 
                 //dgvSudija kod
-                dgvSudija.AllowUserToAddRows = false;
                 dgvSudija.Columns["Id"].Visible = false;
                 dgvSudija.Columns["FlagMajstor"].Visible = false;
                 dgvSudija.Columns["FlagOrganizator"].Visible = false;
-                dgvSudija.Columns.Add("tip","Tip");
+                dgvSudija.Columns.Add("tip", "Tip");
                 dgvSudija.Columns.Add("ime", "Ime");
                 dgvSudija.Columns.Add("prezime", "Prezime");
-              
-               
+
                 foreach (Sudija value in a1)
                 {
                     if (value.FlagMajstor == 1)
@@ -157,11 +141,7 @@ namespace Federacija
             p.KrajnjePolje = txtKraj.Text;
             p.Vreme = txtVreme.Text;
             Ptz.Add(p);
-            lstPotez.Items.Add(p);
-
-            //ciscenje textboxa i inkrement labele
-            txtPoc.Text = txtKraj.Text = txtVreme.Text = string.Empty;
-            lblRbr.Text = (Ptz.Count() + 1).ToString();
+            refreshLBX();
         }
 
         private void btnIzmeniPotez_Click(object sender, EventArgs e)
@@ -173,14 +153,7 @@ namespace Federacija
             p.KrajnjePolje = txtKraj.Text;
             p.Vreme = txtVreme.Text;
 
-            //refresh listboxa
-            lstPotez.Items.Clear();
-            lstPotez.Items.AddRange(Ptz.ToArray());
-
-            //ciscenje textboxa
-            txtPoc.Text = txtKraj.Text = txtVreme.Text = string.Empty;
-
-
+            refreshLBX();
         }
 
         private void lstPotez_SelectedIndexChanged(object sender, EventArgs e)
@@ -197,48 +170,43 @@ namespace Federacija
             Potez p = (Potez)lstPotez.Items[lstPotez.Items.Count - 1];
             Ptz.Remove(p);
 
-            //refresh listboxa
+            refreshLBX();
+        }
+
+        private void refreshLBX()
+        {
             lstPotez.Items.Clear();
             lstPotez.Items.AddRange(Ptz.ToArray());
-
-            //inkrement labele
+            txtPoc.Text = txtKraj.Text = txtVreme.Text = string.Empty;
             lblRbr.Text = (Ptz.Count() + 1).ToString();
         }
 
         private void btnBeli_Click(object sender, EventArgs e)
         {
-            
-            if (dgvSahista.SelectedRows.Count == 0)
+            if (!Provera.chkIfSelected(dgvSahista))
+                return;
+
+            Sahista item = dgvSahista.CurrentRow.DataBoundItem as Sahista;
+            if (item == Crni)
             {
-                MessageBox.Show("Selektujte Sahistu");
+                MessageBox.Show("Sahista ne moze igrati sa samim sobom");
                 return;
             }
-            Sahista item = dgvSahista.SelectedRows[0].DataBoundItem as Sahista;
-            
-                if (item == Crni)
-                {
-                    MessageBox.Show("Sahista ne moze igrati sa samim sobom");
-                    return;
-                }
             Beli = item;
             lblBeli.Text = Beli.Ime + " " + Beli.Prezime;
         }
 
         private void btnCrni_Click(object sender, EventArgs e)
         {
-            
-            if (dgvSahista.SelectedRows.Count == 0)
+            if (!Provera.chkIfSelected(dgvSahista))
+                return;
+
+            Sahista item = dgvSahista.CurrentRow.DataBoundItem as Sahista;
+            if (item == Beli)
             {
-                MessageBox.Show("Selektujte Sahistu");
+                MessageBox.Show("Sahista ne moze igrati sa samim sobom");
                 return;
             }
-            Sahista item = dgvSahista.SelectedRows[0].DataBoundItem as Sahista;
-           
-                if (item == Beli)
-                {
-                    MessageBox.Show("Sahista ne moze igrati sa samim sobom");
-                    return;
-                }
             Crni = item;
             lblCrni.Text = Crni.Ime + " " + Crni.Prezime;
         }
@@ -260,15 +228,15 @@ namespace Federacija
                 int num;
                 p.Datum = dtpDat.Value;
                 p.Vreme = txtPartVreme.Text;
-                if(Int32.TryParse(txtPartTrajanje.Text,out num))
-                    p.Trajanje=num;
-                p.Ishod=grpIshod.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Text.ToUpper();
+                if (Int32.TryParse(txtPartTrajanje.Text, out num))
+                    p.Trajanje = num;
+                p.Ishod = grpIshod.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Text.ToUpper();
                 p.BeliIgrac = Beli;
                 p.CrniIgrac = Crni;
                 foreach (Potez pt in Ptz)
                 {
                     pt.Partija = p;
-                } 
+                }
                 p.Potezi = Ptz;
                 p.Turnir = Turn;
                 p.Sudija = Sudac;
@@ -293,14 +261,12 @@ namespace Federacija
 
         private void btnSudija_Click(object sender, EventArgs e)
         {
-            if (dgvSudija.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Selektujte Sudiju");
+            if (!Provera.chkIfSelected(dgvSudija))
                 return;
-            }
-            Sudija Item = dgvSudija.SelectedRows[0].DataBoundItem as Sudija;
-            lblSudija.Text = dgvSudija.SelectedRows[0].Cells["ime"].Value + "  " + dgvSudija.SelectedRows[0].Cells["prezime"].Value;
-            Sudac = Item;
+
+            Sudija item = dgvSudija.CurrentRow.DataBoundItem as Sudija;
+            lblSudija.Text = dgvSudija.CurrentRow.Cells["ime"].Value + "  " + dgvSudija.CurrentRow.Cells["prezime"].Value;
+            Sudac = item;
         }
     }
 }

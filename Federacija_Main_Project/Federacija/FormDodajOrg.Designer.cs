@@ -42,6 +42,7 @@
             this.txbMatBr = new System.Windows.Forms.TextBox();
             this.txbBroj = new System.Windows.Forms.TextBox();
             this.cbxSudija = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPotvrdi
@@ -166,11 +167,22 @@
             this.cbxSudija.Text = "Sudija";
             this.cbxSudija.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(23, 261);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(77, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Cancel";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormDodajOrg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 296);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.cbxSudija);
             this.Controls.Add(this.txbBroj);
             this.Controls.Add(this.txbMatBr);
@@ -187,6 +199,7 @@
             this.Controls.Add(this.btnPotvrdi);
             this.Name = "FormDodajOrg";
             this.Text = "FormDodajOrg";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajOrg_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +221,6 @@
         private System.Windows.Forms.TextBox txbMatBr;
         private System.Windows.Forms.TextBox txbBroj;
         private System.Windows.Forms.CheckBox cbxSudija;
+        private System.Windows.Forms.Button button1;
     }
 }

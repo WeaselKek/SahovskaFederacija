@@ -89,6 +89,8 @@
             // 
             // dgvPostojeciOrganizatori
             // 
+            this.dgvPostojeciOrganizatori.AllowUserToAddRows = false;
+            this.dgvPostojeciOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciOrganizatori.Location = new System.Drawing.Point(24, 56);
             this.dgvPostojeciOrganizatori.Name = "dgvPostojeciOrganizatori";
@@ -98,6 +100,8 @@
             // 
             // dgvPostojeciSponzori
             // 
+            this.dgvPostojeciSponzori.AllowUserToAddRows = false;
+            this.dgvPostojeciSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciSponzori.Location = new System.Drawing.Point(24, 259);
             this.dgvPostojeciSponzori.Name = "dgvPostojeciSponzori";
@@ -107,6 +111,8 @@
             // 
             // dgvSviOrganizatori
             // 
+            this.dgvSviOrganizatori.AllowUserToAddRows = false;
+            this.dgvSviOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviOrganizatori.Location = new System.Drawing.Point(560, 56);
             this.dgvSviOrganizatori.Name = "dgvSviOrganizatori";
@@ -116,6 +122,8 @@
             // 
             // dgvSviSponzori
             // 
+            this.dgvSviSponzori.AllowUserToAddRows = false;
+            this.dgvSviSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviSponzori.Location = new System.Drawing.Point(560, 259);
             this.dgvSviSponzori.Name = "dgvSviSponzori";
@@ -152,7 +160,6 @@
             this.label1.Size = new System.Drawing.Size(246, 20);
             this.label1.TabIndex = 25;
             this.label1.Text = "Organizatori i sponzori turnira";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 

@@ -31,7 +31,7 @@
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.showSahista = new System.Windows.Forms.Button();
             this.chkSah = new System.Windows.Forms.CheckedListBox();
-            this.btnSahAdd = new System.Windows.Forms.Button();
+            this.btnDodajSahistu = new System.Windows.Forms.Button();
             this.btnIzmeni = new System.Windows.Forms.Button();
             this.showOrgan = new System.Windows.Forms.Button();
             this.showSpon = new System.Windows.Forms.Button();
@@ -52,6 +52,7 @@
             // 
             // dgv1
             // 
+            this.dgv1.AllowUserToAddRows = false;
             this.dgv1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgv1.ColumnHeadersHeight = 36;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -86,15 +87,15 @@
             this.chkSah.Size = new System.Drawing.Size(162, 67);
             this.chkSah.TabIndex = 2;
             // 
-            // btnSahAdd
+            // btnDodajSahistu
             // 
-            this.btnSahAdd.Location = new System.Drawing.Point(24, 125);
-            this.btnSahAdd.Name = "btnSahAdd";
-            this.btnSahAdd.Size = new System.Drawing.Size(182, 34);
-            this.btnSahAdd.TabIndex = 3;
-            this.btnSahAdd.Text = "Dodaj Novog Sahistu";
-            this.btnSahAdd.UseVisualStyleBackColor = true;
-            this.btnSahAdd.Click += new System.EventHandler(this.btnSahAdd_Click);
+            this.btnDodajSahistu.Location = new System.Drawing.Point(24, 125);
+            this.btnDodajSahistu.Name = "btnDodajSahistu";
+            this.btnDodajSahistu.Size = new System.Drawing.Size(182, 34);
+            this.btnDodajSahistu.TabIndex = 3;
+            this.btnDodajSahistu.Text = "Dodaj Novog Sahistu";
+            this.btnDodajSahistu.UseVisualStyleBackColor = true;
+            this.btnDodajSahistu.Click += new System.EventHandler(this.btnDodajSahistu_Click);
             // 
             // btnIzmeni
             // 
@@ -236,7 +237,7 @@
             this.btnVezaOrgSpon.Name = "btnVezaOrgSpon";
             this.btnVezaOrgSpon.Size = new System.Drawing.Size(154, 38);
             this.btnVezaOrgSpon.TabIndex = 18;
-            this.btnVezaOrgSpon.Text = "Dodaj Organizatore i Sponzore u turnir";
+            this.btnVezaOrgSpon.Text = "Menadzuj Organizatore i Sponzore u turnir";
             this.btnVezaOrgSpon.UseVisualStyleBackColor = true;
             this.btnVezaOrgSpon.Click += new System.EventHandler(this.btnVezaOrgSpon_Click);
             // 
@@ -263,6 +264,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1310, 692);
             this.Controls.Add(this.btnPromovisi);
             this.Controls.Add(this.label3);
@@ -279,7 +281,7 @@
             this.Controls.Add(this.showSpon);
             this.Controls.Add(this.showOrgan);
             this.Controls.Add(this.btnIzmeni);
-            this.Controls.Add(this.btnSahAdd);
+            this.Controls.Add(this.btnDodajSahistu);
             this.Controls.Add(this.chkSah);
             this.Controls.Add(this.showSahista);
             this.Controls.Add(this.dgv1);
@@ -297,7 +299,7 @@
         private System.Windows.Forms.DataGridView dgv1;
         private System.Windows.Forms.Button showSahista;
         private System.Windows.Forms.CheckedListBox chkSah;
-        private System.Windows.Forms.Button btnSahAdd;
+        private System.Windows.Forms.Button btnDodajSahistu;
         private System.Windows.Forms.Button btnIzmeni;
         private System.Windows.Forms.Button showOrgan;
         private System.Windows.Forms.Button showSpon;

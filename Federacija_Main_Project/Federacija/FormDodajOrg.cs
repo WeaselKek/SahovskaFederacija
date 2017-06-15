@@ -12,13 +12,21 @@ using NHibernate.Linq;
 using Federacija.Entiteti;
 using Federacija.Mapiranja;
 using Federacija.BindList;
+using Federacija.Functions;
 
 namespace Federacija
 {
     public partial class FormDodajOrg : Form
     {
         FormVezaOrgSpon CaleForma;
+        bool closenow = false;
+        bool updaterino = false;
 
+        public Organizator UpdateItem
+        {
+            get;
+            set;
+        }
         public FormDodajOrg()
         {
             InitializeComponent();
@@ -42,13 +50,18 @@ namespace Federacija
                 ISession s = DataLayer.GetSession();
 
                 Organizator o = new Organizator();
-                Sudija sud = new Sudija();
 
                 if (cbxSudija.Checked)
                 {
+                    Sudija sud = new Sudija();
                     sud.FlagOrganizator = 1;
-
+                    sud.FlagMajstor = 0;
+                    o.SudijaId = sud;
                     s.Save(sud);
+                }
+                else
+                {
+                    o.SudijaId = null;
                 }
 
                 o.Ime = txbIme.Text;
@@ -58,15 +71,12 @@ namespace Federacija
                 o.Ulica = txbUlica.Text;
                 if (txbBroj.TextLength != 0)
                     o.Broj = Int32.Parse(txbBroj.Text);
-                if (cbxSudija.Checked)
-                    o.SudijaId = sud;
-                else
-                    o.SudijaId = null;
 
-                s.Save(o);
+                s.SaveOrUpdate(o);
+
                 s.Flush();
-
                 s.Close();
+                closenow = true;
             }
             catch (Exception ec)
             {
@@ -75,6 +85,7 @@ namespace Federacija
             }
 
             MessageBox.Show("Uspesno dodat organizator");
+            this.Close();
         }
 
         private void tbxIme_KeyPress(object sender, KeyPressEventArgs e)
@@ -123,6 +134,20 @@ namespace Federacija
             {
                 e.Handled = true;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void FormDodajOrg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closenow)
+            {
+                return;
+            }
+            Provera.Zatvaranje(e);
         }
     }
 }

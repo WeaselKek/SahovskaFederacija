@@ -50,7 +50,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpRang = new System.Windows.Forms.GroupBox();
             this.txtBrp = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.dtpStic = new System.Windows.Forms.DateTimePicker();
@@ -65,7 +65,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPot = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.grpRang.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -268,17 +268,17 @@
             this.label10.TabIndex = 21;
             this.label10.Text = "Ime";
             // 
-            // groupBox1
+            // grpRang
             // 
-            this.groupBox1.Controls.Add(this.rdbM);
-            this.groupBox1.Controls.Add(this.rdbMK);
-            this.groupBox1.Controls.Add(this.rdbOC);
-            this.groupBox1.Location = new System.Drawing.Point(41, 193);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(160, 101);
-            this.groupBox1.TabIndex = 22;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Rang";
+            this.grpRang.Controls.Add(this.rdbM);
+            this.grpRang.Controls.Add(this.rdbMK);
+            this.grpRang.Controls.Add(this.rdbOC);
+            this.grpRang.Location = new System.Drawing.Point(41, 193);
+            this.grpRang.Name = "grpRang";
+            this.grpRang.Size = new System.Drawing.Size(160, 101);
+            this.grpRang.TabIndex = 22;
+            this.grpRang.TabStop = false;
+            this.grpRang.Text = "Rang";
             // 
             // txtBrp
             // 
@@ -444,7 +444,7 @@
             this.Controls.Add(this.dtpStic);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtBrp);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpRang);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -468,8 +468,8 @@
             this.Text = "FormDodajSah";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajSah_FormClosing);
             this.Load += new System.EventHandler(this.FormDodajSah_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpRang.ResumeLayout(false);
+            this.grpRang.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -499,7 +499,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpRang;
         private System.Windows.Forms.TextBox txtBrp;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dtpStic;

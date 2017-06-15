@@ -62,14 +62,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.lblBeli = new System.Windows.Forms.Label();
             this.lblCrni = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dgvSudija = new System.Windows.Forms.DataGridView();
             this.lblSudija = new System.Windows.Forms.Label();
             this.btnSudija = new System.Windows.Forms.Button();
             this.grpIshod.SuspendLayout();
             this.pnlPotez.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSahista)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSudija)).BeginInit();
             this.SuspendLayout();
             // 
@@ -339,6 +337,7 @@
             // 
             // dgvSahista
             // 
+            this.dgvSahista.AllowUserToAddRows = false;
             this.dgvSahista.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSahista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSahista.Location = new System.Drawing.Point(479, 21);
@@ -402,16 +401,9 @@
             this.lblCrni.TabIndex = 18;
             this.lblCrni.Text = "Nije izabran";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(270, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(8, 8);
-            this.dataGridView1.TabIndex = 19;
-            // 
             // dgvSudija
             // 
+            this.dgvSudija.AllowUserToAddRows = false;
             this.dgvSudija.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSudija.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSudija.Location = new System.Drawing.Point(34, 326);
@@ -446,7 +438,6 @@
             this.Controls.Add(this.btnSudija);
             this.Controls.Add(this.lblSudija);
             this.Controls.Add(this.dgvSudija);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.lblCrni);
             this.Controls.Add(this.lblBeli);
             this.Controls.Add(this.label11);
@@ -475,7 +466,6 @@
             this.pnlPotez.ResumeLayout(false);
             this.pnlPotez.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSahista)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSudija)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -518,7 +508,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblBeli;
         private System.Windows.Forms.Label lblCrni;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dgvSudija;
         private System.Windows.Forms.Label lblSudija;
         private System.Windows.Forms.Button btnSudija;

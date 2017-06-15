@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Federacija.BindList;
+using Federacija.Entiteti;
+using Federacija.Functions;
 using NHibernate;
 using NHibernate.Linq;
-using Federacija.Entiteti;
-using Federacija.Mapiranja;
-using Federacija.BindList;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Federacija
 {
@@ -22,6 +18,19 @@ namespace Federacija
             InitializeComponent();
         }
 
+        private void FormNova_Load(object sender, EventArgs e)
+        {
+            chkTak.Checked = true;
+            chkEgz.Checked = true;
+            for (int i = 0; i < chkNacin.Items.Count; i++)
+            {
+                chkNacin.SetItemChecked(i, true);
+                chkTipE.SetItemChecked(i, true);
+                chkTipT.SetItemChecked(i, true);
+            }
+            chkTipT.SetItemChecked(2, true);
+            
+        }
 
         private void showSahista_Click(object sender, EventArgs e)
         {
@@ -54,9 +63,6 @@ namespace Federacija
 
                 dgv1.DataSource = a;
 
-                //dgv1.AutoGenerateColumns = false;
-                dgv1.AllowUserToAddRows = false;
-
                 dgv1.Columns["RegBr"].Visible = false;
                 dgv1.Columns["BrojPasosa"].Visible = false;
                 dgv1.Columns["Ulica"].Visible = false;
@@ -77,136 +83,7 @@ namespace Federacija
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
 
-
-
                 SahistaIzvedeni(a);
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
-            }
-        }
-
-
-        public void SahistaIzvedeni(SortableBindingList<Sahista> a)
-        {
-            int i = 0;
-            foreach (Sahista value in a)
-            {
-                if (value is Majstor)
-                {
-                    dgv1.Rows[i].Cells["Rang"].Value = "Majstor";
-                    dgv1.Rows[i].Cells["ds"].Value = ((Majstor)value).DatSticanja.ToShortDateString();
-                }
-                else if (value is MajstorskiKandidat)
-                {
-                    dgv1.Rows[i].Cells["Rang"].Value = "Majstorski kandidat";
-                    dgv1.Rows[i].Cells["brds"].Value = ((MajstorskiKandidat)value).BrojPartijaDoSticanja;
-                }
-                else if (value is ObicanClan)
-                {
-                    dgv1.Rows[i].Cells["Rang"].Value = "Obican clan";
-                }
-                i++;
-            }
-        }
-        public void SortDGV(int index)
-        {
-
-            DataGridViewColumn newColumn = dgv1.Columns[index];
-            DataGridViewColumn oldColumn = dgv1.SortedColumn;
-            ListSortDirection direction;
-
-            if (oldColumn != null)
-            {
-                // Sort the same column again, reversing the SortOrder.
-                if (oldColumn == newColumn &&
-                    dgv1.SortOrder == SortOrder.Ascending)
-                {
-                    direction = ListSortDirection.Descending;
-                }
-                else
-                {
-                    // Sort a new column and remove the old SortGlyph.
-                    direction = ListSortDirection.Ascending;
-                    oldColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-                }
-            }
-            else
-            {
-                direction = ListSortDirection.Ascending;
-            }
-
-            dgv1.Sort(newColumn, direction);
-            newColumn.HeaderCell.SortGlyphDirection =
-                direction == ListSortDirection.Ascending ?
-                SortOrder.Ascending : SortOrder.Descending;
-
-        }
-
-        private void dgv1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-            if (!dgv1.Columns[e.ColumnIndex].IsDataBound)
-                return;
-
-            dgv1.Columns[e.ColumnIndex].SortMode = DataGridViewColumnSortMode.Programmatic;
-            SortDGV(e.ColumnIndex);
-            if (dgv1.DataSource is SortableBindingList<Sahista>)
-                SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
-        }
-
-        private void btnSahAdd_Click(object sender, EventArgs e)
-        {
-            FormDodajSah f = new FormDodajSah();
-            f.ShowDialog();
-            showSahista_Click(sender, e);
-        }
-
-        private void btnIzmeni_Click(object sender, EventArgs e)
-        {
-            if (dgv1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Molimo selektujte neki podatak");
-                return;
-            }
-            if (dgv1.CurrentRow.DataBoundItem is Sahista)
-            {
-                var item = dgv1.CurrentRow.DataBoundItem;
-                FormDodajSah f = new FormDodajSah();
-                f.UpdateItem = item as Sahista;
-                f.ShowDialog();
-                showSahista_Click(sender, e);
-            }
-            if (dgv1.CurrentRow.DataBoundItem is Turnir)
-            {
-                var item = dgv1.CurrentRow.DataBoundItem as Turnir;
-                FormDodajTurnir f = new FormDodajTurnir();
-                f.UpdateItem = item;
-                f.ShowDialog();
-                showTurnir_Click(sender, e);
-            }
-
-        }
-
-        private void showSpon_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                dgv1.Columns.Clear();
-                ISession s = DataLayer.GetSession();
-
-                IQuery q = s.CreateQuery("from Sponzor");
-
-                SortableBindingList<Sponzor> a = new SortableBindingList<Sponzor>(q.List<Sponzor>());
-
-                s.Close();
-
-                dgv1.DataSource = a;
-
-                dgv1.AllowUserToAddRows = false;
-                dgv1.Columns["SponzoriseTurnir"].Visible = false;
-
             }
             catch (Exception ec)
             {
@@ -229,10 +106,32 @@ namespace Federacija
 
                 dgv1.DataSource = a;
 
-                dgv1.AllowUserToAddRows = false;
+
                 dgv1.Columns["OrganizujeTurnir"].Visible = false;
                 dgv1.Columns["SudijaId"].Visible = false;
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
+        }
 
+        private void showSpon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dgv1.Columns.Clear();
+                ISession s = DataLayer.GetSession();
+
+                IQuery q = s.CreateQuery("from Sponzor");
+
+                SortableBindingList<Sponzor> a = new SortableBindingList<Sponzor>(q.List<Sponzor>());
+
+                s.Close();
+
+                dgv1.DataSource = a;
+
+                dgv1.Columns["SponzoriseTurnir"].Visible = false;
             }
             catch (Exception ec)
             {
@@ -247,33 +146,34 @@ namespace Federacija
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
-                string nac = string.Empty;
+                string nacin = string.Empty;
                 IList<Turnir> trl = new List<Turnir>();
 
+                //filtriranje za nacin odigravanja
                 foreach (string v in chkNacin.CheckedItems)
                 {
-                    nac += v.ToUpper();
+                    nacin += v.ToUpper();
                 }
 
-
+                //filtriranje za tip turnira
                 if (chkTak.Checked)
                 {
                     if (chkTipT.GetItemChecked(0))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirTakmicarskiNacionalni>()
-                                         where (nac.Contains(o.NacinOdigravanja))
+                                         where (nacin.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
                     if (chkTipT.GetItemChecked(1))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirTakmicarskiRegionalni>()
-                                         where (nac.Contains(o.NacinOdigravanja))
+                                         where (nacin.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
                     if (chkTipT.GetItemChecked(2))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirTakmicarskiInternacionalni>()
-                                         where (nac.Contains(o.NacinOdigravanja))
+                                         where (nacin.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
                 }
@@ -282,26 +182,22 @@ namespace Federacija
                     if (chkTipE.GetItemChecked(0))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirEgzibicioniPromotivni>()
-                                         where (nac.Contains(o.NacinOdigravanja))
+                                         where (nacin.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
                     if (chkTipE.GetItemChecked(1))
                     {
                         trl = trl.Concat(from o in s.Query<TurnirEgzibicioniHumanitarni>()
-                                         where (nac.Contains(o.NacinOdigravanja))
+                                         where (nacin.Contains(o.NacinOdigravanja))
                                          select o).ToList<Turnir>();
                     }
-
                 }
-
 
                 SortableBindingList<Turnir> a = new SortableBindingList<Turnir>(trl);
 
                 s.Close();
 
                 dgv1.DataSource = a;
-
-                dgv1.AllowUserToAddRows = false;
 
                 dgv1.Columns["Id"].Visible = false;
                 dgv1.Columns["TPartije"].Visible = false;
@@ -310,7 +206,6 @@ namespace Federacija
                 dgv1.Columns["TrajanjePartije"].Visible = false;
                 dgv1.Columns["Novac"].Visible = false;
                 dgv1.Columns["Namena"].Visible = false;
-
 
                 if (!chkEgz.Checked)
                 {
@@ -331,7 +226,6 @@ namespace Federacija
                 {
                     dgv1.Columns["TrajanjePartije"].Visible = true;
                 }
-
             }
             catch (Exception ec)
             {
@@ -339,15 +233,35 @@ namespace Federacija
             }
         }
 
+        private void SahistaIzvedeni(SortableBindingList<Sahista> a)
+        {
+            int i = 0;
+            foreach (Sahista value in a)
+            {
+                if (value is Majstor)
+                {
+                    dgv1.Rows[i].Cells["Rang"].Value = "Majstor";
+                    dgv1.Rows[i].Cells["ds"].Value = ((Majstor)value).DatSticanja.ToShortDateString();
+                }
+                else if (value is MajstorskiKandidat)
+                {
+                    dgv1.Rows[i].Cells["Rang"].Value = "Majstorski kandidat";
+                    dgv1.Rows[i].Cells["brds"].Value = ((MajstorskiKandidat)value).BrojPartijaDoSticanja;
+                }
+                else if (value is ObicanClan)
+                {
+                    dgv1.Rows[i].Cells["Rang"].Value = "Obican clan";
+                }
+                i++;
+            }
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dgv1.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Molimo selektujte neki podatak");
+                if (!Provera.chkIfSelected(dgv1))
                     return;
-                }
 
                 ISession s = DataLayer.GetSession();
 
@@ -356,22 +270,45 @@ namespace Federacija
                     var id = ((Sahista)dgv1.CurrentRow.DataBoundItem).RegBr;
                     Sahista p = s.Load<Sahista>(id);
                     s.Delete(p);
-                    MessageBox.Show("Uspesno ste izbrisali sahistu");
                     s.Flush();
                     s.Close();
+                    MessageBox.Show("Uspesno ste izbrisali sahistu");
                     showSahista_Click(sender, e);
                 }
-                if (dgv1.CurrentRow.DataBoundItem is Turnir)
+                else if (dgv1.CurrentRow.DataBoundItem is Turnir)
                 {
                     var id = ((Turnir)dgv1.CurrentRow.DataBoundItem).Id;
                     Turnir p = s.Load<Turnir>(id);
                     s.Delete(p);
-                    MessageBox.Show("Uspesno ste izbrisali turnir");
                     s.Flush();
                     s.Close();
+                    MessageBox.Show("Uspesno ste izbrisali turnir");
                     showTurnir_Click(sender, e);
                 }
-
+                else if (dgv1.CurrentRow.DataBoundItem is Organizator)
+                {
+                    var id = ((Organizator)dgv1.CurrentRow.DataBoundItem).MatBr;
+                    Organizator p = s.Load<Organizator>(id);
+                    s.Delete(p);
+                    s.Flush();
+                    s.Close();
+                    MessageBox.Show("Uspesno ste izbrisali organizatora");
+                    showOrgan_Click(sender, e);
+                }
+                else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
+                {
+                    var id = ((Sponzor)dgv1.CurrentRow.DataBoundItem).Naziv;
+                    Sponzor p = s.Load<Sponzor>(id);
+                    s.Delete(p);
+                    s.Flush();
+                    s.Close();
+                    MessageBox.Show("Uspesno ste izbrisali sponzora");
+                    showSpon_Click(sender, e);
+                }
+                else
+                {
+                    s.Close();
+                }
             }
             catch (Exception ec)
             {
@@ -379,46 +316,51 @@ namespace Federacija
             }
         }
 
-        private void chkTak_CheckStateChanged(object sender, EventArgs e)
+        private void btnIzmeni_Click(object sender, EventArgs e)
         {
-            if (chkTak.Checked)
-            {
-                chkTipT.Enabled = true;
-            }
-            else
-            {
-                chkTipT.Enabled = false;
-            }
-        }
+            if (!Provera.chkIfSelected(dgv1))
+                return;
 
-        private void FormNova_Load(object sender, EventArgs e)
-        {
-            chkTak.Checked = true;
-            chkEgz.Checked = true;
-            for (int i = 0; i < chkNacin.Items.Count; i++)
+            if (dgv1.CurrentRow.DataBoundItem is Sahista)
             {
-                chkNacin.SetItemChecked(i, true);
-                chkTipE.SetItemChecked(i, true);
-                chkTipT.SetItemChecked(i, true);
+                var item = dgv1.CurrentRow.DataBoundItem;
+                FormDodajSah f = new FormDodajSah();
+                f.UpdateItem = item as Sahista;
+                f.ShowDialog();
+                showSahista_Click(sender, e);
             }
-            chkTipT.SetItemChecked(2, true);
-        }
-
-        private void chkEgz_CheckStateChanged(object sender, EventArgs e)
-        {
-            if (chkEgz.Checked)
+            else if (dgv1.CurrentRow.DataBoundItem is Turnir)
             {
-                chkTipE.Enabled = true;
+                var item = dgv1.CurrentRow.DataBoundItem as Turnir;
+                FormDodajTurnir f = new FormDodajTurnir();
+                f.UpdateItem = item;
+                f.ShowDialog();
+                showTurnir_Click(sender, e);
             }
-            else
+            else if (dgv1.CurrentRow.DataBoundItem is Organizator)
             {
-                chkTipE.Enabled = false;
+                var item = dgv1.CurrentRow.DataBoundItem as Organizator;
+                FormDodajOrg f = new FormDodajOrg();
+                f.UpdateItem = item;
+                f.ShowDialog();
+                showOrgan_Click(sender, e);
+            }
+            else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
+            {
+                var item = dgv1.CurrentRow.DataBoundItem as Sponzor;
+                FormDodajSpon f = new FormDodajSpon();
+                f.UpdateItem = item;
+                f.ShowDialog();
+                showSpon_Click(sender, e);
             }
         }
 
         private void btnDodajPartiju_Click(object sender, EventArgs e)
         {
-            if (!(dgv1.DataSource is SortableBindingList<Turnir>) || dgv1.SelectedRows.Count == 0)
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+
+            if (!(dgv1.CurrentRow.DataBoundItem is Turnir))
             {
                 MessageBox.Show("Niste selektovali turnir");
                 return;
@@ -426,7 +368,6 @@ namespace Federacija
             FormDodajPartija f = new FormDodajPartija();
             f.Turn = dgv1.CurrentRow.DataBoundItem as Turnir;
             f.ShowDialog();
-
         }
 
         private void btnDodajTurnir_Click(object sender, EventArgs e)
@@ -436,31 +377,22 @@ namespace Federacija
             showTurnir_Click(sender, e);
         }
 
-        private void btnVezaOrgSpon_Click(object sender, EventArgs e)
+        private void btnDodajSahistu_Click(object sender, EventArgs e)
         {
-
-            if (!(dgv1.DataSource is SortableBindingList<Turnir>) || dgv1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste selektovali turnir");
-                return;
-            }
-            FormVezaOrgSpon f = new FormVezaOrgSpon(dgv1.CurrentRow.DataBoundItem as Turnir);
+            FormDodajSah f = new FormDodajSah();
             f.ShowDialog();
-
+            showSahista_Click(sender, e);
         }
 
         private void btnPromovisi_Click(object sender, EventArgs e)
         {
-            if (dgv1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Molimo selektujte neki podatak");
+            if (!Provera.chkIfSelected(dgv1))
                 return;
-            }
             try
             {
                 if (dgv1.SelectedRows[0].DataBoundItem is Majstor)
                 {
-                    var m = dgv1.SelectedRows[0].DataBoundItem as Majstor;
+                    var m = dgv1.CurrentRow.DataBoundItem as Majstor;
                     ISession s = DataLayer.GetSession();
                     Majstor u = s.Load<Majstor>(m.RegBr);
                     Sudija sud = new Sudija();
@@ -502,7 +434,53 @@ namespace Federacija
             {
                 MessageBox.Show(ec.Message);
             }
+        }
 
+        private void btnVezaOrgSpon_Click(object sender, EventArgs e)
+        {
+
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+
+            if (!(dgv1.CurrentRow.DataBoundItem is Turnir))
+            {
+                MessageBox.Show("Niste selektovali turnir");
+                return;
+            }
+            FormVezaOrgSpon f = new FormVezaOrgSpon(dgv1.CurrentRow.DataBoundItem as Turnir);
+            f.ShowDialog();
+        }
+
+        private void chkEgz_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkEgz.Checked)
+            {
+                chkTipE.Enabled = true;
+            }
+            else
+            {
+                chkTipE.Enabled = false;
+            }
+        }
+
+        private void chkTak_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkTak.Checked)
+            {
+                chkTipT.Enabled = true;
+            }
+            else
+            {
+                chkTipT.Enabled = false;
+            }
+        }
+
+        private void dgv1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Sortiranje.SortDGV(e.ColumnIndex, dgv1);
+
+            if (dgv1.DataSource is SortableBindingList<Sahista>)
+                SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
         }
 
     }

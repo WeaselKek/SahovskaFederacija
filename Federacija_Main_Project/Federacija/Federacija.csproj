@@ -123,6 +123,7 @@
     <Compile Include="FormVezaOrgSpon.Designer.cs">
       <DependentUpon>FormVezaOrgSpon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Function library\Funkcije.cs" />
     <Compile Include="Mapiranja\OrganizatorMapiranja.cs" />
     <Compile Include="Mapiranja\OrganizujeMapiranja.cs" />
     <Compile Include="Mapiranja\PartijaMapiranja.cs" />
@@ -181,6 +182,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

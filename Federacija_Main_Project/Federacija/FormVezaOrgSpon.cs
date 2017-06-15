@@ -17,7 +17,6 @@ namespace Federacija
 {
     public partial class FormVezaOrgSpon : Form
     {
-        bool updaterino = false;
         bool closenow = false;
         public FormVezaOrgSpon(Turnir t)
         {
@@ -27,16 +26,6 @@ namespace Federacija
             OsveziPostojeceGridove();
         }
 
-        public IList<Organizuje> ListaOrg
-        {
-            get;
-            set;
-        }
-        public IList<Sponzorise> ListaSpon
-        {
-            get;
-            set;
-        }
         protected Turnir Turn
         {
             get;
@@ -76,10 +65,6 @@ namespace Federacija
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnUcitaj_Click(object sender, EventArgs e)
         {

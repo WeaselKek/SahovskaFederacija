@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Federacija.Entiteti;
 using NHibernate;
-using Federacija.Entiteti;
-using Federacija.Mapiranja;
+using System;
+using System.Windows.Forms;
+using Federacija.Functions;
 
 namespace Federacija
 {
     public partial class FormDodajSah : Form
     {
-        bool closenow = false;
-        bool updaterino = false;
+        private bool closenow = false;
+        private bool updaterino = false;
+
         public FormDodajSah()
         {
             InitializeComponent();
         }
+
         public Sahista UpdateItem
         {
             get;
@@ -38,7 +33,6 @@ namespace Federacija
 
         private void ucitajKontrole()
         {
-
             if (UpdateItem is Majstor)
             {
                 rdbM.Checked = true;
@@ -53,20 +47,97 @@ namespace Federacija
             {
                 rdbOC.Checked = true;
             }
-            groupBox1.Enabled = false;
+            grpRang.Enabled = false;
 
             txtIme.Text = UpdateItem.Ime;
             txtPrezime.Text = UpdateItem.Prezime;
             dtpRod.Value = UpdateItem.DatRodj;
             dtpUcl.Value = UpdateItem.DatUclanjenja;
-
             txtPasos.Text = UpdateItem.BrojPasosa.ToString();
             txtDrz.Text = UpdateItem.Drzava;
             txtUlica.Text = UpdateItem.Ulica;
-            if (UpdateItem.Broj != 0) txtBroj.Text = UpdateItem.Broj.ToString();
+            if (UpdateItem.Broj != 0)
+                txtBroj.Text = UpdateItem.Broj.ToString();
             txtGrad.Text = UpdateItem.Grad;
             updaterino = true;
+        }
 
+        private void btnPot_Click(object sender, EventArgs e)
+        {
+            int num;
+            //Validacija
+            if ((txtIme.Text == "") || (txtPrezime.Text == "") || (txtPasos.Text == "") || (txtDrz.Text == ""))
+            {
+                MessageBox.Show("Zgresili ste");
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Sahista p;
+
+                if (!updaterino)
+                {
+                    if (rdbM.Checked)
+                    {
+                        p = new Majstor();
+                        ((Majstor)p).DatSticanja = dtpStic.Value;
+                    }
+                    else if (rdbMK.Checked)
+                    {
+                        p = new MajstorskiKandidat();
+
+                        if (Int32.TryParse(txtBrp.Text, out num))
+                            ((MajstorskiKandidat)p).BrojPartijaDoSticanja = num;
+                    }
+                    else
+                    {
+                        p = new ObicanClan();
+                    }
+                }
+                else
+                {
+                    p = s.Get<Sahista>(UpdateItem.RegBr);
+                    if (UpdateItem is Majstor)
+                    {
+                        ((Majstor)p).DatSticanja = dtpStic.Value;
+                    }
+                    else if (UpdateItem is MajstorskiKandidat)
+                    {
+                        if (Int32.TryParse(txtBrp.Text, out num))
+                            ((MajstorskiKandidat)p).BrojPartijaDoSticanja = num;
+                    }
+                }
+                p.Ime = txtIme.Text;
+                p.Prezime = txtPrezime.Text;
+                p.DatRodj = dtpRod.Value;
+                p.DatUclanjenja = dtpUcl.Value;
+                if (Int32.TryParse(txtPasos.Text, out num))
+                    p.BrojPasosa = num;
+                p.Drzava = txtDrz.Text;
+                p.Ulica = txtUlica.Text;
+                if (Int32.TryParse(txtBroj.Text, out num))
+                    p.Broj = num;
+                p.Grad = txtGrad.Text;
+
+                s.SaveOrUpdate(p);
+
+                s.Flush();
+                s.Close();
+
+
+                if (!updaterino)
+                    MessageBox.Show("Uspesno dodat Sahista");
+                else
+                    MessageBox.Show("Uspesno izmenjen Sahista");
+                closenow = true;
+                this.Close();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+            }
         }
 
         private void rdbM_CheckedChanged(object sender, EventArgs e)
@@ -85,87 +156,6 @@ namespace Federacija
         {
             dtpStic.Enabled = false;
             txtBrp.Enabled = false;
-        }
-
-        private void btnPot_Click(object sender, EventArgs e)
-        {
-
-            //Validacija
-            if ((txtIme.Text == "") || (txtPrezime.Text == "") || (txtPasos.Text == "") || (txtDrz.Text == ""))
-            {
-                MessageBox.Show("Zgresili ste");
-                return;
-            }
-            if (txtBrp.Enabled && txtBrp.Text == "")
-            {
-                MessageBox.Show("Zgresili ste");
-                return;
-            }
-            try
-            {
-                ISession s = DataLayer.GetSession();
-                Sahista p;
-
-                if (!updaterino)
-                {
-
-                    if (rdbM.Checked)
-                    {
-                        p = new Majstor();
-                        ((Majstor)p).DatSticanja = dtpStic.Value;
-                    }
-                    else if (rdbMK.Checked)
-                    {
-                        p = new MajstorskiKandidat();
-                        ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
-                    }
-                    else
-                    {
-                        p = new ObicanClan();
-                    }
-                }
-                else
-                {
-
-                    p = s.Get<Sahista>(UpdateItem.RegBr);
-                    if (UpdateItem is Majstor)
-                    {
-                        ((Majstor)p).DatSticanja = dtpStic.Value;
-                    }
-                    else if (UpdateItem is MajstorskiKandidat)
-                    {
-                        ((MajstorskiKandidat)p).BrojPartijaDoSticanja = Int32.Parse(txtBrp.Text);
-                    }
-                }
-                int num;
-                p.Ime = txtIme.Text;
-                p.Prezime = txtPrezime.Text;
-                p.DatRodj = dtpRod.Value;
-                p.DatUclanjenja = dtpUcl.Value;
-                p.BrojPasosa = Int32.Parse(txtPasos.Text);
-                p.Drzava = txtDrz.Text;
-                p.Ulica = txtUlica.Text;
-                if (Int32.TryParse(txtBroj.Text, out num))
-                    p.Broj = num;
-                p.Grad = txtGrad.Text;
-
-                s.SaveOrUpdate(p);
-
-                s.Flush();
-                s.Close();
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
-            }
-
-            if (!updaterino)
-                MessageBox.Show("Uspesno dodat Sahista");
-            else
-                MessageBox.Show("Uspesno izmenjen Sahista");
-            closenow = true;
-            this.Close();
-
         }
 
         private void txtPasos_KeyPress(object sender, KeyPressEventArgs e)
@@ -200,12 +190,10 @@ namespace Federacija
         private void FormDodajSah_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (closenow)
-                return;
-            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.No)
             {
-                e.Cancel = true;
+                return;
             }
+            Provera.Zatvaranje(e);
         }
     }
 }

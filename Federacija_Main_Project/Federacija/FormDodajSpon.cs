@@ -12,12 +12,20 @@ using NHibernate.Linq;
 using Federacija.Entiteti;
 using Federacija.Mapiranja;
 using Federacija.BindList;
+using Federacija.Functions;
 
 namespace Federacija
 {
     public partial class FormDodajSpon : Form
     {
+        bool closenow = false;
+        bool updaterino = false;
         FormVezaOrgSpon CaleForma;
+        public Sponzor UpdateItem
+        {
+            get;
+            set;
+        }
         public FormDodajSpon()
         {
             InitializeComponent();
@@ -42,10 +50,11 @@ namespace Federacija
                 Sponzor sp = new Sponzor();
                 sp.Naziv = txbIme.Text;
 
-                s.Save(sp);
+                s.SaveOrUpdate(sp);
                 s.Flush();
 
                 s.Close();
+                closenow = true;
             }
             catch(Exception ec)
             {
@@ -54,15 +63,21 @@ namespace Federacija
             }
 
             MessageBox.Show("Uspesno dodat sponzor");
+            this.Close();
         }
 
         private void btnZatvori_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.Yes)
+            this.Close();
+        }
+
+        private void FormDodajSpon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closenow)
             {
-                this.Close();
+                return;
             }
+            Provera.Zatvaranje(e);
         }
     }
 }

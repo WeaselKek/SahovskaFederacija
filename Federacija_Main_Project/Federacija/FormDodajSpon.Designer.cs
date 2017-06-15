@@ -81,6 +81,7 @@
             this.Controls.Add(this.btnZatvori);
             this.Name = "FormDodajSpon";
             this.Text = "FormDodajSpon";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajSpon_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

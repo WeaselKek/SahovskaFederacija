@@ -1,21 +1,16 @@
 ﻿using Federacija.Entiteti;
+using Federacija.Functions;
 using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Federacija
 {
     public partial class FormDodajTurnir : Form
     {
-        bool updaterino = false;
-        bool closenow = false;
+        private bool updaterino = false;
+        private bool closenow = false;
 
         public Turnir UpdateItem
         {
@@ -39,11 +34,7 @@ namespace Federacija
             {
                 return;
             }
-            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
+            Provera.Zatvaranje(e);
         }
 
         private void FormDodajTurnir_Load(object sender, EventArgs e)
@@ -51,9 +42,19 @@ namespace Federacija
             rbNormalan.Checked = true;
             rbTakmicarski.Checked = true;
             grbEgzibicioni.Enabled = false;
-            grbTakmicarski.Enabled = true;
             panelNovacNamena.Enabled = false;
             panelTrajanjePartije.Enabled = false;
+
+            if (UpdateItem != null)
+            {
+                ucitajKotrole();
+            }
+        }
+
+        private void ucitajKotrole()
+        {
+            // ovde treba da se ucitaju podaci iz UpdateItem iz textboxa
+            updaterino = true;
         }
 
         private void rbEgzibicioni_CheckedChanged(object sender, EventArgs e)
@@ -102,7 +103,6 @@ namespace Federacija
                 foreach (RadioButton rb in radioButtons)
                 {
                     rb.Checked = false;
-
                 }
             }
         }
@@ -115,7 +115,6 @@ namespace Federacija
                 foreach (RadioButton rb in radioButtons)
                 {
                     rb.Checked = false;
-
                 }
             }
         }
@@ -128,11 +127,9 @@ namespace Federacija
                 foreach (TextBox txt in textBoxes)
                 {
                     txt.Clear();
-
                 }
             }
         }
-
 
         private void rbBrzopotezni_CheckedChanged(object sender, EventArgs e)
         {
@@ -180,35 +177,25 @@ namespace Federacija
 
                 if (!updaterino)
                 {
-
-                    
-                        if (rbInternacionalni.Checked)
-                            t = new TurnirTakmicarskiInternacionalni();
-                        else if (rbNacionalni.Checked)
-                            t = new TurnirTakmicarskiNacionalni();
-                        else if(rbRegionalni.Checked)
-                            t = new TurnirTakmicarskiRegionalni();
-                        else if (rbPromotivni.Checked)
-                            t = new TurnirEgzibicioniPromotivni();
-                        else
-                        {
-                            t = new TurnirEgzibicioniHumanitarni();
-                            ((TurnirEgzibicioniHumanitarni)t).Novac = Int32.Parse(txtNovac.Text);
-                            ((TurnirEgzibicioniHumanitarni)t).Namena = txtNamena.Text;
-
-                        }
-                    
-                    
+                    if (rbInternacionalni.Checked)
+                        t = new TurnirTakmicarskiInternacionalni();
+                    else if (rbNacionalni.Checked)
+                        t = new TurnirTakmicarskiNacionalni();
+                    else if (rbRegionalni.Checked)
+                        t = new TurnirTakmicarskiRegionalni();
+                    else if (rbPromotivni.Checked)
+                        t = new TurnirEgzibicioniPromotivni();
+                    else
+                    {
+                        t = new TurnirEgzibicioniHumanitarni();
+                        ((TurnirEgzibicioniHumanitarni)t).Novac = Int32.Parse(txtNovac.Text);
+                        ((TurnirEgzibicioniHumanitarni)t).Namena = txtNamena.Text;
+                    }
                 }
                 else
                 {
-                    //azuriranje... 
-                    //
-                    //
-                    //
-                    t = new TurnirTakmicarskiRegionalni();
-                    //
-                    //
+                    t = s.Get<Turnir>(UpdateItem.Id);
+                    //itditd...
                 }
 
                 if (rbBrzopotezni.Checked)
@@ -227,24 +214,22 @@ namespace Federacija
                 t.DatumOd = dtpDatumOD.Value;
                 t.DatumDo = dtpDatumDO.Value;
 
-
                 s.SaveOrUpdate(t);
 
                 s.Flush();
                 s.Close();
+
+                if (!updaterino)
+                    MessageBox.Show("Uspesno dodat Turnir");
+                else
+                    MessageBox.Show("Uspesno izmenjen Turnir");
+                closenow = true;
+                this.Close();
             }
             catch (Exception ec)
             {
                 MessageBox.Show(ec.Message);
             }
-
-            if (!updaterino)
-                MessageBox.Show("Uspesno dodat Turnir");
-            else
-                MessageBox.Show("Uspesno izmenjen Turnir");
-            closenow = true;
-            this.Close();
         }
-
     }
 }
