@@ -124,7 +124,9 @@ namespace Federacija
                 org.OrganizujeOrganizator = o;
                 org.OrganizujeTurnir = Turn;
 
-                if (org.OrganizujeOrganizator != o || org.OrganizujeTurnir != Turn)
+                if ((from z in s.Query<Organizuje>()
+                    where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
+                    select z).Count() == 0)
                     s.Save(org);
                 s.Flush();
 
@@ -157,7 +159,9 @@ namespace Federacija
                 spon.SponzoriseSponzor = sp;
                 spon.SponzoriseTurnir = Turn;
 
-                if (spon.SponzoriseTurnir != Turn || spon.SponzoriseSponzor != sp)
+                if ((from z in s.Query<Sponzorise>()
+                    where z.SponzoriseSponzor == sp && z.SponzoriseTurnir == Turn
+                    select z).Count() == 0)
                     s.Save(spon);
                 s.Flush();
 
