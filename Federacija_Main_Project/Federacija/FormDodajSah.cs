@@ -98,12 +98,13 @@ namespace Federacija
                 }
                 else
                 {
-                    p = s.Get<Sahista>(UpdateItem.RegBr);
-                    if (UpdateItem is Majstor)
+                    s.Update(UpdateItem);
+                    p = UpdateItem;
+                    if (p is Majstor)
                     {
                         ((Majstor)p).DatSticanja = dtpStic.Value;
                     }
-                    else if (UpdateItem is MajstorskiKandidat)
+                    else if (p is MajstorskiKandidat)
                     {
                         if (Int32.TryParse(txtBrp.Text, out num))
                             ((MajstorskiKandidat)p).BrojPartijaDoSticanja = num;

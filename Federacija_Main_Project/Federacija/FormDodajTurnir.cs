@@ -194,8 +194,9 @@ namespace Federacija
                 }
                 else
                 {
-                    t = s.Get<Turnir>(UpdateItem.Id);
-                    //itditd...
+                    s.Update(UpdateItem);
+                    t = UpdateItem;
+                   
                 }
 
                 if (rbBrzopotezni.Checked)

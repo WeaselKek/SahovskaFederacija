@@ -22,7 +22,7 @@ namespace Federacija.Mapiranja
             Map(x => x.Grad, "GRAD");
             Map(x => x.Broj, "BROJ");
 
-            References(x => x.SudijaId).Column("SUDIJA_ID");
+            References(x => x.SudijaId).Column("SUDIJA_ID").Cascade.All();
             HasMany(x => x.OrganizujeTurnir).KeyColumn("ORGANIZATOR_MBR").Cascade.All().Inverse();
         }
     }

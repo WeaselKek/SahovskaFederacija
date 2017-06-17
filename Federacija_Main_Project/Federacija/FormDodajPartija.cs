@@ -53,11 +53,72 @@ namespace Federacija
 
         private void FormDodajPartija_Load(object sender, EventArgs e)
         {
-            Ptz = new List<Potez>();
-            rdbBeli.Checked = true;
+            if (UpdateItem != null)
+            {
+                updaterino = true;
+                ucitajKontrole();
+            }
+            else
+            {
+                Ptz = new List<Potez>();
+                rdbBeli.Checked = true;
+                label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
+                lblRbr.Text = (Ptz.Count() + 1).ToString();
+            }
+            ucitajDGV();
+        }
+
+        private void ucitajKontrole()
+        {
+            ISession s = DataLayer.GetSession();
+            ITransaction t = s.BeginTransaction();
+            s.Update(UpdateItem);
+            t.Commit();
+            dtpDat.Value = UpdateItem.Datum;
+            foreach (RadioButton r in grpIshod.Controls.OfType<RadioButton>())
+            {
+                if (r.Text.ToUpper() == UpdateItem.Ishod)
+                    r.Checked = true;
+            }
+            txtPartVreme.Text = UpdateItem.Vreme;
+            txtPartTrajanje.Text = UpdateItem.Trajanje.ToString();
+            Beli = UpdateItem.BeliIgrac;
+            Crni = UpdateItem.CrniIgrac;
+            Sudac = UpdateItem.Sudija;
+            Turn = UpdateItem.Turnir;
+            Ptz = UpdateItem.Potezi;
+            refreshLBX();
+            lblCrni.Text = Crni.Ime + " " + Crni.Prezime;
+            lblBeli.Text = Beli.Ime + " " + Beli.Prezime;
             label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
             lblRbr.Text = (Ptz.Count() + 1).ToString();
-            ucitajDGV();
+            ucitajSudiju(s);
+            s.Close();
+            
+            
+        }
+
+        private void ucitajSudiju(ISession s)
+        {
+            
+            Majstor m;
+            Organizator or;
+            if (UpdateItem.Sudija.FlagMajstor == 1)
+            {
+                
+                m = (from o in s.Query<Majstor>()
+                     where (o.SudijaId == UpdateItem.Sudija)
+                     select o).Single();
+                lblSudija.Text=m.Ime+ " "+m.Prezime;
+            }
+            else
+            {
+                or = (from o in s.Query<Organizator>()
+                      where (o.SudijaId == UpdateItem.Sudija)
+                      select o).Single();
+                lblSudija.Text = or.Ime + " " + or.Prezime;
+            }
+            
         }
 
         private void ucitajDGV()
@@ -222,9 +283,16 @@ namespace Federacija
                 }
 
                 ISession s = DataLayer.GetSession();
-
-                Partija p = new Partija();
-
+                Partija p;
+                if (!updaterino)
+                {
+                    p = new Partija();
+                }
+                else
+                {
+                    s.Update(UpdateItem);
+                    p = UpdateItem;
+                }
                 int num;
                 p.Datum = dtpDat.Value;
                 p.Vreme = txtPartVreme.Text;
