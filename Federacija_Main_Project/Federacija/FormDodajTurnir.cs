@@ -39,27 +39,81 @@ namespace Federacija
 
         private void FormDodajTurnir_Load(object sender, EventArgs e)
         {
-            rbNormalan.Checked = true;
-            rbTakmicarski.Checked = true;
-            grbEgzibicioni.Enabled = false;
-            panelNovacNamena.Enabled = false;
-            panelTrajanjePartije.Enabled = false;
-
             if (UpdateItem != null)
             {
+                updaterino = true;
+                panelNovacNamena.Enabled = false;
+                panelTrajanjePartije.Enabled = false;
                 ucitajKotrole();
+            }
+            else
+            {
+                this.Text = "Izmeni turnir";
+                rbNormalan.Checked = true;
+                rbTakmicarski.Checked = true;
+                grbEgzibicioni.Enabled = false;
+                panelNovacNamena.Enabled = false;
+                panelTrajanjePartije.Enabled = false;
             }
         }
 
         private void ucitajKotrole()
         {
-            // ovde treba da se ucitaju podaci iz UpdateItem iz textboxa
-            updaterino = true;
+            txtNaziv.Text = UpdateItem.Naziv;
+            txtGodina.Text = UpdateItem.Godina.ToString();
+            txtGrad.Text = UpdateItem.Grad;
+            txtDrzava.Text = UpdateItem.Drzava;
+            dtpDatumOD.Value = UpdateItem.DatumOd;
+            dtpDatumDO.Value = UpdateItem.DatumDo;
+
+            if (UpdateItem.NacinOdigravanja == "NORMALAN")
+            {
+                rbNormalan.Checked = true;
+            }
+            else
+            {
+                rbBrzopotezni.Checked = true;
+                panelTrajanjePartije.Enabled = true;
+                txtTrajanje.Text = UpdateItem.TrajanjePartije.ToString();
+            }
+            Type tip = UpdateItem.GetType();
+
+            switch (tip.Name)
+            {
+                case "TurnirTakmicarskiInternacionalni":
+                    rbTakmicarski.Checked = true;
+                    rbInternacionalni.Checked = true;
+                    break;
+                case "TurnirTakmicarskiNacionalni":
+                    rbTakmicarski.Checked = true;
+                    rbNacionalni.Checked = true;
+                    break;
+                case "TurnirTakmicarskiRegionalni":
+                    rbTakmicarski.Checked = true;
+                    rbRegionalni.Checked = true;
+                    break;
+                case "TurnirEgzibicioniHumanitarni":
+                    rbEgzibicioni.Checked = true;
+                    rbHumanitarni.Checked = true;
+                    panelNovacNamena.Enabled = true;
+                    txtNovac.Text = UpdateItem.Novac.ToString();
+                    txtNamena.Text = UpdateItem.Namena;
+                    break;
+                case "TurnirEgzibicioniPromotivni":
+                    rbEgzibicioni.Checked = true;
+                    rbPromotivni.Checked = true;
+                    break;
+            }
+            grbZnacaj.Enabled = false;
+            grbEgzibicioni.Enabled = false;
+            grbTakmicarski.Enabled = false;
+
+
         }
 
         private void rbEgzibicioni_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbEgzibicioni.Checked)
+            if (rbEgzibicioni.Checked && updaterino == false)
             {
                 grbEgzibicioni.Enabled = true;
                 rbPromotivni.Checked = true;
@@ -72,7 +126,7 @@ namespace Federacija
 
         private void rbTakmicarski_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbTakmicarski.Checked)
+            if (rbTakmicarski.Checked && updaterino == false)
             {
                 grbTakmicarski.Enabled = true;
                 rbRegionalni.Checked = true;
@@ -97,7 +151,7 @@ namespace Federacija
 
         private void grbEgzibicioni_EnabledChanged(object sender, EventArgs e)
         {
-            if (grbEgzibicioni.Enabled == false)
+            if (grbEgzibicioni.Enabled == false && updaterino == false)
             {
                 var radioButtons = grbEgzibicioni.Controls.OfType<RadioButton>();
                 foreach (RadioButton rb in radioButtons)
@@ -109,7 +163,7 @@ namespace Federacija
 
         private void grbTakmicarski_EnabledChanged(object sender, EventArgs e)
         {
-            if (grbTakmicarski.Enabled == false)
+            if (grbTakmicarski.Enabled == false && updaterino == false)
             {
                 var radioButtons = grbTakmicarski.Controls.OfType<RadioButton>();
                 foreach (RadioButton rb in radioButtons)
@@ -194,9 +248,12 @@ namespace Federacija
                 }
                 else
                 {
-                    s.Update(UpdateItem);
                     t = UpdateItem;
-                   
+                    if (t is TurnirEgzibicioniHumanitarni)
+                    {
+                        t.Novac = Int32.Parse(txtNovac.Text);
+                        t.Namena = txtNamena.Text;
+                    }
                 }
 
                 if (rbBrzopotezni.Checked)
@@ -207,6 +264,7 @@ namespace Federacija
                 else
                 {
                     t.NacinOdigravanja = "NORMALAN";
+                    t.TrajanjePartije = 0;
                 }
                 t.Naziv = txtNaziv.Text;
                 t.Godina = Int32.Parse(txtGodina.Text);

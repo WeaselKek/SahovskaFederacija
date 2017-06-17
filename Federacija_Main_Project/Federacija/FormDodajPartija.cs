@@ -60,9 +60,10 @@ namespace Federacija
             }
             else
             {
+                this.Text = "Dodaj partiju";
                 Ptz = new List<Potez>();
                 rdbBeli.Checked = true;
-                label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
+                label2.Text = "\"" + Turn.Naziv + "\"" + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
                 lblRbr.Text = (Ptz.Count() + 1).ToString();
             }
             ucitajDGV();

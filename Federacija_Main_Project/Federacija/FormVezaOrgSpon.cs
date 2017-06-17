@@ -32,6 +32,14 @@ namespace Federacija
             set;
         }
 
+        private void FormVezaOrgSpon_Load(object sender, EventArgs e)
+        {
+            this.Text = Turn.ToString();
+            lblOrgTurnira.Text += " \"" + Turn.ToString() + "\"";
+            lblSponzTurnira.Text += " \"" + Turn.ToString() + "\"";
+            Ucitaj();
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -52,12 +60,14 @@ namespace Federacija
         {
             FormDodajOrg f = new FormDodajOrg(this);
             f.ShowDialog();
+            Ucitaj();
         }
 
         private void btnDodajSpon_Click(object sender, EventArgs e)
         {
             FormDodajSpon f = new FormDodajSpon(this);
             f.ShowDialog();
+            Ucitaj();
         }
 
         private void btnPotvrdi_Click(object sender, EventArgs e)
@@ -66,7 +76,7 @@ namespace Federacija
         }
 
 
-        private void btnUcitaj_Click(object sender, EventArgs e)
+        private void Ucitaj()
         {
             try
             {
@@ -284,5 +294,7 @@ namespace Federacija
                 return;
             }
         }
+
+
     }
 }

@@ -88,8 +88,10 @@ namespace Federacija
                 MessageBox.Show(ec.Message);
                 return;
             }
-
-            MessageBox.Show("Uspesno dodat organizator");
+            if (!updaterino)
+                MessageBox.Show("Uspesno dodat organizator");
+            else
+                MessageBox.Show("Uspesno azuriran organizator");
             this.Close();
         }
 

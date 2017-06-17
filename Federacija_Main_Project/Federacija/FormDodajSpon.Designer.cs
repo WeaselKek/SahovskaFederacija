@@ -36,9 +36,11 @@
             // 
             // btnZatvori
             // 
-            this.btnZatvori.Location = new System.Drawing.Point(24, 151);
+            this.btnZatvori.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnZatvori.Location = new System.Drawing.Point(32, 186);
+            this.btnZatvori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnZatvori.Name = "btnZatvori";
-            this.btnZatvori.Size = new System.Drawing.Size(75, 23);
+            this.btnZatvori.Size = new System.Drawing.Size(110, 35);
             this.btnZatvori.TabIndex = 0;
             this.btnZatvori.Text = "Zatvori";
             this.btnZatvori.UseVisualStyleBackColor = true;
@@ -46,9 +48,11 @@
             // 
             // btnPotvrdi
             // 
-            this.btnPotvrdi.Location = new System.Drawing.Point(174, 151);
+            this.btnPotvrdi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPotvrdi.Location = new System.Drawing.Point(232, 186);
+            this.btnPotvrdi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPotvrdi.Name = "btnPotvrdi";
-            this.btnPotvrdi.Size = new System.Drawing.Size(75, 23);
+            this.btnPotvrdi.Size = new System.Drawing.Size(110, 35);
             this.btnPotvrdi.TabIndex = 1;
             this.btnPotvrdi.Text = "Potvrdi";
             this.btnPotvrdi.UseVisualStyleBackColor = true;
@@ -57,30 +61,36 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 52);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(29, 56);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.Size = new System.Drawing.Size(56, 24);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Ime";
+            this.label1.Text = "Naziv";
             // 
             // txbIme
             // 
-            this.txbIme.Location = new System.Drawing.Point(24, 81);
+            this.txbIme.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbIme.Location = new System.Drawing.Point(33, 94);
+            this.txbIme.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txbIme.Name = "txbIme";
-            this.txbIme.Size = new System.Drawing.Size(169, 20);
+            this.txbIme.Size = new System.Drawing.Size(224, 28);
             this.txbIme.TabIndex = 3;
             // 
             // FormDodajSpon
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 194);
+            this.ClientSize = new System.Drawing.Size(379, 239);
             this.Controls.Add(this.txbIme);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPotvrdi);
             this.Controls.Add(this.btnZatvori);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormDodajSpon";
-            this.Text = "FormDodajSpon";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Dodaj sponzora";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajSpon_FormClosing);
             this.Load += new System.EventHandler(this.FormDodajSpon_Load);
             this.ResumeLayout(false);
