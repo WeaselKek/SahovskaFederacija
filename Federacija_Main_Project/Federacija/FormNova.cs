@@ -282,23 +282,18 @@ namespace Federacija
                     s.Flush();
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali turnir");
-                    showTurnir_Click(sender, e);
+                    
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
                 {
-                    var id = ((Organizator)dgv1.CurrentRow.DataBoundItem).MatBr;
-                    Organizator p = s.Load<Organizator>(id);
-                    if (p.SudijaId != null)
-                    {
-                        Sudija sud = s.Load<Sudija>(p.SudijaId.Id);
-                        s.Delete(sud);
-                        s.Flush();
-                    }
-                    s.Delete(p);
+                    var item = dgv1.CurrentRow.DataBoundItem as Organizator;
+                    s.Update(item);
+
+                    s.Delete(item);
                     s.Flush();
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali organizatora");
-                    showOrgan_Click(sender, e);
+                    
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
                 {
@@ -308,7 +303,11 @@ namespace Federacija
                     s.Flush();
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali sponzora");
-                    showSpon_Click(sender, e);
+                    
+                }
+                else if (dgv1.CurrentRow.DataBoundItem is Partija)
+                {
+                    //tobedoned
                 }
                 else
                 {
@@ -439,6 +438,8 @@ namespace Federacija
 
             if (dgv1.DataSource is SortableBindingList<Sahista>)
                 SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
+            if (dgv1.DataSource is SortableBindingList<Partija>)
+                osveziSudiju(dgv1.DataSource as SortableBindingList<Partija>);
         }
 
         private void sahistaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -618,12 +619,10 @@ namespace Federacija
                 {
                     ISession s = DataLayer.GetSession();
                     Turnir trn = dgv1.CurrentRow.DataBoundItem as Turnir;
+                    s.Update(trn);
+                    
 
-                    IList<Partija> lsp = (from o in s.Query<Partija>()
-                                          where (o.Turnir == trn)
-                                          select o).ToList<Partija>();
-
-                    SortableBindingList<Partija> a = new SortableBindingList<Partija>(lsp);
+                    SortableBindingList<Partija> a = new SortableBindingList<Partija>(trn.TPartije);
 
                     dgv1.Columns.Clear();
                     dgv1.DataSource = a;
