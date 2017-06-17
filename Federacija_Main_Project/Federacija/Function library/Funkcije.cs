@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NHibernate;
+using NHibernate.Linq;
 using Federacija.BindList;
+using Federacija.Entiteti;
+using Federacija.Mapiranja;
 
 namespace Federacija.Functions
 {
@@ -77,6 +81,33 @@ namespace Federacija.Functions
             {
                 a.Cancel = true;
             }
+        }
+    }
+    public class SudOP
+    {
+        public static string ucitajSudiju(ISession s, Sudija sud)
+        {
+
+            Majstor m;
+            Organizator or;
+            string st;
+            if (sud.FlagMajstor == 1)
+            {
+
+                m = (from o in s.Query<Majstor>()
+                     where (o.SudijaId == sud)
+                     select o).Single();
+               st = m.Ime + " " + m.Prezime;
+            }
+            else
+            {
+                or = (from o in s.Query<Organizator>()
+                      where (o.SudijaId == sud)
+                      select o).Single();
+               st = or.Ime + " " + or.Prezime;
+            }
+            return st;
+
         }
     }
 

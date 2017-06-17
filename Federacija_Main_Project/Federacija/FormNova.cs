@@ -353,7 +353,6 @@ namespace Federacija
                 FormDodajSah f = new FormDodajSah();
                 f.UpdateItem = item as Sahista;
                 f.ShowDialog();
-                             
             }
             else if (dgv1.CurrentRow.DataBoundItem is Turnir)
             {
@@ -361,7 +360,6 @@ namespace Federacija
                 FormDodajTurnir f = new FormDodajTurnir();
                 f.UpdateItem = item;
                 f.ShowDialog();
-                
             }
             else if (dgv1.CurrentRow.DataBoundItem is Organizator)
             {
@@ -369,22 +367,32 @@ namespace Federacija
                 FormDodajOrg f = new FormDodajOrg();
                 f.UpdateItem = item;
                 f.ShowDialog();
-                
             }
             else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
             {
-                MessageBox.Show("Ne mozete azurirati sponzor");               
+                MessageBox.Show("Ne mozete azurirati sponzor");
             }
             else if (dgv1.CurrentRow.DataBoundItem is Partija)
             {
                 var item = dgv1.CurrentRow.DataBoundItem as Partija;
-                FormDodajPartija f = new FormDodajPartija();               
+                FormDodajPartija f = new FormDodajPartija();
                 f.UpdateItem = item;
                 f.ShowDialog();
-                
+                osveziSudiju(dgv1.DataSource as SortableBindingList<Partija>);
+               
             }
             dgv1.Update();
             dgv1.Refresh();
+        }
+
+        private void osveziSudiju(SortableBindingList<Partija> a){
+            ISession s = DataLayer.GetSession();
+            foreach (Partija p in a)
+            {
+                string sts = SudOP.ucitajSudiju(s, p.Sudija);
+                dgv1.Rows[a.IndexOf(p)].Cells["sd"].Value = sts;
+            }
+            s.Close();
         }
 
         private void btnVezaOrgSpon_Click(object sender, EventArgs e)
@@ -458,7 +466,7 @@ namespace Federacija
                     var m = dgv1.CurrentRow.DataBoundItem as Majstor;
                     ISession s = DataLayer.GetSession();
                     s.Update(m);
-                   
+
                     if (m.SudijaId == null)
                     {
                         Sudija sud = new Sudija();
@@ -479,7 +487,6 @@ namespace Federacija
                     }
                     dgv1.Update();
                     dgv1.Refresh();
-
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
                 {
@@ -594,6 +601,13 @@ namespace Federacija
 
                     dgv1.Columns["Potezi"].Visible = false;
                     dgv1.Columns["Sudija"].Visible = false;
+                    dgv1.Columns.Add("sd", "Sudija");
+                    string sts;
+                    foreach (Partija p in a)
+                    {
+                        sts = SudOP.ucitajSudiju(s, p.Sudija);
+                        dgv1.Rows[a.IndexOf(p)].Cells["sd"].Value = sts;
+                    }
 
                     dgv1.Update();
                     dgv1.Refresh();
@@ -617,6 +631,14 @@ namespace Federacija
                     dgv1.Columns["Potezi"].Visible = false;
                     dgv1.Columns["Sudija"].Visible = false;
                     dgv1.Columns["Turnir"].Visible = false;
+
+                    dgv1.Columns.Add("sd", "Sudija");
+                    string sts;
+                    foreach (Partija p in a)
+                    {
+                        sts = SudOP.ucitajSudiju(s, p.Sudija);
+                        dgv1.Rows[a.IndexOf(p)].Cells["sd"].Value = sts;
+                    }
 
                     dgv1.Update();
                     dgv1.Refresh();

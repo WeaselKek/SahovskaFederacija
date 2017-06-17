@@ -92,33 +92,9 @@ namespace Federacija
             lblBeli.Text = Beli.Ime + " " + Beli.Prezime;
             label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
             lblRbr.Text = (Ptz.Count() + 1).ToString();
-            ucitajSudiju(s);
+            string sudtext = SudOP.ucitajSudiju(s, Sudac);
+            lblSudija.Text = sudtext;
             s.Close();
-            
-            
-        }
-
-        private void ucitajSudiju(ISession s)
-        {
-            
-            Majstor m;
-            Organizator or;
-            if (UpdateItem.Sudija.FlagMajstor == 1)
-            {
-                
-                m = (from o in s.Query<Majstor>()
-                     where (o.SudijaId == UpdateItem.Sudija)
-                     select o).Single();
-                lblSudija.Text=m.Ime+ " "+m.Prezime;
-            }
-            else
-            {
-                or = (from o in s.Query<Organizator>()
-                      where (o.SudijaId == UpdateItem.Sudija)
-                      select o).Single();
-                lblSudija.Text = or.Ime + " " + or.Prezime;
-            }
-            
         }
 
         private void ucitajDGV()
@@ -160,28 +136,26 @@ namespace Federacija
                 dgvSudija.Columns["FlagMajstor"].Visible = false;
                 dgvSudija.Columns["FlagOrganizator"].Visible = false;
                 dgvSudija.Columns.Add("tip", "Tip");
-                dgvSudija.Columns.Add("ime", "Ime");
-                dgvSudija.Columns.Add("prezime", "Prezime");
+                dgvSudija.Columns.Add("ime", "Ime i prezime");
 
                 foreach (Sudija value in a1)
                 {
+                    string sts = SudOP.ucitajSudiju(s, value);
                     if (value.FlagMajstor == 1)
                     {
                         m = (from o in s.Query<Majstor>()
                              where (o.SudijaId == value)
                              select o).Single();
                         dgvSudija.Rows[i].Cells["tip"].Value = "Majstor";
-                        dgvSudija.Rows[i].Cells["ime"].Value = m.Ime;
-                        dgvSudija.Rows[i].Cells["prezime"].Value = m.Prezime;
+                        dgvSudija.Rows[i].Cells["ime"].Value = m.Ime + " " + m.Prezime;
                     }
-                    else if(value.FlagOrganizator==1)
+                    else if (value.FlagOrganizator == 1)
                     {
                         or = (from o in s.Query<Organizator>()
                               where (o.SudijaId == value)
                               select o).Single();
                         dgvSudija.Rows[i].Cells["tip"].Value = "Organizator";
-                        dgvSudija.Rows[i].Cells["ime"].Value = or.Ime;
-                        dgvSudija.Rows[i].Cells["prezime"].Value = or.Prezime;
+                        dgvSudija.Rows[i].Cells["ime"].Value = or.Ime + " " + or.Prezime;
                     }
                     i++;
                 }
@@ -333,7 +307,7 @@ namespace Federacija
                 return;
 
             Sudija item = dgvSudija.CurrentRow.DataBoundItem as Sudija;
-            lblSudija.Text = dgvSudija.CurrentRow.Cells["ime"].Value + "  " + dgvSudija.CurrentRow.Cells["prezime"].Value;
+            lblSudija.Text = dgvSudija.CurrentRow.Cells["ime"].Value.ToString();
             Sudac = item;
         }
     }
