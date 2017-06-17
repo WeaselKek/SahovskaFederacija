@@ -47,7 +47,13 @@ namespace Federacija
             {
                 ISession s = DataLayer.GetSession();
 
-                Sponzor sp = new Sponzor();
+                Sponzor sp;
+
+                if (updaterino)
+                    sp = UpdateItem;
+                else
+                    sp = new Sponzor();
+
                 sp.Naziv = txbIme.Text;
 
                 s.SaveOrUpdate(sp);
@@ -78,6 +84,16 @@ namespace Federacija
                 return;
             }
             Provera.Zatvaranje(e);
+        }
+
+        private void FormDodajSpon_Load(object sender, EventArgs e)
+        {
+            if (UpdateItem != null)
+            {
+                txbIme.Text = UpdateItem.Naziv;
+
+                updaterino = true;
+            }
         }
     }
 }

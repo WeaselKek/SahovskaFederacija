@@ -82,6 +82,7 @@
             this.Name = "FormDodajSpon";
             this.Text = "FormDodajSpon";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajSpon_FormClosing);
+            this.Load += new System.EventHandler(this.FormDodajSpon_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

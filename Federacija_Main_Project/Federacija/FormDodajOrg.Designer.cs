@@ -200,6 +200,7 @@
             this.Name = "FormDodajOrg";
             this.Text = "FormDodajOrg";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDodajOrg_FormClosing);
+            this.Load += new System.EventHandler(this.FormDodajOrg_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

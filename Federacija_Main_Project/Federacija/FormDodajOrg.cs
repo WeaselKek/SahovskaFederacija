@@ -49,9 +49,14 @@ namespace Federacija
             {
                 ISession s = DataLayer.GetSession();
 
-                Organizator o = new Organizator();
+                Organizator o;
 
-                if (cbxSudija.Checked)
+                if (updaterino)
+                    o = UpdateItem;
+                else
+                    o = new Organizator();
+
+                if (cbxSudija.Checked && cbxSudija.Enabled == true)
                 {
                     Sudija sud = new Sudija();
                     sud.FlagOrganizator = 1;
@@ -59,7 +64,7 @@ namespace Federacija
                     o.SudijaId = sud;
                     s.Save(sud);
                 }
-                else
+                else if (cbxSudija.Enabled == true)
                 {
                     o.SudijaId = null;
                 }
@@ -148,6 +153,27 @@ namespace Federacija
                 return;
             }
             Provera.Zatvaranje(e);
+        }
+
+        private void FormDodajOrg_Load(object sender, EventArgs e)
+        {
+            if (UpdateItem != null)
+            {
+                txbIme.Text = UpdateItem.Ime;
+                txbPrezime.Text = UpdateItem.Prezime;
+                txbMatBr.Text = UpdateItem.MatBr;
+                txbMatBr.Enabled = false;
+                txbUlica.Text = UpdateItem.Ulica;
+                txbGrad.Text = UpdateItem.Grad;
+                txbBroj.Text = UpdateItem.Broj.ToString();
+                if (UpdateItem.SudijaId != null)
+                {
+                    cbxSudija.Checked = true;
+                    cbxSudija.Enabled = false;
+                }
+
+                updaterino = true;
+            }
         }
     }
 }

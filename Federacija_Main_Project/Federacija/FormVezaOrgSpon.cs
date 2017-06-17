@@ -124,9 +124,12 @@ namespace Federacija
                 org.OrganizujeOrganizator = o;
                 org.OrganizujeTurnir = Turn;
 
-                if ((from z in s.Query<Organizuje>()
-                    where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
-                    select z).Count() == 0)
+                //if ((from z in s.Query<Organizuje>()
+                //     where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
+                //     select z).Count() == 0)
+                if ((from z in s.Query<Turnir>()
+                     where z.Id == Turn.Id && z.OrganizujeOrganizator.All(x => x.OrganizujeOrganizator.MatBr != o.MatBr)
+                     select z).Count() == 1)
                     s.Save(org);
                 s.Flush();
 
@@ -145,7 +148,7 @@ namespace Federacija
         {
             if (!(dgvSviSponzori.DataSource is SortableBindingList<Sponzor>) || dgvSviSponzori.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Niste selektovali organizatora");
+                MessageBox.Show("Niste selektovali sponzora");
                 return;
             }
 
@@ -159,9 +162,12 @@ namespace Federacija
                 spon.SponzoriseSponzor = sp;
                 spon.SponzoriseTurnir = Turn;
 
-                if ((from z in s.Query<Sponzorise>()
-                    where z.SponzoriseSponzor == sp && z.SponzoriseTurnir == Turn
-                    select z).Count() == 0)
+                //if ((from z in s.Query<Sponzorise>()
+                //    where z.SponzoriseSponzor == sp && z.SponzoriseTurnir == Turn
+                //    select z).Count() == 0)
+                if ((from z in s.Query<Turnir>()
+                     where z.Id == Turn.Id && z.SponzoriseSponzor.All(x => x.SponzoriseSponzor.Naziv != sp.Naziv)
+                     select z).Count() == 1)
                     s.Save(spon);
                 s.Flush();
 
@@ -212,6 +218,70 @@ namespace Federacija
             {
                 MessageBox.Show(ec.Message);
                 this.Close();
+            }
+        }
+
+        private void btnUkloniOrganizatora_Click(object sender, EventArgs e)
+        {
+            if (!(dgvPostojeciOrganizatori.DataSource is SortableBindingList<Organizator>) || dgvPostojeciOrganizatori.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Niste selektovali organizatora");
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Organizator o = dgvPostojeciOrganizatori.CurrentRow.DataBoundItem as Organizator;
+
+                Organizuje org = (from z in s.Query<Organizuje>()
+                 where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
+                 select z).First();
+                s.Delete(org);
+                s.Flush();
+
+                OsveziPostojeceGridove();
+
+                MessageBox.Show("Organizator vise ne organizuje turnir: " + Turn.Naziv);
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                return;
+            }
+        }
+
+        private void btnUkloniSponzora_Click(object sender, EventArgs e)
+        {
+            if (!(dgvPostojeciSponzori.DataSource is SortableBindingList<Sponzor>) || dgvPostojeciSponzori.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Niste selektovali sponzora");
+                return;
+            }
+
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Sponzor spon = dgvPostojeciSponzori.CurrentRow.DataBoundItem as Sponzor;
+
+                Sponzorise sp = (from z in s.Query<Sponzorise>()
+                                  where z.SponzoriseSponzor == spon && z.SponzoriseTurnir == Turn
+                                  select z).First();
+                s.Delete(sp);
+                s.Flush();
+
+                OsveziPostojeceGridove();
+
+                MessageBox.Show("Sponzor vise ne sponzorise turnir: " + Turn.Naziv);
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.Message);
+                return;
             }
         }
     }

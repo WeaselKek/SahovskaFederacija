@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnUcitaj = new System.Windows.Forms.Button();
+            this.btnUkloniOrganizatora = new System.Windows.Forms.Button();
+            this.btnUkloniSponzora = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPostojeciOrganizatori)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPostojeciSponzori)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSviOrganizatori)).BeginInit();
@@ -181,11 +183,33 @@
             this.btnUcitaj.UseVisualStyleBackColor = true;
             this.btnUcitaj.Click += new System.EventHandler(this.btnUcitaj_Click);
             // 
+            // btnUkloniOrganizatora
+            // 
+            this.btnUkloniOrganizatora.Location = new System.Drawing.Point(315, 279);
+            this.btnUkloniOrganizatora.Name = "btnUkloniOrganizatora";
+            this.btnUkloniOrganizatora.Size = new System.Drawing.Size(166, 23);
+            this.btnUkloniOrganizatora.TabIndex = 28;
+            this.btnUkloniOrganizatora.Text = "Ukloni vezu organizatora";
+            this.btnUkloniOrganizatora.UseVisualStyleBackColor = true;
+            this.btnUkloniOrganizatora.Click += new System.EventHandler(this.btnUkloniOrganizatora_Click);
+            // 
+            // btnUkloniSponzora
+            // 
+            this.btnUkloniSponzora.Location = new System.Drawing.Point(315, 333);
+            this.btnUkloniSponzora.Name = "btnUkloniSponzora";
+            this.btnUkloniSponzora.Size = new System.Drawing.Size(166, 23);
+            this.btnUkloniSponzora.TabIndex = 29;
+            this.btnUkloniSponzora.Text = "Ukloni vezu sponzora";
+            this.btnUkloniSponzora.UseVisualStyleBackColor = true;
+            this.btnUkloniSponzora.Click += new System.EventHandler(this.btnUkloniSponzora_Click);
+            // 
             // FormVezaOrgSpon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1047, 534);
+            this.Controls.Add(this.btnUkloniSponzora);
+            this.Controls.Add(this.btnUkloniOrganizatora);
             this.Controls.Add(this.btnUcitaj);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -226,5 +250,7 @@
         private System.Windows.Forms.Button btnUcitaj;
         public System.Windows.Forms.DataGridView dgvSviOrganizatori;
         public System.Windows.Forms.DataGridView dgvSviSponzori;
+        private System.Windows.Forms.Button btnUkloniOrganizatora;
+        private System.Windows.Forms.Button btnUkloniSponzora;
     }
 }
