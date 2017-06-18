@@ -16,7 +16,7 @@ namespace Federacija.Mapiranja
 
             Id(x => x.Naziv, "NAZIV").GeneratedBy.Assigned();
 
-            HasMany(x => x.SponzoriseTurnir).KeyColumn("NAZIV_SPONZORA");
+            HasMany(x => x.SponzoriseTurnir).KeyColumn("NAZIV_SPONZORA").Cascade.All().Inverse();
         }
     }
 }
