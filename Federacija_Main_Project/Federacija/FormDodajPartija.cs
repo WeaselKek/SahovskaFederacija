@@ -39,6 +39,7 @@ namespace Federacija
 
         private void FormDodajPartija_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             if (closenow)
             {
                 return;
@@ -165,6 +166,7 @@ namespace Federacija
             }
             catch (Exception ec)
             {
+               
                 MessageBox.Show(ec.Message);
             }
         }
@@ -267,11 +269,20 @@ namespace Federacija
                 if (!updaterino)
                 {
                     p = new Partija();
+                    foreach (Potez pt in Ptz)
+                    {
+                        pt.Partija = p;
+                    }
                 }
                 else
                 {
-                    s.Update(UpdateItem);
                     p = UpdateItem;
+                    foreach (Potez pt in Ptz)
+                    {
+                        pt.Partija = p;
+                    }
+                    s.Update(UpdateItem);
+                    //p = UpdateItem;
                 }
                 int num;
                 p.Datum = dtpDat.Value;
@@ -281,10 +292,7 @@ namespace Federacija
                 p.Ishod = grpIshod.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Text.ToUpper();
                 p.BeliIgrac = Beli;
                 p.CrniIgrac = Crni;
-                foreach (Potez pt in Ptz)
-                {
-                    pt.Partija = p;
-                }
+
                 p.Potezi = Ptz;
                 p.Turnir = Turn;
                 p.Sudija = Sudac;
@@ -303,6 +311,7 @@ namespace Federacija
             }
             catch (Exception ec)
             {
+                
                 MessageBox.Show(ec.Message);
             }
         }

@@ -260,9 +260,9 @@
             // btnCrni
             // 
             this.btnCrni.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrni.Location = new System.Drawing.Point(322, 314);
+            this.btnCrni.Location = new System.Drawing.Point(308, 314);
             this.btnCrni.Name = "btnCrni";
-            this.btnCrni.Size = new System.Drawing.Size(96, 23);
+            this.btnCrni.Size = new System.Drawing.Size(110, 23);
             this.btnCrni.TabIndex = 14;
             this.btnCrni.Text = "Izaberi Crnog";
             this.btnCrni.UseVisualStyleBackColor = true;
@@ -335,7 +335,7 @@
             this.btnSudija.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSudija.Location = new System.Drawing.Point(472, 186);
             this.btnSudija.Name = "btnSudija";
-            this.btnSudija.Size = new System.Drawing.Size(98, 23);
+            this.btnSudija.Size = new System.Drawing.Size(116, 23);
             this.btnSudija.TabIndex = 22;
             this.btnSudija.Text = "Izaberi Sudiju";
             this.btnSudija.UseVisualStyleBackColor = true;
