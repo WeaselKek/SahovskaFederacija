@@ -60,10 +60,11 @@
             // 
             this.dgv1.AllowUserToAddRows = false;
             this.dgv1.AllowUserToDeleteRows = false;
+            this.dgv1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgv1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv1.ColumnHeadersHeight = 36;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgv1.Location = new System.Drawing.Point(24, 302);
+            this.dgv1.Location = new System.Drawing.Point(12, 298);
             this.dgv1.Name = "dgv1";
             this.dgv1.Size = new System.Drawing.Size(1233, 378);
             this.dgv1.TabIndex = 0;

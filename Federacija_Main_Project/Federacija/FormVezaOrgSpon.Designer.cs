@@ -85,6 +85,7 @@
             // dgvPostojeciOrganizatori
             // 
             this.dgvPostojeciOrganizatori.AllowUserToAddRows = false;
+            this.dgvPostojeciOrganizatori.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPostojeciOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciOrganizatori.Location = new System.Drawing.Point(24, 56);
@@ -96,6 +97,7 @@
             // dgvPostojeciSponzori
             // 
             this.dgvPostojeciSponzori.AllowUserToAddRows = false;
+            this.dgvPostojeciSponzori.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPostojeciSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciSponzori.Location = new System.Drawing.Point(24, 291);
@@ -107,6 +109,7 @@
             // dgvSviOrganizatori
             // 
             this.dgvSviOrganizatori.AllowUserToAddRows = false;
+            this.dgvSviOrganizatori.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSviOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviOrganizatori.Location = new System.Drawing.Point(561, 56);
@@ -118,6 +121,7 @@
             // dgvSviSponzori
             // 
             this.dgvSviSponzori.AllowUserToAddRows = false;
+            this.dgvSviSponzori.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSviSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviSponzori.Location = new System.Drawing.Point(561, 291);
@@ -212,8 +216,8 @@
             // 
             // FormVezaOrgSpon
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1056, 534);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblSponzTurnira);

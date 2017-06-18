@@ -239,6 +239,7 @@
             // dgvSahista
             // 
             this.dgvSahista.AllowUserToAddRows = false;
+            this.dgvSahista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSahista.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSahista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSahista.Location = new System.Drawing.Point(32, 345);
@@ -313,6 +314,7 @@
             // dgvSudija
             // 
             this.dgvSudija.AllowUserToAddRows = false;
+            this.dgvSudija.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSudija.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSudija.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSudija.Location = new System.Drawing.Point(472, 59);
