@@ -211,10 +211,21 @@ namespace Federacija
         {
             if (lstPotez.Items.Count == 0)
                 return;
-            Potez p = (Potez)lstPotez.Items[lstPotez.Items.Count - 1];
-            Ptz.Remove(p);
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Potez p = (Potez)lstPotez.Items[lstPotez.Items.Count - 1];
+                Ptz.Remove(p);
+                s.Delete(p);
+                refreshLBX();
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
 
-            refreshLBX();
+                MessageBox.Show(ec.Message);
+            }
         }
 
         private void refreshLBX()
