@@ -173,6 +173,12 @@ namespace Federacija
 
         private void btnDodajPotez_Click(object sender, EventArgs e)
         {
+            if (txtPoc.Text == "" || txtKraj.Text == "" || txtVreme.Text == "")
+            {
+                MessageBox.Show("Popunite sva polja");
+                return;
+            }
+
             Potez p = new Potez();
             p.RedniBr = Ptz.Count() + 1;
             p.PocetnoPolje = txtPoc.Text;
