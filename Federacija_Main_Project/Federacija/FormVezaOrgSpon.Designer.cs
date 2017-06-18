@@ -232,7 +232,7 @@
             this.Controls.Add(this.btnDone);
             this.Name = "FormVezaOrgSpon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Organizatori i sponzori turnira";
+            this.Text = "FormVezaOrgSpon";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVezaOrgSpon_FormClosing);
             this.Load += new System.EventHandler(this.FormVezaOrgSpon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPostojeciOrganizatori)).EndInit();

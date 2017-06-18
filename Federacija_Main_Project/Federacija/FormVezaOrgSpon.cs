@@ -24,8 +24,6 @@ namespace Federacija
             InitializeComponent();
             Turn = t;
 
-            this.Text = "Organizatori i sponzori turnira: " + Turn.Naziv;
-
             OsveziPostojeceGridove();
         }
 
