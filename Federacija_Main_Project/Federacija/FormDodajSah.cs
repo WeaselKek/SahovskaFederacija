@@ -27,6 +27,7 @@ namespace Federacija
             rdbM.Checked = true;
             if (UpdateItem != null)
             {
+                this.Text = "Izmeni sahistu";
                 ucitajKontrole();
             }
         }

@@ -51,6 +51,7 @@ namespace Federacija
                 btnPrikazPartije.Visible = true;
                 btnVezaOrgSpon.Visible = false;
                 btnDodajPartiju.Visible = false;
+                showPotez.Visible = false;
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
@@ -115,6 +116,7 @@ namespace Federacija
                 btnPrikazPartije.Visible = false;
                 btnVezaOrgSpon.Visible = false;
                 btnDodajPartiju.Visible = false;
+                showPotez.Visible = false;
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
@@ -145,6 +147,7 @@ namespace Federacija
                 btnPrikazPartije.Visible = false;
                 btnVezaOrgSpon.Visible = false;
                 btnDodajPartiju.Visible = false;
+                showPotez.Visible = false;
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
@@ -174,6 +177,7 @@ namespace Federacija
                 btnPrikazPartije.Visible = true;
                 btnVezaOrgSpon.Visible = true;
                 btnDodajPartiju.Visible = true;
+                showPotez.Visible = false;
                 dgv1.Columns.Clear();
                 ISession s = DataLayer.GetSession();
 
@@ -551,6 +555,7 @@ namespace Federacija
             btnPrikazPartije.Visible = false;
             btnVezaOrgSpon.Visible = false;
             btnDodajPartiju.Visible = false;
+            showPotez.Visible = true;
 
             try
             {

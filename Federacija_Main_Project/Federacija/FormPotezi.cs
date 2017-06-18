@@ -28,7 +28,9 @@ namespace Federacija
 
         private void ucitajPartiju()
         {
-            lblPartija.Text = Part.BeliIgrac.ToString() +" vs "+ Part.CrniIgrac.ToString() +"  "+ Part.Datum.ToShortDateString() +"  "+ Part.Vreme +"\n"+ Part.Ishod;
+            lblBeliVSCrni.Text = Part.BeliIgrac.ToString() + " vs " + Part.CrniIgrac.ToString();
+            lblDatumVreme.Text = Part.Datum.ToShortDateString() +"  "+ Part.Vreme;
+            lblIshod.Text = Part.Ishod;
         }
 
         private void ucitajPoteze()

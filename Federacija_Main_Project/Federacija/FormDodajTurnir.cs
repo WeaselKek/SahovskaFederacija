@@ -41,6 +41,7 @@ namespace Federacija
         {
             if (UpdateItem != null)
             {
+                this.Text = "Izmeni turnir";
                 updaterino = true;
                 panelNovacNamena.Enabled = false;
                 panelTrajanjePartije.Enabled = false;
@@ -48,7 +49,7 @@ namespace Federacija
             }
             else
             {
-                this.Text = "Izmeni turnir";
+
                 rbNormalan.Checked = true;
                 rbTakmicarski.Checked = true;
                 grbEgzibicioni.Enabled = false;
