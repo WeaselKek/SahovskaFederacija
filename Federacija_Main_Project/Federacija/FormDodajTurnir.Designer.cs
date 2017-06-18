@@ -106,6 +106,7 @@
             // 
             this.txtNaziv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNaziv.Location = new System.Drawing.Point(64, 60);
+            this.txtNaziv.MaxLength = 30;
             this.txtNaziv.Name = "txtNaziv";
             this.txtNaziv.Size = new System.Drawing.Size(215, 27);
             this.txtNaziv.TabIndex = 2;
@@ -114,14 +115,17 @@
             // 
             this.txtGodina.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGodina.Location = new System.Drawing.Point(64, 137);
+            this.txtGodina.MaxLength = 4;
             this.txtGodina.Name = "txtGodina";
-            this.txtGodina.Size = new System.Drawing.Size(145, 27);
+            this.txtGodina.Size = new System.Drawing.Size(121, 27);
             this.txtGodina.TabIndex = 3;
+            this.txtGodina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtGodina_KeyPress);
             // 
             // txtDrzava
             // 
             this.txtDrzava.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDrzava.Location = new System.Drawing.Point(64, 285);
+            this.txtDrzava.MaxLength = 30;
             this.txtDrzava.Name = "txtDrzava";
             this.txtDrzava.Size = new System.Drawing.Size(215, 27);
             this.txtDrzava.TabIndex = 4;
@@ -130,6 +134,7 @@
             // 
             this.txtGrad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGrad.Location = new System.Drawing.Point(64, 208);
+            this.txtGrad.MaxLength = 30;
             this.txtGrad.Name = "txtGrad";
             this.txtGrad.Size = new System.Drawing.Size(215, 27);
             this.txtGrad.TabIndex = 5;
@@ -377,6 +382,7 @@
             // txtNamena
             // 
             this.txtNamena.Location = new System.Drawing.Point(11, 86);
+            this.txtNamena.MaxLength = 30;
             this.txtNamena.Name = "txtNamena";
             this.txtNamena.Size = new System.Drawing.Size(179, 24);
             this.txtNamena.TabIndex = 24;
@@ -384,9 +390,11 @@
             // txtNovac
             // 
             this.txtNovac.Location = new System.Drawing.Point(11, 27);
+            this.txtNovac.MaxLength = 10;
             this.txtNovac.Name = "txtNovac";
             this.txtNovac.Size = new System.Drawing.Size(179, 24);
             this.txtNovac.TabIndex = 23;
+            this.txtNovac.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNovac_KeyPress);
             // 
             // panelNovacNamena
             // 
@@ -445,9 +453,11 @@
             // txtTrajanje
             // 
             this.txtTrajanje.Location = new System.Drawing.Point(6, 22);
+            this.txtTrajanje.MaxLength = 3;
             this.txtTrajanje.Name = "txtTrajanje";
             this.txtTrajanje.Size = new System.Drawing.Size(121, 24);
             this.txtTrajanje.TabIndex = 0;
+            this.txtTrajanje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTrajanje_KeyPress);
             // 
             // label13
             // 
@@ -466,7 +476,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(216, 139);
+            this.label11.Location = new System.Drawing.Point(192, 139);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(20, 25);

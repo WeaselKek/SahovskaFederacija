@@ -313,10 +313,11 @@ namespace Federacija
                 {
                     var id = ((Turnir)dgv1.CurrentRow.DataBoundItem).Id;
                     Turnir p = s.Load<Turnir>(id);
+                    String nazivTurnira = p.Naziv;
                     s.Delete(p);
                     s.Flush();
                     s.Close();
-                    MessageBox.Show("Uspesno ste izbrisali turnir");
+                    MessageBox.Show("Uspesno ste izbrisali turnir \"" + nazivTurnira + "\"");
                     
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
@@ -331,10 +332,11 @@ namespace Federacija
                 {
                     var id = ((Sponzor)dgv1.CurrentRow.DataBoundItem).Naziv;
                     Sponzor p = s.Load<Sponzor>(id);
+                    String nazivSponzora = p.Naziv;
                     s.Delete(p);
                     s.Flush();
                     s.Close();
-                    MessageBox.Show("Uspesno ste izbrisali sponzora");
+                    MessageBox.Show("Uspesno ste izbrisali sponzora \"" + nazivSponzora + "\"");
                     
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Partija)
@@ -356,6 +358,7 @@ namespace Federacija
 
         private void delSahista(Sahista item, ISession s)
         {
+            String imePrezime = item.Ime + " " + item.Prezime;
             int cnt = (from o in s.Query<Partija>()
                        where (o.BeliIgrac == item || o.CrniIgrac == item)
                        select o).Count();
@@ -387,11 +390,12 @@ namespace Federacija
             s.Delete(item);
             s.Flush();
             s.Close();
-            MessageBox.Show("Uspesno ste izbrisali sahistu");
+            MessageBox.Show("Uspesno ste izbrisali sahistu \"" + imePrezime + "\"");
         }
 
         private void delOrganizator(Organizator item, ISession s)
         {
+            String imePrezime = item.Ime + " " + item.Prezime;
             if (item.SudijaId != null) {
                 int cnt = (from o in s.Query<Sudija>()
                            where (o == item.SudijaId)
@@ -408,7 +412,7 @@ namespace Federacija
             s.Delete(item);
             s.Flush();
             s.Close();
-            MessageBox.Show("Uspesno ste izbrisali organizatora");
+            MessageBox.Show("Uspesno ste izbrisali organizatora \"" + imePrezime + "\"");
         }
 
         private void btnIzmeni_Click(object sender, EventArgs e)
@@ -703,8 +707,8 @@ namespace Federacija
                     {
                         ISession s = DataLayer.GetSession();
 
-                        int cnt = (from o in s.Query<Sudija>()
-                                   where (o == m.SudijaId)
+                        int cnt = (from o in s.Query<Partija>()
+                                   where (o.Sudija == m.SudijaId)
                                    select o).Count();
 
                         if (cnt > 0)
@@ -717,6 +721,7 @@ namespace Federacija
                         s.Update(m);
                         s.Delete(m.SudijaId);
                         m.SudijaId = null;
+
                         s.Flush();
                         s.Close();
 
@@ -734,8 +739,8 @@ namespace Federacija
                     {
                         ISession s = DataLayer.GetSession();
 
-                        int cnt = (from o in s.Query<Sudija>()
-                                   where (o == org.SudijaId)
+                        int cnt = (from o in s.Query<Partija>()
+                                   where (o.Sudija == org.SudijaId)
                                    select o).Count();
 
                         if (cnt > 0)

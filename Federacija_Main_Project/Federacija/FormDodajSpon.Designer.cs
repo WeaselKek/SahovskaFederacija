@@ -38,7 +38,7 @@
             // 
             this.btnZatvori.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZatvori.Location = new System.Drawing.Point(32, 186);
-            this.btnZatvori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnZatvori.Margin = new System.Windows.Forms.Padding(4);
             this.btnZatvori.Name = "btnZatvori";
             this.btnZatvori.Size = new System.Drawing.Size(110, 35);
             this.btnZatvori.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.btnPotvrdi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPotvrdi.Location = new System.Drawing.Point(232, 186);
-            this.btnPotvrdi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPotvrdi.Margin = new System.Windows.Forms.Padding(4);
             this.btnPotvrdi.Name = "btnPotvrdi";
             this.btnPotvrdi.Size = new System.Drawing.Size(110, 35);
             this.btnPotvrdi.TabIndex = 1;
@@ -72,8 +72,8 @@
             // txbIme
             // 
             this.txbIme.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbIme.Location = new System.Drawing.Point(33, 94);
-            this.txbIme.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbIme.Location = new System.Drawing.Point(33, 84);
+            this.txbIme.Margin = new System.Windows.Forms.Padding(4);
             this.txbIme.Name = "txbIme";
             this.txbIme.Size = new System.Drawing.Size(224, 28);
             this.txbIme.TabIndex = 3;
@@ -87,7 +87,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPotvrdi);
             this.Controls.Add(this.btnZatvori);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormDodajSpon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dodaj sponzora";

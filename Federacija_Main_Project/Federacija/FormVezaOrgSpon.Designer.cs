@@ -53,11 +53,11 @@
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(1271, 599);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(110, 35);
             this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Done";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -65,7 +65,7 @@
             // 
             this.btnDodajOrg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDodajOrg.Location = new System.Drawing.Point(747, 265);
-            this.btnDodajOrg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDodajOrg.Margin = new System.Windows.Forms.Padding(4);
             this.btnDodajOrg.Name = "btnDodajOrg";
             this.btnDodajOrg.Size = new System.Drawing.Size(232, 28);
             this.btnDodajOrg.TabIndex = 17;
@@ -77,7 +77,7 @@
             // 
             this.btnDodajSpon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDodajSpon.Location = new System.Drawing.Point(748, 531);
-            this.btnDodajSpon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDodajSpon.Margin = new System.Windows.Forms.Padding(4);
             this.btnDodajSpon.Name = "btnDodajSpon";
             this.btnDodajSpon.Size = new System.Drawing.Size(231, 28);
             this.btnDodajSpon.TabIndex = 18;
@@ -91,7 +91,7 @@
             this.dgvPostojeciOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciOrganizatori.Location = new System.Drawing.Point(32, 69);
-            this.dgvPostojeciOrganizatori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvPostojeciOrganizatori.Margin = new System.Windows.Forms.Padding(4);
             this.dgvPostojeciOrganizatori.Name = "dgvPostojeciOrganizatori";
             this.dgvPostojeciOrganizatori.ReadOnly = true;
             this.dgvPostojeciOrganizatori.Size = new System.Drawing.Size(633, 188);
@@ -103,7 +103,7 @@
             this.dgvPostojeciSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvPostojeciSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPostojeciSponzori.Location = new System.Drawing.Point(32, 358);
-            this.dgvPostojeciSponzori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvPostojeciSponzori.Margin = new System.Windows.Forms.Padding(4);
             this.dgvPostojeciSponzori.Name = "dgvPostojeciSponzori";
             this.dgvPostojeciSponzori.ReadOnly = true;
             this.dgvPostojeciSponzori.Size = new System.Drawing.Size(349, 165);
@@ -115,7 +115,7 @@
             this.dgvSviOrganizatori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviOrganizatori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviOrganizatori.Location = new System.Drawing.Point(748, 69);
-            this.dgvSviOrganizatori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvSviOrganizatori.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSviOrganizatori.Name = "dgvSviOrganizatori";
             this.dgvSviOrganizatori.ReadOnly = true;
             this.dgvSviOrganizatori.Size = new System.Drawing.Size(633, 188);
@@ -127,7 +127,7 @@
             this.dgvSviSponzori.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSviSponzori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSviSponzori.Location = new System.Drawing.Point(748, 358);
-            this.dgvSviSponzori.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvSviSponzori.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSviSponzori.Name = "dgvSviSponzori";
             this.dgvSviSponzori.ReadOnly = true;
             this.dgvSviSponzori.Size = new System.Drawing.Size(349, 165);
@@ -137,7 +137,7 @@
             // 
             this.btnPoveziOrganizatora.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPoveziOrganizatora.Location = new System.Drawing.Point(1000, 265);
-            this.btnPoveziOrganizatora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPoveziOrganizatora.Margin = new System.Windows.Forms.Padding(4);
             this.btnPoveziOrganizatora.Name = "btnPoveziOrganizatora";
             this.btnPoveziOrganizatora.Size = new System.Drawing.Size(221, 28);
             this.btnPoveziOrganizatora.TabIndex = 23;
@@ -149,7 +149,7 @@
             // 
             this.btnPoveziSponzora.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPoveziSponzora.Location = new System.Drawing.Point(1000, 531);
-            this.btnPoveziSponzora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPoveziSponzora.Margin = new System.Windows.Forms.Padding(4);
             this.btnPoveziSponzora.Name = "btnPoveziSponzora";
             this.btnPoveziSponzora.Size = new System.Drawing.Size(221, 28);
             this.btnPoveziSponzora.TabIndex = 24;
@@ -183,7 +183,7 @@
             // 
             this.btnUkloniOrganizatora.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUkloniOrganizatora.Location = new System.Drawing.Point(32, 265);
-            this.btnUkloniOrganizatora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUkloniOrganizatora.Margin = new System.Windows.Forms.Padding(4);
             this.btnUkloniOrganizatora.Name = "btnUkloniOrganizatora";
             this.btnUkloniOrganizatora.Size = new System.Drawing.Size(268, 28);
             this.btnUkloniOrganizatora.TabIndex = 28;
@@ -195,7 +195,7 @@
             // 
             this.btnUkloniSponzora.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUkloniSponzora.Location = new System.Drawing.Point(32, 531);
-            this.btnUkloniSponzora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUkloniSponzora.Margin = new System.Windows.Forms.Padding(4);
             this.btnUkloniSponzora.Name = "btnUkloniSponzora";
             this.btnUkloniSponzora.Size = new System.Drawing.Size(221, 28);
             this.btnUkloniSponzora.TabIndex = 29;
@@ -245,7 +245,7 @@
             this.Controls.Add(this.btnDodajSpon);
             this.Controls.Add(this.btnDodajOrg);
             this.Controls.Add(this.btnCancel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormVezaOrgSpon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormVezaOrgSpon";

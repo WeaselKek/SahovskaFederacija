@@ -40,6 +40,7 @@ namespace Federacija
         {
             if (txbIme.Text == "")
             {
+                MessageBox.Show("Unesite naziv sponzora");
                 return;
             }
 

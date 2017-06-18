@@ -68,7 +68,7 @@ namespace Federacija
             //Validacija
             if ((txtIme.Text == "") || (txtPrezime.Text == "") || (txtPasos.Text == "") || (txtDrz.Text == ""))
             {
-                MessageBox.Show("Zgresili ste");
+                MessageBox.Show("Niste uneli sva potrebna polja");
                 return;
             }
 

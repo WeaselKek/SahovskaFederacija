@@ -251,9 +251,14 @@ namespace Federacija
         {
             try
             {
-                if (Beli == null || Crni == null || Sudac == null || txtPartTrajanje.Text == "" || txtPartVreme.Text == "")
+                if (Beli == null || Crni == null)
                 {
-                    MessageBox.Show("Niste pravilno uneli podatke");
+                    MessageBox.Show("Izaberite crnog i belog igraca");
+                    return;
+                }
+                if (Sudac == null)
+                {
+                    MessageBox.Show("Izaberite sudiju");
                     return;
                 }
 

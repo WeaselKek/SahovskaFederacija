@@ -39,9 +39,14 @@ namespace Federacija
 
         private void btnPotvrdi_Click(object sender, EventArgs e)
         {
-            if (txbIme.Text == "" || txbPrezime.Text == "" || txbMatBr.Text == "" || txbMatBr.Text.Length != 13)
+            if (txbIme.Text == "" || txbPrezime.Text == "" || txbMatBr.Text == "")
             {
-                MessageBox.Show("Zgresili ste");
+                MessageBox.Show("Niste uneli sva potrebna polja");
+                return;
+            }
+            if (txbMatBr.Text.Length != 13)
+            {
+                MessageBox.Show("Maticni broj mora imati 13 cifara");
                 return;
             }
 

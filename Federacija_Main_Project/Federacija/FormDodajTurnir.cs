@@ -201,7 +201,7 @@ namespace Federacija
         {
             if ((txtNaziv.Text == "") || (txtGrad.Text == "") || (txtDrzava.Text == "") || (txtGodina.Text == ""))
             {
-                MessageBox.Show("Zgresili ste");
+                MessageBox.Show("Niste uneli sve potrebne podatke");
                 return false;
             }
             if (panelNovacNamena.Enabled && (txtNovac.Text == "" || txtNamena.Text == ""))
@@ -288,6 +288,30 @@ namespace Federacija
             catch (Exception ec)
             {
                 MessageBox.Show(ec.Message);
+            }
+        }
+
+        private void txtGodina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTrajanje_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtNovac_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }
