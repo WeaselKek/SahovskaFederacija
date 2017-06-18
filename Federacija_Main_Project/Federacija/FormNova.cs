@@ -124,12 +124,15 @@ namespace Federacija
 
                 SortableBindingList<Organizator> a = new SortableBindingList<Organizator>(q.List<Organizator>());
 
-                s.Close();
-
                 dgv1.DataSource = a;
 
                 dgv1.Columns["OrganizujeTurnir"].Visible = false;
                 dgv1.Columns["SudijaId"].Visible = false;
+
+                dgv1.Update();
+                dgv1.Refresh();
+
+                s.Close();
             }
             catch (Exception ec)
             {
