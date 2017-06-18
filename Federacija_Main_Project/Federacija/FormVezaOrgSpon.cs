@@ -92,7 +92,7 @@ namespace Federacija
                 SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
                 SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
 
-                s.Close();
+               
 
                 dgvSviOrganizatori.DataSource = prva;
                 dgvSviSponzori.DataSource = druga;
@@ -103,6 +103,12 @@ namespace Federacija
                 dgvSviOrganizatori.Columns["MatBr"].Visible = false;
 
                 dgvSviSponzori.Columns["SponzoriseTurnir"].Visible = false;
+
+                dgvSviOrganizatori.Update();
+                dgvSviOrganizatori.Refresh();
+                dgvSviSponzori.Update();
+                dgvSviSponzori.Refresh();
+                s.Close();
             }
             catch(Exception ec)
             {
@@ -209,8 +215,7 @@ namespace Federacija
 
                 SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
                 SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
-
-                s.Close();
+                
 
                 dgvPostojeciOrganizatori.DataSource = prva;
                 dgvPostojeciSponzori.DataSource = druga;
@@ -221,6 +226,12 @@ namespace Federacija
                 dgvPostojeciOrganizatori.Columns["MatBr"].Visible = false;
 
                 dgvPostojeciSponzori.Columns["SponzoriseTurnir"].Visible = false;
+
+                dgvPostojeciOrganizatori.Update();
+                dgvPostojeciOrganizatori.Refresh();
+                dgvPostojeciSponzori.Update();
+                dgvPostojeciSponzori.Refresh();
+                s.Close();
             }
             catch (Exception ec)
             {

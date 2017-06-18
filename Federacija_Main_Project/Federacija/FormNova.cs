@@ -75,7 +75,7 @@ namespace Federacija
 
                 SortableBindingList<Sahista> a = new SortableBindingList<Sahista>(shl);
 
-                s.Close();
+                
 
                 dgv1.DataSource = a;
 
@@ -98,6 +98,9 @@ namespace Federacija
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
 
+                dgv1.Update();
+                dgv1.Refresh();
+                s.Close();
                 SahistaIzvedeni(a);
             }
             catch (Exception ec)
@@ -158,11 +161,12 @@ namespace Federacija
 
                 SortableBindingList<Sponzor> a = new SortableBindingList<Sponzor>(q.List<Sponzor>());
 
-                s.Close();
-
                 dgv1.DataSource = a;
-
                 dgv1.Columns["SponzoriseTurnir"].Visible = false;
+
+                dgv1.Update();
+                dgv1.Refresh();
+                s.Close();
             }
             catch (Exception ec)
             {
@@ -233,7 +237,7 @@ namespace Federacija
 
                 SortableBindingList<Turnir> a = new SortableBindingList<Turnir>(trl);
 
-                s.Close();
+               
 
                 dgv1.DataSource = a;
 
@@ -264,6 +268,9 @@ namespace Federacija
                 {
                     dgv1.Columns["TrajanjePartije"].Visible = true;
                 }
+                dgv1.Update();
+                dgv1.Refresh();
+                s.Close();
             }
             catch (Exception ec)
             {
