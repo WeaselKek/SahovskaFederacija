@@ -12,6 +12,7 @@ using NHibernate.Linq;
 using Federacija.Entiteti;
 using Federacija.Mapiranja;
 using Federacija.BindList;
+using Federacija.Functions;
 
 namespace Federacija
 {
@@ -40,7 +41,7 @@ namespace Federacija
             Ucitaj();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnDone_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -58,23 +59,17 @@ namespace Federacija
 
         private void btnDodajOrg_Click(object sender, EventArgs e)
         {
-            FormDodajOrg f = new FormDodajOrg(this);
+            FormDodajOrg f = new FormDodajOrg();
             f.ShowDialog();
             Ucitaj();
         }
 
         private void btnDodajSpon_Click(object sender, EventArgs e)
         {
-            FormDodajSpon f = new FormDodajSpon(this);
+            FormDodajSpon f = new FormDodajSpon();
             f.ShowDialog();
             Ucitaj();
         }
-
-        private void btnPotvrdi_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void Ucitaj()
         {
@@ -118,11 +113,8 @@ namespace Federacija
 
         private void btnPoveziOrganizatora_Click(object sender, EventArgs e)
         {
-            if (!(dgvSviOrganizatori.DataSource is SortableBindingList<Organizator>) || dgvSviOrganizatori.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste selektovali organizatora");
+            if (!Provera.chkIfSelected(dgvSviOrganizatori))
                 return;
-            }
 
             try
             {
@@ -141,6 +133,10 @@ namespace Federacija
                      where z.Id == Turn.Id && z.OrganizujeOrganizator.All(x => x.OrganizujeOrganizator.MatBr != o.MatBr)
                      select z).Count() == 1)
                     s.Save(org);
+                else
+                {
+                    MessageBox.Show("Ovaj organizator je vec prisutan");
+                }
                 s.Flush();
 
                 OsveziPostojeceGridove();
@@ -156,11 +152,8 @@ namespace Federacija
 
         private void btnPoveziSponzora_Click(object sender, EventArgs e)
         {
-            if (!(dgvSviSponzori.DataSource is SortableBindingList<Sponzor>) || dgvSviSponzori.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste selektovali sponzora");
+            if (!Provera.chkIfSelected(dgvSviSponzori))
                 return;
-            }
 
             try
             {
@@ -179,6 +172,10 @@ namespace Federacija
                      where z.Id == Turn.Id && z.SponzoriseSponzor.All(x => x.SponzoriseSponzor.Naziv != sp.Naziv)
                      select z).Count() == 1)
                     s.Save(spon);
+                else
+                {
+                    MessageBox.Show("Ovaj sponzor je vec prisutan");
+                }
                 s.Flush();
 
                 OsveziPostojeceGridove();
@@ -208,6 +205,7 @@ namespace Federacija
                 listaSponzora = listaSponzora.Concat(from o in s.Query<Sponzor>()
                                                      where o.SponzoriseTurnir.Any(x => x.SponzoriseTurnir.Id == Turn.Id)
                                                      select o).ToList<Sponzor>();
+                
 
                 SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
                 SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
@@ -233,11 +231,8 @@ namespace Federacija
 
         private void btnUkloniOrganizatora_Click(object sender, EventArgs e)
         {
-            if (!(dgvPostojeciOrganizatori.DataSource is SortableBindingList<Organizator>) || dgvPostojeciOrganizatori.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste selektovali organizatora");
+            if (!Provera.chkIfSelected(dgvPostojeciOrganizatori))
                 return;
-            }
 
             try
             {
@@ -265,11 +260,8 @@ namespace Federacija
 
         private void btnUkloniSponzora_Click(object sender, EventArgs e)
         {
-            if (!(dgvPostojeciSponzori.DataSource is SortableBindingList<Sponzor>) || dgvPostojeciSponzori.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste selektovali sponzora");
+            if (!Provera.chkIfSelected(dgvPostojeciSponzori))
                 return;
-            }
 
             try
             {

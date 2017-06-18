@@ -18,7 +18,7 @@ namespace Federacija
 {
     public partial class FormDodajOrg : Form
     {
-        FormVezaOrgSpon CaleForma;
+
         bool closenow = false;
         bool updaterino = false;
 
@@ -31,11 +31,7 @@ namespace Federacija
         {
             InitializeComponent();
         }
-        public FormDodajOrg(FormVezaOrgSpon c)
-        {
-            InitializeComponent();
-            this.CaleForma = c;
-        }
+
 
         private void btnPotvrdi_Click(object sender, EventArgs e)
         {
@@ -57,7 +53,10 @@ namespace Federacija
                 Organizator o;
 
                 if (updaterino)
+                {
+                    s.Update(UpdateItem);
                     o = UpdateItem;
+                }
                 else
                     o = new Organizator();
 

@@ -78,7 +78,6 @@ namespace Federacija
 
                 dgv1.DataSource = a;
 
-                dgv1.Columns["RegBr"].Visible = false;
                 dgv1.Columns["BrojPasosa"].Visible = false;
                 dgv1.Columns["Ulica"].Visible = false;
                 dgv1.Columns["Broj"].Visible = false;
@@ -311,44 +310,53 @@ namespace Federacija
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Turnir)
                 {
-                    var id = ((Turnir)dgv1.CurrentRow.DataBoundItem).Id;
-                    Turnir p = s.Load<Turnir>(id);
-                    String nazivTurnira = p.Naziv;
-                    s.Delete(p);
+                    var item = dgv1.CurrentRow.DataBoundItem as Turnir;
+                    s.Update(item);
+                    String nazivTurnira = item.Naziv;
+                    s.Delete(item);
                     s.Flush();
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali turnir \"" + nazivTurnira + "\"");
-                    
+                    dgv1.Rows.Remove(this.dgv1.CurrentRow);
+
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
                 {
                     var item = dgv1.CurrentRow.DataBoundItem as Organizator;
                     s.Update(item);
                     delOrganizator(item, s);
-                   
-                    
+
+
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
                 {
-                    var id = ((Sponzor)dgv1.CurrentRow.DataBoundItem).Naziv;
-                    Sponzor p = s.Load<Sponzor>(id);
-                    String nazivSponzora = p.Naziv;
-                    s.Delete(p);
+                    var item = dgv1.CurrentRow.DataBoundItem as Sponzor;
+                    s.Update(item);
+                    String nazivSponzora = item.Naziv;
+                    s.Delete(item);
                     s.Flush();
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali sponzora \"" + nazivSponzora + "\"");
-                    
+                    dgv1.Rows.Remove(this.dgv1.CurrentRow);
+
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Partija)
                 {
-                    //tobedoned
+                    var item = dgv1.CurrentRow.DataBoundItem as Partija;
+                    s.Update(item);
+
+                    s.Delete(item);
+                    s.Flush();
+                    s.Close();
+                    MessageBox.Show("Uspesno ste izbrisali partiju");
+                    dgv1.Rows.Remove(this.dgv1.CurrentRow);
                 }
                 else
                 {
                     s.Close();
                 }
 
-                //dgv1.Rows.Remove(this.dgv1.CurrentRow);
+               
             }
             catch (Exception ec)
             {
@@ -375,30 +383,32 @@ namespace Federacija
                 Majstor majstor = item as Majstor;
                 if (majstor.SudijaId != null)
                 {
-                    int cnt1 = (from o in s.Query<Sudija>()
-                               where (o == majstor.SudijaId)
-                               select o).Count();
+                    int cnt1 = (from o in s.Query<Partija>()
+                                where (o.Sudija == majstor.SudijaId)
+                                select o).Count();
                     if (cnt1 > 0)
                     {
                         s.Close();
                         MessageBox.Show("Ne mozete izbrisati majstora koji je sudio neku partiju");
                         return;
                     }
-                }     
+                }
             }
 
             s.Delete(item);
             s.Flush();
             s.Close();
             MessageBox.Show("Uspesno ste izbrisali sahistu \"" + imePrezime + "\"");
+            dgv1.Rows.Remove(this.dgv1.CurrentRow);
         }
 
         private void delOrganizator(Organizator item, ISession s)
         {
             String imePrezime = item.Ime + " " + item.Prezime;
-            if (item.SudijaId != null) {
-                int cnt = (from o in s.Query<Sudija>()
-                           where (o == item.SudijaId)
+            if (item.SudijaId != null)
+            {
+                int cnt = (from o in s.Query<Partija>()
+                           where (o.Sudija == item.SudijaId)
                            select o).Count();
 
                 if (cnt > 0)
@@ -413,6 +423,7 @@ namespace Federacija
             s.Flush();
             s.Close();
             MessageBox.Show("Uspesno ste izbrisali organizatora \"" + imePrezime + "\"");
+            dgv1.Rows.Remove(this.dgv1.CurrentRow);
         }
 
         private void btnIzmeni_Click(object sender, EventArgs e)
@@ -426,6 +437,7 @@ namespace Federacija
                 FormDodajSah f = new FormDodajSah();
                 f.UpdateItem = item as Sahista;
                 f.ShowDialog();
+                SahistaIzvedeni(dgv1.DataSource as SortableBindingList<Sahista>);
             }
             else if (dgv1.CurrentRow.DataBoundItem is Turnir)
             {
@@ -443,7 +455,7 @@ namespace Federacija
             }
             else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
             {
-                MessageBox.Show("Ne mozete azurirati sponzor");
+                MessageBox.Show("Ne mozete azurirati sponzora");
             }
             else if (dgv1.CurrentRow.DataBoundItem is Partija)
             {
@@ -452,13 +464,14 @@ namespace Federacija
                 f.UpdateItem = item;
                 f.ShowDialog();
                 osveziSudiju(dgv1.DataSource as SortableBindingList<Partija>);
-               
+
             }
             dgv1.Update();
             dgv1.Refresh();
         }
 
-        private void osveziSudiju(SortableBindingList<Partija> a){
+        private void osveziSudiju(SortableBindingList<Partija> a)
+        {
             ISession s = DataLayer.GetSession();
             foreach (Partija p in a)
             {
@@ -508,8 +521,6 @@ namespace Federacija
 
         private void dgv1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            Sortiranje.SortDGV(e.ColumnIndex, dgv1);
-
             if (dgv1.DataSource is SortableBindingList<Sahista>)
                 SahistaIzvedeni((SortableBindingList<Sahista>)dgv1.DataSource);
             if (dgv1.DataSource is SortableBindingList<Partija>)
@@ -530,8 +541,6 @@ namespace Federacija
             showTurnir_Click(sender, e);
         }
 
-
-
         private void btnPrikazPartije_Click(object sender, EventArgs e)
         {
             if (!Provera.chkIfSelected(dgv1))
@@ -547,7 +556,7 @@ namespace Federacija
             {
                 if (dgv1.CurrentRow.DataBoundItem is Sahista)
                 {
-                    
+
                     ISession s = DataLayer.GetSession();
                     Sahista sah = dgv1.CurrentRow.DataBoundItem as Sahista;
 
@@ -578,9 +587,9 @@ namespace Federacija
                 else if (dgv1.CurrentRow.DataBoundItem is Turnir)
                 {
                     ISession s = DataLayer.GetSession();
+
                     Turnir trn = dgv1.CurrentRow.DataBoundItem as Turnir;
                     s.Update(trn);
-
 
                     SortableBindingList<Partija> a = new SortableBindingList<Partija>(trn.TPartije);
 
@@ -682,6 +691,8 @@ namespace Federacija
                         MessageBox.Show("Organizator je vec sudija");
                         s.Close();
                     }
+                    dgv1.Update();
+                    dgv1.Refresh();
                 }
                 else
                 {
@@ -773,6 +784,21 @@ namespace Federacija
             {
                 MessageBox.Show(ec.Message);
             }
+        }
+
+        private void showPotez_Click(object sender, EventArgs e)
+        {
+            if (!Provera.chkIfSelected(dgv1))
+                return;
+            if (!(dgv1.CurrentRow.DataBoundItem is Partija))
+                return;
+            var item = dgv1.CurrentRow.DataBoundItem as Partija;
+           
+            FormPotezi f=new FormPotezi();
+            f.Part = item;
+ 
+            f.ShowDialog();
+
         }
     }
 }

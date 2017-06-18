@@ -111,6 +111,12 @@
     <Compile Include="FormNova.Designer.cs">
       <DependentUpon>FormNova.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPotezi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPotezi.Designer.cs">
+      <DependentUpon>FormPotezi.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStara.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNova.resx">
       <DependentUpon>FormNova.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPotezi.resx">
+      <DependentUpon>FormPotezi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStara.resx">
       <DependentUpon>FormStara.cs</DependentUpon>

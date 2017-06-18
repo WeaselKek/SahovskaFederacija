@@ -15,47 +15,7 @@ using Federacija.Mapiranja;
 
 namespace Federacija.Functions
 {
-    public class Sortiranje
-    {
-        
-        public static void SortDGV(int index, DataGridView d)
-        {
-            if (!d.Columns[index].IsDataBound)
-                return;
-
-            d.Columns[index].SortMode = DataGridViewColumnSortMode.Programmatic;
-
-
-            DataGridViewColumn newColumn = d.Columns[index];
-            DataGridViewColumn oldColumn = d.SortedColumn;
-            ListSortDirection direction;
-
-            if (oldColumn != null)
-            {
-                // Sort the same column again, reversing the SortOrder.
-                if (oldColumn == newColumn &&
-                    d.SortOrder == SortOrder.Ascending)
-                {
-                    direction = ListSortDirection.Descending;
-                }
-                else
-                {
-                    // Sort a new column and remove the old SortGlyph.
-                    direction = ListSortDirection.Ascending;
-                    oldColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-                }
-            }
-            else
-            {
-                direction = ListSortDirection.Ascending;
-            }
-
-            d.Sort(newColumn, direction);
-            newColumn.HeaderCell.SortGlyphDirection =
-                direction == ListSortDirection.Ascending ?
-                SortOrder.Ascending : SortOrder.Descending;
-        }       
-    }
+   
 
     public class Provera
     {
