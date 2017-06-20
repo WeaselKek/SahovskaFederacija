@@ -147,7 +147,7 @@ namespace Federacija
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -177,7 +177,7 @@ namespace Federacija
                     cbxSudija.Checked = true;
                     cbxSudija.Enabled = false;
                 }
-
+                this.Text = "Izmeni organizatora";
                 updaterino = true;
             }
         }

@@ -39,7 +39,6 @@ namespace Federacija
 
         private void FormDodajPartija_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
             if (closenow)
             {
                 return;
@@ -58,6 +57,7 @@ namespace Federacija
             {
                 updaterino = true;
                 ucitajKontrole();
+                this.Text = "Izmeni partiju";
             }
             else
             {
@@ -65,7 +65,7 @@ namespace Federacija
                 Ptz = new List<Potez>();
                 rdbBeli.Checked = true;
                 label2.Text = "\"" + Turn.Naziv + "\"" + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
-                lblRbr.Text = (Ptz.Count() + 1).ToString();
+                lblRbr.Text = "1";
             }
             ucitajDGV();
         }
@@ -73,9 +73,9 @@ namespace Federacija
         private void ucitajKontrole()
         {
             ISession s = DataLayer.GetSession();
-            ITransaction t = s.BeginTransaction();
+
             s.Update(UpdateItem);
-            t.Commit();
+
             dtpDat.Value = UpdateItem.Datum;
             foreach (RadioButton r in grpIshod.Controls.OfType<RadioButton>())
             {
@@ -92,7 +92,7 @@ namespace Federacija
             refreshLBX();
             lblCrni.Text = Crni.Ime + " " + Crni.Prezime;
             lblBeli.Text = Beli.Ime + " " + Beli.Prezime;
-            label2.Text = Turn.Naziv + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
+            label2.Text = "\"" + Turn.Naziv + "\"" + "  " + Turn.Godina.ToString() + "  " + Turn.Grad;
             lblRbr.Text = (Ptz.Count() + 1).ToString();
             string sudtext = SudOP.ucitajSudiju(s, Sudac);
             lblSudija.Text = sudtext;
@@ -107,19 +107,14 @@ namespace Federacija
                 ISession s = DataLayer.GetSession();
 
                 int i = 0;
-                Organizator or;
-                Majstor m;
-
-                IList<Sudija> sud = new List<Sudija>();
-                sud = (from o in s.Query<Sudija>()
-                       select o).ToList<Sudija>();
+                IList<Sudija> sud = (from o in s.Query<Sudija>()
+                                     select o).ToList<Sudija>();
 
                 SortableBindingList<Sudija> a1 = new SortableBindingList<Sudija>(sud);
                 dgvSudija.DataSource = a1;
 
-                IList<Sahista> shl = new List<Sahista>();
-                shl = (from o in s.Query<Sahista>()
-                       select o).ToList<Sahista>();
+                IList<Sahista> shl = (from o in s.Query<Sahista>()
+                                      select o).ToList<Sahista>();
 
                 SortableBindingList<Sahista> a2 = new SortableBindingList<Sahista>(shl);
                 dgvSahista.DataSource = a2;
@@ -145,19 +140,13 @@ namespace Federacija
                     string sts = SudOP.ucitajSudiju(s, value);
                     if (value.FlagMajstor == 1)
                     {
-                        m = (from o in s.Query<Majstor>()
-                             where (o.SudijaId == value)
-                             select o).Single();
                         dgvSudija.Rows[i].Cells["tip"].Value = "Majstor";
-                        dgvSudija.Rows[i].Cells["ime"].Value = m.Ime + " " + m.Prezime;
+                        dgvSudija.Rows[i].Cells["ime"].Value = sts;
                     }
                     else if (value.FlagOrganizator == 1)
                     {
-                        or = (from o in s.Query<Organizator>()
-                              where (o.SudijaId == value)
-                              select o).Single();
                         dgvSudija.Rows[i].Cells["tip"].Value = "Organizator";
-                        dgvSudija.Rows[i].Cells["ime"].Value = or.Ime + " " + or.Prezime;
+                        dgvSudija.Rows[i].Cells["ime"].Value = sts;
                     }
                     i++;
                 }
@@ -166,7 +155,6 @@ namespace Federacija
             }
             catch (Exception ec)
             {
-               
                 MessageBox.Show(ec.Message);
             }
         }
@@ -217,13 +205,12 @@ namespace Federacija
                 Potez p = (Potez)lstPotez.Items[lstPotez.Items.Count - 1];
                 Ptz.Remove(p);
                 s.Delete(p);
-                refreshLBX();
                 s.Flush();
                 s.Close();
+                refreshLBX();
             }
             catch (Exception ec)
             {
-
                 MessageBox.Show(ec.Message);
             }
         }
@@ -299,7 +286,6 @@ namespace Federacija
                         pt.Partija = p;
                     }
                     s.Update(UpdateItem);
-                    //p = UpdateItem;
                 }
                 int num;
                 p.Datum = dtpDat.Value;
@@ -307,9 +293,9 @@ namespace Federacija
                 if (Int32.TryParse(txtPartTrajanje.Text, out num))
                     p.Trajanje = num;
                 p.Ishod = grpIshod.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Text.ToUpper();
+
                 p.BeliIgrac = Beli;
                 p.CrniIgrac = Crni;
-
                 p.Potezi = Ptz;
                 p.Turnir = Turn;
                 p.Sudija = Sudac;
@@ -328,7 +314,6 @@ namespace Federacija
             }
             catch (Exception ec)
             {
-                
                 MessageBox.Show(ec.Message);
             }
         }

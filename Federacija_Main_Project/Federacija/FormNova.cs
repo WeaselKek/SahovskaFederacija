@@ -75,8 +75,6 @@ namespace Federacija
 
                 SortableBindingList<Sahista> a = new SortableBindingList<Sahista>(shl);
 
-                
-
                 dgv1.DataSource = a;
 
                 dgv1.Columns["BrojPasosa"].Visible = false;
@@ -98,8 +96,8 @@ namespace Federacija
                     dgv1.Columns.Add("brds", "Broj partija do sticanja");
                 }
 
-                dgv1.Update();
-                dgv1.Refresh();
+                //dgv1.Update();
+                //dgv1.Refresh();
                 s.Close();
                 SahistaIzvedeni(a);
             }
@@ -132,8 +130,8 @@ namespace Federacija
                 dgv1.Columns["OrganizujeTurnir"].Visible = false;
                 dgv1.Columns["SudijaId"].Visible = false;
 
-                dgv1.Update();
-                dgv1.Refresh();
+                //dgv1.Update();
+                //dgv1.Refresh();
 
                 s.Close();
             }
@@ -164,8 +162,8 @@ namespace Federacija
                 dgv1.DataSource = a;
                 dgv1.Columns["SponzoriseTurnir"].Visible = false;
 
-                dgv1.Update();
-                dgv1.Refresh();
+                //dgv1.Update();
+                //dgv1.Refresh();
                 s.Close();
             }
             catch (Exception ec)
@@ -237,8 +235,6 @@ namespace Federacija
 
                 SortableBindingList<Turnir> a = new SortableBindingList<Turnir>(trl);
 
-               
-
                 dgv1.DataSource = a;
 
                 dgv1.Columns["Id"].Visible = false;
@@ -268,8 +264,8 @@ namespace Federacija
                 {
                     dgv1.Columns["TrajanjePartije"].Visible = true;
                 }
-                dgv1.Update();
-                dgv1.Refresh();
+                //dgv1.Update();
+                //dgv1.Refresh();
                 s.Close();
             }
             catch (Exception ec)
@@ -332,15 +328,12 @@ namespace Federacija
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali turnir \"" + nazivTurnira + "\"");
                     dgv1.Rows.Remove(this.dgv1.CurrentRow);
-
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
                 {
                     var item = dgv1.CurrentRow.DataBoundItem as Organizator;
                     s.Update(item);
                     delOrganizator(item, s);
-
-
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Sponzor)
                 {
@@ -352,13 +345,11 @@ namespace Federacija
                     s.Close();
                     MessageBox.Show("Uspesno ste izbrisali sponzora \"" + nazivSponzora + "\"");
                     dgv1.Rows.Remove(this.dgv1.CurrentRow);
-
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Partija)
                 {
                     var item = dgv1.CurrentRow.DataBoundItem as Partija;
                     s.Update(item);
-
                     s.Delete(item);
                     s.Flush();
                     s.Close();
@@ -369,8 +360,6 @@ namespace Federacija
                 {
                     s.Close();
                 }
-
-               
             }
             catch (Exception ec)
             {
@@ -478,8 +467,8 @@ namespace Federacija
                 f.UpdateItem = item;
                 f.ShowDialog();
                 osveziSudiju(dgv1.DataSource as SortableBindingList<Partija>);
-
             }
+            //ovde jedino mora da update i refresh da bi se videle promene
             dgv1.Update();
             dgv1.Refresh();
         }
@@ -571,7 +560,6 @@ namespace Federacija
             {
                 if (dgv1.CurrentRow.DataBoundItem is Sahista)
                 {
-
                     ISession s = DataLayer.GetSession();
                     Sahista sah = dgv1.CurrentRow.DataBoundItem as Sahista;
 
@@ -594,8 +582,8 @@ namespace Federacija
                         dgv1.Rows[a.IndexOf(p)].Cells["sd"].Value = sts;
                     }
 
-                    dgv1.Update();
-                    dgv1.Refresh();
+                    //dgv1.Update();
+                    //dgv1.Refresh();
 
                     s.Close();
                 }
@@ -623,8 +611,8 @@ namespace Federacija
                         dgv1.Rows[a.IndexOf(p)].Cells["sd"].Value = sts;
                     }
 
-                    dgv1.Update();
-                    dgv1.Refresh();
+                    //dgv1.Update();
+                    //dgv1.Refresh();
 
                     s.Close();
                 }
@@ -680,8 +668,6 @@ namespace Federacija
                         MessageBox.Show("Majstor je vec sudija");
                         s.Close();
                     }
-                    dgv1.Update();
-                    dgv1.Refresh();
                 }
                 else if (dgv1.CurrentRow.DataBoundItem is Organizator)
                 {
@@ -706,8 +692,8 @@ namespace Federacija
                         MessageBox.Show("Organizator je vec sudija");
                         s.Close();
                     }
-                    dgv1.Update();
-                    dgv1.Refresh();
+                    //dgv1.Update();
+                    //dgv1.Refresh();
                 }
                 else
                 {
@@ -808,12 +794,11 @@ namespace Federacija
             if (!(dgv1.CurrentRow.DataBoundItem is Partija))
                 return;
             var item = dgv1.CurrentRow.DataBoundItem as Partija;
-           
-            FormPotezi f=new FormPotezi();
-            f.Part = item;
- 
-            f.ShowDialog();
 
+            FormPotezi f = new FormPotezi();
+            f.Part = item;
+
+            f.ShowDialog();
         }
     }
 }

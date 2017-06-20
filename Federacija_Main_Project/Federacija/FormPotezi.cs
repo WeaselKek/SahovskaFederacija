@@ -47,8 +47,6 @@ namespace Federacija
                 dgvPotezi.Columns["Partija"].Visible = false;
                 dgvPotezi.Columns["Id"].Visible=false;
 
-                dgvPotezi.Update();
-                dgvPotezi.Refresh();
                 s.Close();
             }
             catch (Exception ec)

@@ -1,8 +1,8 @@
 ﻿using Federacija.Entiteti;
+using Federacija.Functions;
 using NHibernate;
 using System;
 using System.Windows.Forms;
-using Federacija.Functions;
 
 namespace Federacija
 {
@@ -127,7 +127,6 @@ namespace Federacija
 
                 s.Flush();
                 s.Close();
-
 
                 if (!updaterino)
                     MessageBox.Show("Uspesno dodat Sahista");

@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Federacija.BindList;
+using Federacija.Entiteti;
+using Federacija.Functions;
 using NHibernate;
 using NHibernate.Linq;
-using Federacija.Entiteti;
-using Federacija.Mapiranja;
-using Federacija.BindList;
-using Federacija.Functions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Federacija
 {
     public partial class FormVezaOrgSpon : Form
     {
-        bool closenow = false;
+        private bool closenow = false;
+
         public FormVezaOrgSpon(Turnir t)
         {
             InitializeComponent();
@@ -38,7 +33,7 @@ namespace Federacija
             this.Text = Turn.ToString();
             lblOrgTurnira.Text += " \"" + Turn.ToString() + "\"";
             lblSponzTurnira.Text += " \"" + Turn.ToString() + "\"";
-            Ucitaj();
+            ucitajSveOrgSpon();
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -50,28 +45,24 @@ namespace Federacija
         {
             if (closenow)
                 return;
-            DialogResult r = MessageBox.Show("Da li ste sigurni", "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
+            Provera.Zatvaranje(e);
         }
 
         private void btnDodajOrg_Click(object sender, EventArgs e)
         {
             FormDodajOrg f = new FormDodajOrg();
             f.ShowDialog();
-            Ucitaj();
+            ucitajSveOrgSpon();
         }
 
         private void btnDodajSpon_Click(object sender, EventArgs e)
         {
             FormDodajSpon f = new FormDodajSpon();
             f.ShowDialog();
-            Ucitaj();
+            ucitajSveOrgSpon();
         }
 
-        private void Ucitaj()
+        private void ucitajSveOrgSpon()
         {
             try
             {
@@ -80,19 +71,14 @@ namespace Federacija
 
                 ISession s = DataLayer.GetSession();
 
-                IList<Organizator> listaOrganizatora = new List<Organizator>();
-                IList<Sponzor> listaSponzora = new List<Sponzor>();
+                IList<Organizator> listaOrganizatora = (from o in s.Query<Organizator>()
+                                                        select o).ToList<Organizator>();
 
-                listaOrganizatora = listaOrganizatora.Concat(from o in s.Query<Organizator>()
-                                                             select o).ToList<Organizator>();
-
-                listaSponzora = listaSponzora.Concat(from o in s.Query<Sponzor>()
-                                                     select o).ToList<Sponzor>();
+                IList<Sponzor> listaSponzora = (from o in s.Query<Sponzor>()
+                                                select o).ToList<Sponzor>();
 
                 SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
                 SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
-
-               
 
                 dgvSviOrganizatori.DataSource = prva;
                 dgvSviSponzori.DataSource = druga;
@@ -104,13 +90,9 @@ namespace Federacija
 
                 dgvSviSponzori.Columns["SponzoriseTurnir"].Visible = false;
 
-                dgvSviOrganizatori.Update();
-                dgvSviOrganizatori.Refresh();
-                dgvSviSponzori.Update();
-                dgvSviSponzori.Refresh();
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 MessageBox.Show(ec.Message);
                 return;
@@ -141,7 +123,9 @@ namespace Federacija
                     s.Save(org);
                 else
                 {
+                    s.Close();
                     MessageBox.Show("Ovaj organizator je vec prisutan");
+                    return;
                 }
                 s.Flush();
 
@@ -149,7 +133,7 @@ namespace Federacija
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 MessageBox.Show(ec.Message);
                 return;
@@ -180,7 +164,9 @@ namespace Federacija
                     s.Save(spon);
                 else
                 {
+                    s.Close();
                     MessageBox.Show("Ovaj sponzor je vec prisutan");
+                    return;
                 }
                 s.Flush();
 
@@ -201,21 +187,16 @@ namespace Federacija
             {
                 ISession s = DataLayer.GetSession();
 
-                IList<Organizator> listaOrganizatora = new List<Organizator>();
-                IList<Sponzor> listaSponzora = new List<Sponzor>();
+                IList<Organizator> listaOrganizatora = (from o in s.Query<Organizator>()
+                                                        where o.OrganizujeTurnir.Any(x => x.OrganizujeTurnir.Id == Turn.Id)
+                                                        select o).ToList<Organizator>();
 
-                listaOrganizatora = listaOrganizatora.Concat(from o in s.Query<Organizator>()
-                                                             where o.OrganizujeTurnir.Any(x => x.OrganizujeTurnir.Id == Turn.Id)
-                                                             select o).ToList<Organizator>();
-
-                listaSponzora = listaSponzora.Concat(from o in s.Query<Sponzor>()
-                                                     where o.SponzoriseTurnir.Any(x => x.SponzoriseTurnir.Id == Turn.Id)
-                                                     select o).ToList<Sponzor>();
-                
+                IList<Sponzor> listaSponzora = (from o in s.Query<Sponzor>()
+                                                where o.SponzoriseTurnir.Any(x => x.SponzoriseTurnir.Id == Turn.Id)
+                                                select o).ToList<Sponzor>();
 
                 SortableBindingList<Organizator> prva = new SortableBindingList<Organizator>(listaOrganizatora);
                 SortableBindingList<Sponzor> druga = new SortableBindingList<Sponzor>(listaSponzora);
-                
 
                 dgvPostojeciOrganizatori.DataSource = prva;
                 dgvPostojeciSponzori.DataSource = druga;
@@ -227,10 +208,6 @@ namespace Federacija
 
                 dgvPostojeciSponzori.Columns["SponzoriseTurnir"].Visible = false;
 
-                dgvPostojeciOrganizatori.Update();
-                dgvPostojeciOrganizatori.Refresh();
-                dgvPostojeciSponzori.Update();
-                dgvPostojeciSponzori.Refresh();
                 s.Close();
             }
             catch (Exception ec)
@@ -252,8 +229,8 @@ namespace Federacija
                 Organizator o = dgvPostojeciOrganizatori.CurrentRow.DataBoundItem as Organizator;
 
                 Organizuje org = (from z in s.Query<Organizuje>()
-                 where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
-                 select z).First();
+                                  where z.OrganizujeOrganizator == o && z.OrganizujeTurnir == Turn
+                                  select z).First();
                 s.Delete(org);
                 s.Flush();
 
@@ -262,7 +239,7 @@ namespace Federacija
                 MessageBox.Show("Organizator vise ne organizuje turnir: " + Turn.Naziv);
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 MessageBox.Show(ec.Message);
                 return;
@@ -281,8 +258,8 @@ namespace Federacija
                 Sponzor spon = dgvPostojeciSponzori.CurrentRow.DataBoundItem as Sponzor;
 
                 Sponzorise sp = (from z in s.Query<Sponzorise>()
-                                  where z.SponzoriseSponzor == spon && z.SponzoriseTurnir == Turn
-                                  select z).First();
+                                 where z.SponzoriseSponzor == spon && z.SponzoriseTurnir == Turn
+                                 select z).First();
                 s.Delete(sp);
                 s.Flush();
 
@@ -297,7 +274,5 @@ namespace Federacija
                 return;
             }
         }
-
-
     }
 }

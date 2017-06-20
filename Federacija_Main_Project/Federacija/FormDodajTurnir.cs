@@ -49,7 +49,6 @@ namespace Federacija
             }
             else
             {
-
                 rbNormalan.Checked = true;
                 rbTakmicarski.Checked = true;
                 grbEgzibicioni.Enabled = false;
@@ -85,14 +84,17 @@ namespace Federacija
                     rbTakmicarski.Checked = true;
                     rbInternacionalni.Checked = true;
                     break;
+
                 case "TurnirTakmicarskiNacionalni":
                     rbTakmicarski.Checked = true;
                     rbNacionalni.Checked = true;
                     break;
+
                 case "TurnirTakmicarskiRegionalni":
                     rbTakmicarski.Checked = true;
                     rbRegionalni.Checked = true;
                     break;
+
                 case "TurnirEgzibicioniHumanitarni":
                     rbEgzibicioni.Checked = true;
                     rbHumanitarni.Checked = true;
@@ -100,6 +102,7 @@ namespace Federacija
                     txtNovac.Text = UpdateItem.Novac.ToString();
                     txtNamena.Text = UpdateItem.Namena;
                     break;
+
                 case "TurnirEgzibicioniPromotivni":
                     rbEgzibicioni.Checked = true;
                     rbPromotivni.Checked = true;
@@ -108,8 +111,6 @@ namespace Federacija
             grbZnacaj.Enabled = false;
             grbEgzibicioni.Enabled = false;
             grbTakmicarski.Enabled = false;
-
-
         }
 
         private void rbEgzibicioni_CheckedChanged(object sender, EventArgs e)
@@ -249,6 +250,7 @@ namespace Federacija
                 }
                 else
                 {
+                    s.Update(UpdateItem);
                     t = UpdateItem;
                     if (t is TurnirEgzibicioniHumanitarni)
                     {
