@@ -66,6 +66,16 @@
   <ItemGroup>
     <Compile Include="BindList\SortableBindingList.cs" />
     <Compile Include="DataLayer.cs" />
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="DTO\KandidatView.cs" />
+    <Compile Include="DTO\MajstoView.cs" />
+    <Compile Include="DTO\ObicanClanView.cs" />
+    <Compile Include="DTO\OrganizatorView.cs" />
+    <Compile Include="DTO\PartijaView.cs" />
+    <Compile Include="DTO\PotezView.cs" />
+    <Compile Include="DTO\SahistaView.cs" />
+    <Compile Include="DTO\SponzorView.cs" />
+    <Compile Include="DTO\TurnirView.cs" />
     <Compile Include="Entiteti\Organizator.cs" />
     <Compile Include="Entiteti\Organizuje.cs" />
     <Compile Include="Entiteti\Partija.cs" />
