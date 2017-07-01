@@ -31,5 +31,9 @@ namespace Federacija.DTO
                 this.Sudija = "NE";
             }
         }
+        public OrganizatorView()
+        {
+
+        }
     }
 }
