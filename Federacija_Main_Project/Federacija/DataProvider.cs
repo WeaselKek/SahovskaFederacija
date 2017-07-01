@@ -1,17 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Federacija.DTO;
 using Federacija.Entiteti;
-using Federacija.DTO;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Federacija
 {
     public class DataProvider
     {
+        #region Sahista
+
+        public IList<SahistaView> GetSahiste()
+        {
+            ISession s = DataLayer.GetSession();
+
+            IList<SahistaView> sahiste = new List<SahistaView>();
+            IList<Sahista> pom = new List<Sahista>();
+
+            pom = s.Query<Sahista>().Select(x => x).ToList<Sahista>();
+
+            foreach (Sahista ss in pom)
+            {
+                sahiste.Add(new SahistaView(ss));
+            }
+
+            return sahiste;
+        }
+
         public SahistaView GetSahista(int x)
         {
             ISession s = DataLayer.GetSession();
@@ -21,38 +37,58 @@ namespace Federacija
             return sv;
         }
 
-        public IList<ObicanClanView> GetObicanClanovi()
+        public int DeleteSahista(int id)
         {
             ISession s = DataLayer.GetSession();
 
-            IList<ObicanClanView> niz = new List<ObicanClanView>();
-            IList<ObicanClan> pom = new List<ObicanClan>();
+            s.Delete(s.Get<Sahista>(id));
 
-            pom = s.Query<ObicanClan>().Select(x => x).ToList<ObicanClan>();
+            s.Flush();
+            s.Close();
 
-            foreach (ObicanClan sp in pom)
+            return 1;
+        }
+
+        #endregion Sahista
+
+        #region Majstor
+
+        public IList<MajstorView> GetMajstori()
+        {
+            ISession s = DataLayer.GetSession();
+
+            IList<MajstorView> niz = new List<MajstorView>();
+            IList<Majstor> pom = new List<Majstor>();
+
+            pom = s.Query<Majstor>().Select(x => x).ToList<Majstor>();
+
+            foreach (Majstor sp in pom)
             {
-                niz.Add(new ObicanClanView(sp));
+                niz.Add(new MajstorView(sp));
             }
 
             return niz;
         }
 
-        public IList<KandidatView> GetKandidati()
+        public MajstorView GetMajstor(int id)
         {
             ISession s = DataLayer.GetSession();
 
-            IList<KandidatView> niz = new List<KandidatView>();
-            IList<MajstorskiKandidat> pom = new List<MajstorskiKandidat>();
+            MajstorView mv = new MajstorView(s.Get<Majstor>(id));
 
-            pom = s.Query<MajstorskiKandidat>().Select(x => x).ToList<MajstorskiKandidat>();
+            return mv;
+        }
 
-            foreach (MajstorskiKandidat sp in pom)
-            {
-                niz.Add(new KandidatView(sp));
-            }
+        public int AddMajstor(Majstor value)
+        {
+            ISession s = DataLayer.GetSession();
 
-            return niz;
+            s.Save(value);
+
+            s.Flush();
+            s.Close();
+
+            return 1;
         }
 
         public int UpdateMajstor(int id, Majstor value)
@@ -92,16 +128,46 @@ namespace Federacija
             return 1;
         }
 
-        public int UpdatePartija(int id, Partija value)
+        public int DeleteMajstor(int id)
         {
             ISession s = DataLayer.GetSession();
 
-            s.Update(value);
+            s.Delete(s.Get<Sahista>(id));
 
             s.Flush();
             s.Close();
 
             return 1;
+        }
+
+        #endregion Majstor
+
+        #region Obican Clan
+
+        public IList<ObicanClanView> GetObicanClanovi()
+        {
+            ISession s = DataLayer.GetSession();
+
+            IList<ObicanClanView> niz = new List<ObicanClanView>();
+            IList<ObicanClan> pom = new List<ObicanClan>();
+
+            pom = s.Query<ObicanClan>().Select(x => x).ToList<ObicanClan>();
+
+            foreach (ObicanClan sp in pom)
+            {
+                niz.Add(new ObicanClanView(sp));
+            }
+
+            return niz;
+        }
+
+        public ObicanClanView GetObicanClan(int id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            ObicanClanView obc = new ObicanClanView(s.Get<ObicanClan>(id));
+
+            return obc;
         }
 
         public int AddObicanClan(ObicanClan value)
@@ -128,30 +194,34 @@ namespace Federacija
             return 1;
         }
 
-        public ObicanClanView GetObicanClan(int id)
+        #endregion Obican Clan
+
+        #region Kandidat
+
+        public IList<KandidatView> GetKandidati()
         {
             ISession s = DataLayer.GetSession();
 
-            ObicanClanView obc = new ObicanClanView(s.Get<ObicanClan>(id));
+            IList<KandidatView> niz = new List<KandidatView>();
+            IList<MajstorskiKandidat> pom = new List<MajstorskiKandidat>();
 
-            return obc;
-        }
+            pom = s.Query<MajstorskiKandidat>().Select(x => x).ToList<MajstorskiKandidat>();
 
-        public IList<MajstorView> GetMajstori()
-        {
-            ISession s = DataLayer.GetSession();
-
-            IList<MajstorView> niz = new List<MajstorView>();
-            IList<Majstor> pom = new List<Majstor>();
-
-            pom = s.Query<Majstor>().Select(x => x).ToList<Majstor>();
-
-            foreach (Majstor sp in pom)
+            foreach (MajstorskiKandidat sp in pom)
             {
-                niz.Add(new MajstorView(sp));
+                niz.Add(new KandidatView(sp));
             }
 
             return niz;
+        }
+
+        public KandidatView GetKandidat(int id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            KandidatView kv = new KandidatView(s.Get<MajstorskiKandidat>(id));
+
+            return kv;
         }
 
         public int AddKandidat(MajstorskiKandidat value)
@@ -178,76 +248,9 @@ namespace Federacija
             return 1;
         }
 
-        public KandidatView GetKandidat(int id)
-        {
-            ISession s = DataLayer.GetSession();
+        #endregion Kandidat
 
-            KandidatView kv = new KandidatView(s.Get<MajstorskiKandidat>(id));
-
-            return kv;
-        }
-
-        public IList<PartijaView> GetPartije()
-        {
-            ISession s = DataLayer.GetSession();
-
-            IList<PartijaView> partije = new List<PartijaView>();
-            IList<Partija> pom = new List<Partija>();
-
-            pom = s.Query<Partija>().Select(x => x).ToList<Partija>();
-
-            foreach (Partija sp in pom)
-            {
-                partije.Add(new PartijaView(sp));
-            }
-
-            return partije;
-        }
-
-        public int DeleteSahista(int id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            s.Delete(s.Get<Sahista>(id));
-
-            s.Flush();
-            s.Close();
-
-            return 1;
-        }
-
-        public MajstorView GetMajstor(int id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            MajstorView mv = new MajstorView(s.Get<Majstor>(id));
-
-            return mv;
-        }
-
-        public int AddMajstor(Majstor value)
-        {
-            ISession s = DataLayer.GetSession();
-
-            s.Save(value);
-
-            s.Flush();
-            s.Close();
-
-            return 1;
-        }
-
-        public int DeleteMajstor(int id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            s.Delete(s.Get<Sahista>(id));
-
-            s.Flush();
-            s.Close();
-
-            return 1;
-        }
+        #region Turnir
 
         public IList<TurnirView> GetTurniri()
         {
@@ -266,54 +269,13 @@ namespace Federacija
             return turniri;
         }
 
-        public int AddPartija(Partija value)
+        public TurnirView GetTurnir(int id)
         {
             ISession s = DataLayer.GetSession();
 
-            s.Save(value);
+            TurnirView tv = new TurnirView(s.Get<Turnir>(id));
 
-            s.Flush();
-            s.Close();
-
-            return 1;
-        }
-
-        public int DeletePartija(int id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            s.Delete(s.Get<Partija>(id));
-
-            s.Flush();
-            s.Close();
-
-            return 1;
-        }
-
-        public PartijaView GetPartija(int id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            PartijaView pv = new PartijaView(s.Get<Partija>(id));
-
-            return pv;
-        }
-
-        public IList<PotezView> GetPotezi()
-        {
-            ISession s = DataLayer.GetSession();
-
-            IList<PotezView> potezi = new List<PotezView>();
-            IList<Potez> pom = new List<Potez>();
-
-            pom = s.Query<Potez>().Select(x => x).ToList<Potez>();
-
-            foreach (Potez sp in pom)
-            {
-                potezi.Add(new PotezView(sp));
-            }
-
-            return potezi;
+            return tv;
         }
 
         public int AddTurnir(Turnir value)
@@ -361,14 +323,9 @@ namespace Federacija
             return 1;
         }
 
-        public TurnirView GetTurnir(int id)
-        {
-            ISession s = DataLayer.GetSession();
+        #endregion Turnir
 
-            TurnirView tv = new TurnirView(s.Get<Turnir>(id));
-
-            return tv;
-        }
+        #region Organizator
 
         public IList<OrganizatorView> GetOrganizatori()
         {
@@ -387,19 +344,16 @@ namespace Federacija
             return organizatori;
         }
 
-        public int DeletePotez(int id)
+        public OrganizatorView GetOrganizator(string id)
         {
             ISession s = DataLayer.GetSession();
 
-            s.Delete(s.Get<Potez>(id));
+            OrganizatorView org = new OrganizatorView(s.Query<Organizator>().Where(x => x.MatBr == id).First());
 
-            s.Flush();
-            s.Close();
-
-            return 1;
+            return org;
         }
 
-        public int AddPotez(Potez value)
+        public int AddOrganizator(Organizator value)
         {
             ISession s = DataLayer.GetSession();
 
@@ -411,16 +365,49 @@ namespace Federacija
             return 1;
         }
 
-        public PotezView GetPotez(int id)
+        public int DeleteOrganizator(string id)
         {
             ISession s = DataLayer.GetSession();
 
-            PotezView pv = new PotezView(s.Get<Potez>(id));
+            s.Delete(s.Query<Organizator>().Where(x => x.MatBr == id).First());
 
-            return pv;
+            s.Flush();
+            s.Close();
+
+            return 1;
         }
 
-        public int AddOrganizator(Organizator value)
+        #endregion Organizator
+
+        #region Sponzor
+
+        public IList<SponzorView> GetSponzori()
+        {
+            ISession s = DataLayer.GetSession();
+
+            IList<SponzorView> sponzori = new List<SponzorView>();
+            IList<Sponzor> pom = new List<Sponzor>();
+
+            pom = s.Query<Sponzor>().Select(x => x).ToList<Sponzor>();
+
+            foreach (Sponzor sp in pom)
+            {
+                sponzori.Add(new SponzorView(sp));
+            }
+
+            return sponzori;
+        }
+
+        public SponzorView GetSponzor(string id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            SponzorView sp = new SponzorView(s.Query<Sponzor>().Where(x => x.Naziv == id).First());
+
+            return sp;
+        }
+
+        public int AddSponzor(Sponzor value)
         {
             ISession s = DataLayer.GetSession();
 
@@ -444,71 +431,37 @@ namespace Federacija
             return 1;
         }
 
-        public int DeleteOrganizator(string id)
+        #endregion Sponzor
+
+        #region Partija
+
+        public IList<PartijaView> GetPartije()
         {
             ISession s = DataLayer.GetSession();
 
-            s.Delete(s.Query<Organizator>().Where(x => x.MatBr == id).First());
+            IList<PartijaView> partije = new List<PartijaView>();
+            IList<Partija> pom = new List<Partija>();
 
-            s.Flush();
-            s.Close();
+            pom = s.Query<Partija>().Select(x => x).ToList<Partija>();
 
-            return 1;
-        }
-
-        public IList<SponzorView> GetSponzori()
-        {
-            ISession s = DataLayer.GetSession();
-
-            IList<SponzorView> sponzori = new List<SponzorView>();
-            IList<Sponzor> pom = new List<Sponzor>();
-
-            pom = s.Query<Sponzor>().Select(x => x).ToList<Sponzor>();
-
-            foreach (Sponzor sp in pom)
+            foreach (Partija sp in pom)
             {
-                sponzori.Add(new SponzorView(sp));
+                partije.Add(new PartijaView(sp));
             }
 
-            return sponzori;
+            return partije;
         }
 
-        public OrganizatorView GetOrganizator(string id)
+        public PartijaView GetPartija(int id)
         {
             ISession s = DataLayer.GetSession();
 
-            OrganizatorView org = new OrganizatorView(s.Query<Organizator>().Where(x => x.MatBr == id).First());
+            PartijaView pv = new PartijaView(s.Get<Partija>(id));
 
-            return org;
+            return pv;
         }
 
-        public IList<SahistaView> GetSahiste()
-        {
-            ISession s = DataLayer.GetSession();
-
-            IList<SahistaView> sahiste = new List<SahistaView>();
-            IList<Sahista> pom = new List<Sahista>();
-
-            pom = s.Query<Sahista>().Select(x => x).ToList<Sahista>();
-
-            foreach (Sahista ss in pom)
-            {
-                sahiste.Add(new SahistaView(ss));
-            }
-
-            return sahiste;
-        }
-
-        public SponzorView GetSponzor(string id)
-        {
-            ISession s = DataLayer.GetSession();
-
-            SponzorView sp = new SponzorView(s.Query<Sponzor>().Where(x => x.Naziv == id).First());
-
-            return sp;
-        }
-
-        public int AddSponzor(Sponzor value)
+        public int AddPartija(Partija value)
         {
             ISession s = DataLayer.GetSession();
 
@@ -519,5 +472,85 @@ namespace Federacija
 
             return 1;
         }
+
+        public int UpdatePartija(int id, Partija value)
+        {
+            ISession s = DataLayer.GetSession();
+
+            s.Update(value);
+
+            s.Flush();
+            s.Close();
+
+            return 1;
+        }
+
+        public int DeletePartija(int id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            s.Delete(s.Get<Partija>(id));
+
+            s.Flush();
+            s.Close();
+
+            return 1;
+        }
+
+        #endregion Partija
+
+        #region Potez
+
+        public IList<PotezView> GetPotezi()
+        {
+            ISession s = DataLayer.GetSession();
+
+            IList<PotezView> potezi = new List<PotezView>();
+            IList<Potez> pom = new List<Potez>();
+
+            pom = s.Query<Potez>().Select(x => x).ToList<Potez>();
+
+            foreach (Potez sp in pom)
+            {
+                potezi.Add(new PotezView(sp));
+            }
+
+            return potezi;
+        }
+
+        public PotezView GetPotez(int id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            PotezView pv = new PotezView(s.Get<Potez>(id));
+
+            return pv;
+        }
+
+        public int AddPotez(Potez value)
+        {
+            ISession s = DataLayer.GetSession();
+
+            s.Save(value);
+
+            s.Flush();
+            s.Close();
+
+            return 1;
+        }
+
+        public int DeletePotez(int id)
+        {
+            ISession s = DataLayer.GetSession();
+
+            s.Delete(s.Get<Potez>(id));
+
+            s.Flush();
+            s.Close();
+
+            return 1;
+        }
+
+        #endregion Potez
     }
 }
